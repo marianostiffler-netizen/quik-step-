@@ -53,6 +53,19 @@ export function ProductCard({ product }: { product: Product }) {
             {product.rating}
           </span>
         </div>
+
+        {product.price_usd_m2 && (
+          <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-base font-bold text-qs-blue">
+              USD {product.price_usd_m2.toFixed(2)}/m²
+            </span>
+            {product.coverage_m2 && (
+              <span className="text-xs text-qs-gray">
+                Caja: {product.coverage_m2} m²
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </Link>
   );

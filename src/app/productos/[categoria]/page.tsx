@@ -9,6 +9,9 @@ import {
   Award,
   Droplets,
   CheckCircle2,
+  DollarSign,
+  Package,
+  Tag,
 } from "lucide-react";
 import {
   categories,
@@ -115,6 +118,32 @@ export default async function CategoriaPage({
                   <p className="text-xs text-qs-gray">Resist. al Agua</p>
                   <p className="font-semibold text-gray-900">
                     {category.specs_summary.water_resistance}
+                  </p>
+                </div>
+              </div>
+            )}
+            {category.specs_summary.price_usd_m2 && (
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-qs-blue-light flex items-center justify-center shrink-0">
+                  <DollarSign size={18} className="text-qs-blue" />
+                </div>
+                <div>
+                  <p className="text-xs text-qs-gray">Precio</p>
+                  <p className="font-semibold text-gray-900">
+                    USD {category.specs_summary.price_usd_m2.toFixed(2)}/m²
+                  </p>
+                </div>
+              </div>
+            )}
+            {category.specs_summary.coverage_m2 && (
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-qs-blue-light flex items-center justify-center shrink-0">
+                  <Package size={18} className="text-qs-blue" />
+                </div>
+                <div>
+                  <p className="text-xs text-qs-gray">Cobertura/Caja</p>
+                  <p className="font-semibold text-gray-900">
+                    {category.specs_summary.coverage_m2} m²
                   </p>
                 </div>
               </div>

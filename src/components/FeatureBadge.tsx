@@ -26,23 +26,23 @@ export function FeatureBadge({
 
   if (compact) {
     return (
-      <div className="flex items-center gap-2 text-qs-blue">
-        <div className="w-8 h-8 rounded-full bg-qs-blue-light flex items-center justify-center shrink-0">
-          <Icon size={14} className="text-qs-blue" />
+      <div className="flex items-center gap-2 text-wood-600">
+        <div className="w-8 h-8 rounded-full bg-wood-100 flex items-center justify-center shrink-0">
+          <Icon size={14} className="text-wood-600" />
         </div>
-        <span className="text-xs font-medium text-gray-700">{badge}</span>
+        <span className="text-xs font-medium text-da-dark">{badge}</span>
       </div>
     );
   }
 
   return (
-    <div className="text-center p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-md transition-shadow">
-      <div className="mx-auto w-14 h-14 rounded-full bg-qs-blue-light flex items-center justify-center mb-4">
-        <Icon size={24} className="text-qs-blue" />
+    <div className="text-center p-6 rounded-2xl bg-white border border-wood-200 hover:shadow-md transition-shadow">
+      <div className="mx-auto w-14 h-14 rounded-full bg-wood-100 flex items-center justify-center mb-4">
+        <Icon size={24} className="text-wood-600" />
       </div>
-      <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-sm text-qs-gray leading-relaxed">{description}</p>
-      <span className="inline-block mt-3 text-xs font-semibold text-qs-blue bg-qs-blue-light px-3 py-1 rounded-full">
+      <h3 className="font-semibold text-da-dark mb-2">{title}</h3>
+      <p className="text-sm text-da-gray leading-relaxed">{description}</p>
+      <span className="inline-block mt-3 text-xs font-semibold text-wood-700 bg-wood-100 px-3 py-1 rounded-full">
         {badge}
       </span>
     </div>

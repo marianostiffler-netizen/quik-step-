@@ -52,26 +52,27 @@ export interface Feature {
 }
 
 export const site = {
-  brand: "Quick-Step",
-  tagline: "Pisos laminados con tecnología europea",
+  brand: "Maderera Don Antonio",
+  tagline: "Tradición, calidad y servicio en madera",
   description:
-    "Descubrí la colección de pisos laminados Quick-Step: diseño natural, resistencia al agua y fácil instalación para todos los ambientes de tu hogar.",
+    "Maderera Don Antonio: pisos flotantes, cielorrasos, cortes a medida, cepillado y lijado. Todo lo que tu hogar necesita en madera, con atención personalizada.",
 };
 
 export const navigation = [
   { id: "inicio", label: "Inicio", href: "/" },
-  { id: "productos", label: "Productos", href: "/productos" },
-  { id: "accesorios", label: "Accesorios", href: "/accesorios" },
-  { id: "tecnologia", label: "Tecnología", href: "/tecnologia" },
+  { id: "pisos-flotantes", label: "Pisos Flotantes", href: "/pisos-flotantes" },
+  { id: "cielorrasos", label: "Cielorrasos", href: "/cielorrasos" },
+  { id: "servicios", label: "Servicios", href: "/servicios" },
+  { id: "articulos-hogar", label: "Artículos del Hogar", href: "/articulos-hogar" },
   { id: "contacto", label: "Contacto", href: "/contacto" },
 ];
 
 export const heroSection = {
-  title: "Pisos que transforman tu hogar",
+  title: "La madera que tu hogar merece",
   subtitle:
-    "Tecnología europea, diseño natural y máxima resistencia para cada ambiente.",
-  cta_primary: { label: "Ver Colección", href: "/productos" },
-  cta_secondary: { label: "Encontrá tu piso ideal", href: "/productos" },
+    "Pisos flotantes, cielorrasos, cortes a medida y servicios artesanales. Más de una generación trabajando con madera.",
+  cta_primary: { label: "Ver Pisos Flotantes", href: "/pisos-flotantes" },
+  cta_secondary: { label: "Nuestros Servicios", href: "/servicios" },
 };
 
 export const features: Feature[] = [

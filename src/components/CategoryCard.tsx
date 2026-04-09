@@ -10,11 +10,11 @@ export function CategoryCard({ category }: { category: Category }) {
 
   return (
     <Link
-      href={`/productos/${category.slug}`}
-      className="group block bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-qs-blue/20 transition-all duration-300"
+      href={`/pisos-flotantes/${category.slug}`}
+      className="group block bg-white rounded-2xl border border-wood-200 overflow-hidden hover:shadow-xl hover:border-amber-500/30 transition-all duration-300"
     >
       {firstProduct && (
-        <div className="relative aspect-[16/9] overflow-hidden bg-gray-100">
+        <div className="relative aspect-[16/9] overflow-hidden bg-wood-100">
           <Image
             src={`/products/${firstProduct.image}`}
             alt={category.name}
@@ -31,28 +31,28 @@ export function CategoryCard({ category }: { category: Category }) {
       )}
 
       <div className="p-5">
-        <p className="text-sm text-qs-gray leading-relaxed line-clamp-2">
+        <p className="text-sm text-da-gray leading-relaxed line-clamp-2">
           {category.description}
         </p>
 
         <div className="mt-4 flex flex-wrap gap-2">
-          <span className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full font-medium">
+          <span className="text-xs bg-wood-100 text-wood-700 px-2.5 py-1 rounded-full font-medium">
             {category.specs_summary.thickness}
           </span>
-          <span className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full font-medium">
+          <span className="text-xs bg-wood-100 text-wood-700 px-2.5 py-1 rounded-full font-medium">
             {category.specs_summary.rating}
           </span>
-          <span className="text-xs bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full font-medium">
+          <span className="text-xs bg-wood-100 text-wood-700 px-2.5 py-1 rounded-full font-medium">
             {products.length} diseños
           </span>
           {category.specs_summary.water_resistance && (
-            <span className="text-xs bg-qs-blue text-white px-2.5 py-1 rounded-full font-medium">
-              {category.specs_summary.water_resistance} resist. agua
+            <span className="text-xs bg-wood-700 text-white px-2.5 py-1 rounded-full font-medium">
+              {category.specs_summary.water_resistance}
             </span>
           )}
         </div>
 
-        <div className="mt-4 flex items-center gap-1 text-qs-blue text-sm font-semibold group-hover:gap-2 transition-all">
+        <div className="mt-4 flex items-center gap-1 text-amber-600 text-sm font-semibold group-hover:gap-2 transition-all">
           Ver colección <ArrowRight size={16} />
         </div>
       </div>

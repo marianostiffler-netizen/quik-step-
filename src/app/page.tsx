@@ -1,37 +1,116 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { heroSection, features, categories } from "@/data/site-data";
-import { FeatureBadge } from "@/components/FeatureBadge";
-import { CategoryCard } from "@/components/CategoryCard";
+import {
+  ArrowRight,
+  TreePine,
+  Layers,
+  Scissors,
+  Armchair,
+  Droplets,
+  Hammer,
+  Ruler,
+  Sparkles,
+} from "lucide-react";
+import { heroSection } from "@/data/site-data";
+
+const sections = [
+  {
+    id: "pisos-flotantes",
+    title: "Pisos Flotantes",
+    description:
+      "Líneas Quick-Step con tecnología europea: resistentes al agua, fácil instalación y diseños que imitan la madera natural.",
+    href: "/pisos-flotantes",
+    icon: Layers,
+    color: "bg-amber-500",
+  },
+  {
+    id: "cielorrasos",
+    title: "Cielorrasos",
+    description:
+      "Placas para cielorrasos en distintos tonos y terminaciones. Renová tus ambientes desde arriba.",
+    href: "/cielorrasos",
+    icon: Sparkles,
+    color: "bg-wood-500",
+  },
+  {
+    id: "servicios",
+    title: "Servicios de Maderera",
+    description:
+      "Cepillado, cortes a medida y lijado profesional. Trabajo artesanal con maquinaria de primera.",
+    href: "/servicios",
+    icon: Hammer,
+    color: "bg-forest-600",
+  },
+  {
+    id: "articulos-hogar",
+    title: "Artículos del Hogar",
+    description:
+      "Muebles, sillas y mesas de madera. Próximamente con catálogo completo.",
+    href: "/articulos-hogar",
+    icon: Armchair,
+    color: "bg-wood-400",
+  },
+];
+
+const highlights = [
+  {
+    icon: Droplets,
+    title: "Pisos resistentes al agua",
+    text: "Hasta 100 hs de protección con tecnología Hydroseal.",
+  },
+  {
+    icon: Scissors,
+    title: "Cortes a medida",
+    text: "Cortamos cualquier pieza según tu proyecto.",
+  },
+  {
+    icon: Ruler,
+    title: "Asesoramiento",
+    text: "Te ayudamos a calcular materiales y elegir lo mejor.",
+  },
+  {
+    icon: TreePine,
+    title: "Tradición",
+    text: "Años de experiencia trabajando con madera de calidad.",
+  },
+];
 
 export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-qs-blue via-blue-900 to-blue-950 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.15),transparent_70%)]" />
+      <section className="relative bg-gradient-to-br from-wood-800 via-wood-700 to-wood-600 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.07]">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.08) 60px, rgba(255,255,255,0.08) 61px)",
+            }}
+          />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-36">
           <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight">
+            <div className="flex items-center gap-3 mb-6">
+              <TreePine size={48} className="text-amber-500" />
+              <div className="h-px flex-1 bg-amber-500/30 max-w-[120px]" />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
               {heroSection.title}
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-blue-200 leading-relaxed">
+            <p className="mt-6 text-lg md:text-xl text-wood-200 leading-relaxed">
               {heroSection.subtitle}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Link
                 href={heroSection.cta_primary.href}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-qs-blue font-semibold rounded-xl hover:bg-blue-50 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-amber-500 text-wood-800 font-bold rounded-xl hover:bg-amber-400 transition-colors"
               >
                 {heroSection.cta_primary.label}
                 <ArrowRight size={18} />
               </Link>
               <Link
                 href={heroSection.cta_secondary.href}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-wood-400/40 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
               >
                 {heroSection.cta_secondary.label}
               </Link>
@@ -40,67 +119,91 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-20 bg-qs-gray-light">
+      {/* 4 Sections Grid */}
+      <section className="py-20 bg-da-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              ¿Por qué elegir Quick-Step?
+            <h2 className="text-3xl md:text-4xl font-bold text-da-dark">
+              Todo para tu hogar, en un solo lugar
             </h2>
-            <p className="mt-4 text-qs-gray text-lg max-w-2xl mx-auto">
-              Cada piso combina estética, durabilidad y facilidad de
-              instalación.
+            <p className="mt-4 text-da-gray text-lg max-w-2xl mx-auto">
+              Pisos, techos, servicios artesanales y artículos en madera.
+              Encontrá lo que necesitás.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((f) => (
-              <FeatureBadge key={f.id} {...f} />
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {sections.map((s) => {
+              const Icon = s.icon;
+              return (
+                <Link
+                  key={s.id}
+                  href={s.href}
+                  className="group relative bg-white rounded-2xl border border-wood-200 p-8 hover:shadow-xl hover:border-amber-500/40 transition-all duration-300"
+                >
+                  <div
+                    className={`w-14 h-14 ${s.color} rounded-xl flex items-center justify-center mb-5`}
+                  >
+                    <Icon size={26} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-da-dark group-hover:text-wood-600 transition-colors">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-da-gray text-sm leading-relaxed">
+                    {s.description}
+                  </p>
+                  <div className="mt-4 inline-flex items-center gap-1 text-amber-600 font-semibold text-sm group-hover:gap-2 transition-all">
+                    Ver más <ArrowRight size={16} />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="py-20">
+      {/* Highlights strip */}
+      <section className="py-16 bg-wood-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Explorá Nuestras Líneas
-            </h2>
-            <p className="mt-4 text-qs-gray text-lg max-w-2xl mx-auto">
-              Desde opciones accesibles hasta pisos premium de gran formato.
-              Encontrá el que mejor se adapte a tu proyecto.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((cat) => (
-              <CategoryCard key={cat.id} category={cat} />
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {highlights.map((h) => {
+              const Icon = h.icon;
+              return (
+                <div key={h.title} className="text-center">
+                  <div className="mx-auto w-12 h-12 bg-wood-600 rounded-full flex items-center justify-center mb-3">
+                    <Icon size={22} className="text-amber-500" />
+                  </div>
+                  <h3 className="font-bold text-sm text-da-dark">{h.title}</h3>
+                  <p className="mt-1 text-xs text-da-gray leading-relaxed">
+                    {h.text}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-qs-blue">
+      <section className="py-20 bg-wood-700">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white">
-            ¿Listo para renovar tus pisos?
+            ¿Necesitás asesoramiento?
           </h2>
-          <p className="mt-4 text-blue-200 text-lg max-w-xl mx-auto">
-            Contactanos para recibir asesoramiento personalizado y encontrar el
-            piso ideal para tu espacio.
+          <p className="mt-4 text-wood-300 text-lg max-w-xl mx-auto">
+            Contactanos y te ayudamos a elegir los mejores materiales para tu
+            proyecto. Presupuestos sin compromiso.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/productos"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-qs-blue font-semibold rounded-xl hover:bg-blue-50 transition-colors"
+              href="/pisos-flotantes"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-amber-500 text-wood-800 font-bold rounded-xl hover:bg-amber-400 transition-colors"
             >
-              Ver Catálogo Completo
+              Ver Pisos Flotantes
               <ArrowRight size={18} />
             </Link>
             <Link
               href="/contacto"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-wood-500 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
             >
               Contactanos
             </Link>

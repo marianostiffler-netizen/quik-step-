@@ -1,76 +1,90 @@
 import Link from "next/link";
-import { site } from "@/data/site-data";
+import { TreePine, Phone, MapPin, Mail } from "lucide-react";
+import { site, navigation } from "@/data/site-data";
 
 export function Footer() {
   return (
-    <footer className="bg-qs-blue text-white">
+    <footer className="bg-wood-800 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
-          <div>
-            <div className="font-bold text-xl mb-3">
-              <span className="text-qs-red italic">{"//"}</span> QUICK·STEP
+          <div className="md:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <TreePine size={24} className="text-amber-500" />
+              <div className="leading-tight">
+                <span className="block text-white font-bold text-sm">MADERERA</span>
+                <span className="block text-amber-500 text-xs font-semibold">DON ANTONIO</span>
+              </div>
             </div>
-            <p className="text-blue-200 text-sm leading-relaxed">
+            <p className="text-wood-300 text-sm leading-relaxed">
               {site.description}
             </p>
           </div>
 
-          {/* Links */}
+          {/* Nav Links */}
           <div>
-            <h3 className="font-semibold text-sm uppercase tracking-wider mb-4">
-              Navegación
+            <h3 className="font-semibold text-sm uppercase tracking-wider mb-4 text-amber-500">
+              Secciones
             </h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/productos"
-                  className="text-blue-200 hover:text-white text-sm transition-colors"
-                >
-                  Productos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/tecnologia"
-                  className="text-blue-200 hover:text-white text-sm transition-colors"
-                >
-                  Tecnología
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contacto"
-                  className="text-blue-200 hover:text-white text-sm transition-colors"
-                >
-                  Contacto
-                </Link>
-              </li>
+              {navigation.filter(n => n.id !== "inicio").map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={item.href}
+                    className="text-wood-300 hover:text-amber-500 text-sm transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h3 className="font-semibold text-sm uppercase tracking-wider mb-4 text-amber-500">
+              Servicios
+            </h3>
+            <ul className="space-y-2 text-wood-300 text-sm">
+              <li>Cepillado de madera</li>
+              <li>Cortes a medida</li>
+              <li>Lijado profesional</li>
+              <li>Pisos flotantes Quick-Step</li>
+              <li>Cielorrasos</li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold text-sm uppercase tracking-wider mb-4">
+            <h3 className="font-semibold text-sm uppercase tracking-wider mb-4 text-amber-500">
               Contacto
             </h3>
-            <p className="text-blue-200 text-sm leading-relaxed">
-              ¿Tenés consultas sobre nuestros pisos?
-              <br />
-              Escribinos y te asesoramos.
-            </p>
+            <ul className="space-y-3 text-wood-300 text-sm">
+              <li className="flex items-center gap-2">
+                <Phone size={14} className="text-amber-500 shrink-0" />
+                Consultanos sin compromiso
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail size={14} className="text-amber-500 shrink-0" />
+                Escribinos por email
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin size={14} className="text-amber-500 shrink-0 mt-0.5" />
+                Buenos Aires, Argentina
+              </li>
+            </ul>
             <Link
               href="/contacto"
-              className="inline-block mt-4 px-5 py-2 bg-white text-qs-blue text-sm font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+              className="inline-block mt-4 px-5 py-2 bg-amber-500 text-wood-800 text-sm font-bold rounded-lg hover:bg-amber-400 transition-colors"
             >
               Contactanos
             </Link>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-blue-800 text-center text-blue-300 text-xs">
-          &copy; {new Date().getFullYear()} Quick-Step. Todos los derechos
-          reservados.
+        <div className="mt-10 pt-6 border-t border-wood-700 text-center text-wood-400 text-xs">
+          &copy; {new Date().getFullYear()} Maderera Don Antonio. Todos los
+          derechos reservados.
         </div>
       </div>
     </footer>

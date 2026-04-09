@@ -4,23 +4,23 @@ import { CategoryCard } from "@/components/CategoryCard";
 import { ProductCard } from "@/components/ProductCard";
 
 export const metadata: Metadata = {
-  title: "Catálogo de Pisos Laminados | Quick-Step Argentina",
+  title: "Pisos Flotantes Quick-Step | Maderera Don Antonio",
   description:
-    "Explorá todas las líneas de pisos laminados Quick-Step: desde la accesible Smart hasta la premium Vision.",
+    "Pisos laminados Quick-Step con tecnología europea. Líneas Smart, Catedral, Premiere Plus, Eligna Wide y Vision.",
 };
 
 export default function ProductosPage() {
   return (
     <>
       {/* Header */}
-      <section className="bg-qs-gray-light py-16">
+      <section className="bg-wood-50 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Catálogo de Productos
+          <h1 className="text-3xl md:text-4xl font-bold text-da-dark">
+            Pisos Flotantes Quick-Step
           </h1>
-          <p className="mt-4 text-qs-gray text-lg max-w-2xl">
-            Explorá todas las líneas de pisos laminados Quick-Step. Cada línea
-            está diseñada para diferentes necesidades y ambientes.
+          <p className="mt-4 text-da-gray text-lg max-w-2xl">
+            Pisos laminados con tecnología europea: resistentes al agua,
+            fácil instalación y diseños que imitan la madera natural.
           </p>
         </div>
       </section>
@@ -28,7 +28,7 @@ export default function ProductosPage() {
       {/* Categories grid */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">
+          <h2 className="text-2xl font-bold text-da-dark mb-8">
             Líneas de Producto
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -40,12 +40,12 @@ export default function ProductosPage() {
       </section>
 
       {/* All products grid */}
-      <section className="py-16 bg-qs-gray-light">
+      <section className="py-16 bg-wood-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl font-bold text-da-dark mb-2">
             Todos los Diseños
           </h2>
-          <p className="text-qs-gray mb-8">
+          <p className="text-da-gray mb-8">
             {products.length} productos disponibles
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

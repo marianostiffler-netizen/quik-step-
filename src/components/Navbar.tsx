@@ -3,36 +3,41 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { navigation, site } from "@/data/site-data";
+import { Menu, X, TreePine } from "lucide-react";
+import { navigation } from "@/data/site-data";
 
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-50 bg-wood-800 shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="bg-qs-blue text-white font-bold text-lg px-3 py-1.5 rounded">
-              <span className="text-qs-red italic">{"//"}</span> QUICK
-              <span className="inline-block mx-0.5">·</span>STEP
+          <Link href="/" className="flex items-center gap-2.5">
+            <TreePine size={28} className="text-amber-500" />
+            <div className="leading-tight">
+              <span className="block text-white font-bold text-sm tracking-wide">
+                MADERERA
+              </span>
+              <span className="block text-amber-500 text-xs font-semibold -mt-0.5 tracking-widest">
+                DON ANTONIO
+              </span>
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navigation.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-qs-blue ${
+                className={`text-sm font-medium transition-colors hover:text-amber-500 ${
                   pathname === item.href ||
                   (item.href !== "/" && pathname.startsWith(item.href))
-                    ? "text-qs-blue"
-                    : "text-gray-600"
+                    ? "text-amber-500"
+                    : "text-wood-200"
                 }`}
               >
                 {item.label}
@@ -43,7 +48,7 @@ export function Navbar() {
           {/* Mobile toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-gray-600 hover:text-qs-blue"
+            className="lg:hidden p-2 text-wood-200 hover:text-amber-500"
             aria-label="Menú"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -53,7 +58,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white">
+        <div className="lg:hidden border-t border-wood-700 bg-wood-800">
           <nav className="flex flex-col px-4 py-3 gap-1">
             {navigation.map((item) => (
               <Link
@@ -63,8 +68,8 @@ export function Navbar() {
                 className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   pathname === item.href ||
                   (item.href !== "/" && pathname.startsWith(item.href))
-                    ? "bg-qs-blue-light text-qs-blue"
-                    : "text-gray-600 hover:bg-gray-50"
+                    ? "bg-wood-700 text-amber-500"
+                    : "text-wood-200 hover:bg-wood-700"
                 }`}
               >
                 {item.label}

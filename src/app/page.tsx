@@ -1,7 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
-  TreePine,
   Layers,
   Scissors,
   Armchair,
@@ -68,7 +68,7 @@ const highlights = [
     text: "Te ayudamos a calcular materiales y elegir lo mejor.",
   },
   {
-    icon: TreePine,
+    icon: Hammer,
     title: "Tradición",
     text: "Años de experiencia trabajando con madera de calidad.",
   },
@@ -88,17 +88,28 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-wood-900/90 via-wood-800/85 to-wood-700/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/15 to-black/10" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-36">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-6">
-              <TreePine size={48} className="text-amber-500" />
-              <div className="h-px flex-1 bg-amber-500/30 max-w-[120px]" />
+            <div className="flex items-center gap-4 mb-8">
+              <Image
+                src="/logo-maderera.jpg"
+                alt="Maderera Don Antonio Logo"
+                width={64}
+                height={64}
+                className="rounded"
+              />
+              <h1
+                className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight"
+                style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.6)" }}
+              >
+                Madereras Don Antonio
+              </h1>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-              {heroSection.title}
-            </h1>
-            <p className="mt-6 text-lg md:text-xl text-wood-100 leading-relaxed">
+            <p
+              className="mt-6 text-lg md:text-xl text-white leading-relaxed"
+              style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.5)" }}
+            >
               {heroSection.subtitle}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">

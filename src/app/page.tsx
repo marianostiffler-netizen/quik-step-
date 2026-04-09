@@ -93,7 +93,7 @@ export default function Home() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-4 mb-8">
               <Image
-                src="/logo-maderera.jpg"
+                src="/logo-maderera.png"
                 alt="Maderera Don Antonio Logo"
                 width={64}
                 height={64}
@@ -103,7 +103,7 @@ export default function Home() {
                 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight"
                 style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.6)" }}
               >
-                Madereras Don Antonio
+                Maderera Don Antonio
               </h1>
             </div>
             <p

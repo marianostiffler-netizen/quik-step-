@@ -78,16 +78,17 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-wood-800 via-wood-700 to-wood-600 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.07]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.08) 60px, rgba(255,255,255,0.08) 61px)",
-            }}
-          />
-        </div>
+      <section
+        className="relative text-white overflow-hidden"
+        style={{
+          backgroundImage: "url('/hero-background.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-wood-900/90 via-wood-800/85 to-wood-700/80" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-36">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
@@ -97,7 +98,7 @@ export default function Home() {
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
               {heroSection.title}
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-wood-200 leading-relaxed">
+            <p className="mt-6 text-lg md:text-xl text-wood-100 leading-relaxed">
               {heroSection.subtitle}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -110,7 +111,7 @@ export default function Home() {
               </Link>
               <Link
                 href={heroSection.cta_secondary.href}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-wood-400/40 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-amber-400/50 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
               >
                 {heroSection.cta_secondary.label}
               </Link>

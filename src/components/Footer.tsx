@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { TreePine, Phone, MapPin, Mail } from "lucide-react";
+import Image from "next/image";
+import { Phone, MapPin, Mail } from "lucide-react";
 import { site, navigation } from "@/data/site-data";
 
 export function Footer() {
@@ -10,7 +11,13 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <TreePine size={24} className="text-amber-500" />
+              <Image
+                src="/logo-maderera.jpg"
+                alt="Maderera Don Antonio Logo"
+                width={24}
+                height={24}
+                className="rounded"
+              />
               <div className="leading-tight">
                 <span className="block text-white font-bold text-sm">MADERERA</span>
                 <span className="block text-amber-500 text-xs font-semibold">DON ANTONIO</span>

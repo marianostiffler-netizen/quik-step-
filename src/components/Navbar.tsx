@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, TreePine } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { navigation } from "@/data/site-data";
 
 export function Navbar() {
@@ -16,7 +17,13 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <TreePine size={28} className="text-amber-500" />
+            <Image
+              src="/logo-maderera.jpg"
+              alt="Maderera Don Antonio Logo"
+              width={32}
+              height={32}
+              className="rounded"
+            />
             <div className="leading-tight">
               <span className="block text-white font-bold text-sm tracking-wide">
                 MADERERA

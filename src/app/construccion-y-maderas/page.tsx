@@ -27,26 +27,39 @@ const machimbres = [
 const tiranteria = [
   {
     title: "Interior",
-    items: ["Vigas laminadas", "Tirantes de pino", "Tirantes de eucalipto"],
+    material: "Pino Elliotis",
+    rows: [
+      { medida: '2" x 4"', largos: "De 3.05 m a 6.10 m", uso: "Estructuras de techos" },
+      { medida: '2" x 5"', largos: "De 3.05 m a 6.10 m", uso: "Estructuras de techos" },
+      { medida: '2" x 6"', largos: "De 3.05 m a 6.10 m", uso: "Entrepisos" },
+    ],
   },
   {
     title: "Exterior",
-    items: ["Vigas laminadas tratadas", "Tirantes de eucalipto", "Soluciones para pérgolas"],
+    material: "Eucalipto Grandis",
+    rows: [
+      { medida: '3" x 8"', largos: "Hasta 12 metros", uso: "Pérgolas" },
+      { medida: '4" x 10"', largos: "Hasta 12 metros", uso: "Decks y muelles" },
+    ],
   },
 ];
 
 const aislantes = [
   {
-    name: "Mexpol",
-    detail: "Aislante térmico para mejorar el confort y acompañar la instalación de pisos y estructuras ligeras.",
+    name: "Lana de vidrio",
+    detail: "Disponible con y sin aluminio para aplicaciones térmicas y de confort interior.",
   },
   {
-    name: "Fibra de vidrio",
-    detail: "Opción técnica para control térmico en distintos usos constructivos.",
+    name: "Membrana hidrófuga",
+    detail: "Estilo Tyvek, pensada para proteger la envolvente y mejorar el desempeño frente a la humedad.",
   },
   {
-    name: '3 mm sin aluminio',
-    detail: "Recomendado especialmente para pisos flotantes.",
+    name: "Espuma de polietileno",
+    detail: "Presentaciones de 10 mm y 20 mm para distintas necesidades de apoyo y aislación.",
+  },
+  {
+    name: "Mexpol 3 mm sin aluminio",
+    detail: "Aislante específico recomendado para pisos flotantes.",
   },
 ];
 
@@ -128,16 +141,35 @@ export default function ConstruccionYMaderasPage() {
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               {tiranteria.map((block) => (
-                <div key={block.title} className="rounded-2xl border border-wood-200 bg-white p-6">
-                  <h3 className="text-xl font-bold text-da-dark mb-4">{block.title}</h3>
-                  <ul className="space-y-3 text-da-gray">
-                    {block.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <ShieldCheck size={18} className="mt-0.5 text-wood-600 shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div key={block.title} className="rounded-2xl border border-wood-200 bg-white p-6 overflow-x-auto">
+                  <div className="mb-4">
+                    <h3 className="text-xl font-bold text-da-dark">{block.title}</h3>
+                    <p className="text-sm text-da-gray mt-1">{block.material}</p>
+                  </div>
+                  <table className="min-w-full text-sm">
+                    <thead className="bg-wood-100 text-wood-700">
+                      <tr>
+                        <th className="px-4 py-3 text-left font-semibold">Material</th>
+                        <th className="px-4 py-3 text-left font-semibold">Medida</th>
+                        <th className="px-4 py-3 text-left font-semibold">Largos</th>
+                        <th className="px-4 py-3 text-left font-semibold">Uso recomendado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {block.rows.map((row) => (
+                        <tr key={`${block.title}-${row.medida}`} className="border-t border-wood-100">
+                          <td className="px-4 py-3 font-semibold text-da-dark">{block.material}</td>
+                          <td className="px-4 py-3 text-da-dark">{row.medida}</td>
+                          <td className="px-4 py-3 text-da-gray">{row.largos}</td>
+                          <td className="px-4 py-3">
+                            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                              {row.uso}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               ))}
             </div>
@@ -173,7 +205,7 @@ export default function ConstruccionYMaderasPage() {
               <ShieldCheck className="text-wood-600" size={24} />
               <h2 className="text-2xl font-bold text-da-dark">Aislantes</h2>
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {aislantes.map((item) => (
                 <article key={item.name} className="rounded-2xl border border-wood-200 bg-white p-6">
                   <h3 className="text-lg font-bold text-da-dark">{item.name}</h3>

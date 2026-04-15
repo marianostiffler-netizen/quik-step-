@@ -23,6 +23,15 @@ const sections = [
     color: "bg-amber-500",
   },
   {
+    id: "construccion-maderas",
+    title: "Construcción y Maderas",
+    description:
+      "Machimbres, tirantería, vigas, aislantes y la guía técnica para resolver cada obra con criterio profesional.",
+    href: "/construccion-y-maderas",
+    icon: Hammer,
+    color: "bg-wood-600",
+  },
+  {
     id: "cielorrasos",
     title: "Cielorrasos",
     description:

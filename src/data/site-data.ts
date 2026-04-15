@@ -61,6 +61,7 @@ export const site = {
 export const navigation = [
   { id: "inicio", label: "Inicio", href: "/" },
   { id: "pisos-flotantes", label: "Pisos Flotantes", href: "/pisos-flotantes" },
+  { id: "construccion-maderas", label: "Construcción y Maderas", href: "/construccion-y-maderas" },
   { id: "cielorrasos", label: "Cielorrasos", href: "/cielorrasos" },
   { id: "servicios", label: "Servicios", href: "/servicios" },
   { id: "articulos-hogar", label: "Artículos del Hogar", href: "/articulos-hogar" },

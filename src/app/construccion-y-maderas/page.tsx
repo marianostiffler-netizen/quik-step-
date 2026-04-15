@@ -11,15 +11,17 @@ const machimbres = [
   {
     material: "Pino Eliotis",
     rows: [
-      { medida: '1/2"', largo: "2.00 m / 2.44 m", grosor: "12 mm", destaque: "Ideal para cielorrasos" },
-      { medida: '1"', largo: "2.00 m / 2.44 m", grosor: "19 mm", destaque: "Ideal para entrepisos" },
+      { medida: '1/2" x 4"', largo: "2.44 m", grosor: "12 mm", destaque: "Ideal para cielorrasos" },
+      { medida: '3/4" x 5"', largo: "2.44 m", grosor: "18 mm", destaque: "Uso general" },
+      { medida: '1" x 6"', largo: "2.44 m", grosor: "25 mm", destaque: "Ideal para entrepisos/pisos" },
     ],
   },
   {
     material: "Eucalipto",
     rows: [
-      { medida: '1/2"', largo: "2.00 m / 2.44 m", grosor: "12 mm", destaque: "Ideal para cielorrasos" },
-      { medida: '1"', largo: "2.00 m / 2.44 m", grosor: "19 mm", destaque: "Ideal para entrepisos" },
+      { medida: '1/2" x 4"', largo: "2.44 m", grosor: "12 mm", destaque: "Ideal para cielorrasos" },
+      { medida: '3/4" x 5"', largo: "2.44 m", grosor: "18 mm", destaque: "Uso general" },
+      { medida: '1" x 6"', largo: "2.44 m", grosor: "25 mm", destaque: "Ideal para entrepisos/pisos" },
     ],
   },
 ];
@@ -126,10 +128,10 @@ export default function ConstruccionYMaderasPage() {
             </div>
             <div className="mt-4 flex flex-wrap gap-3 text-sm">
               <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-800">
-                1/2" destacado para cielorrasos
+                Más vendido · 1/2" x 4" para cielorrasos
               </span>
               <span className="rounded-full bg-wood-100 px-3 py-1 font-semibold text-wood-700">
-                1" recomendado para entrepisos
+                1" x 6" recomendado para entrepisos
               </span>
             </div>
           </div>
@@ -152,7 +154,7 @@ export default function ConstruccionYMaderasPage() {
                         <th className="px-4 py-3 text-left font-semibold">Material</th>
                         <th className="px-4 py-3 text-left font-semibold">Medida</th>
                         <th className="px-4 py-3 text-left font-semibold">Largos</th>
-                        <th className="px-4 py-3 text-left font-semibold">Uso recomendado</th>
+                        <th className="px-4 py-3 text-left font-semibold">Grosor/Uso</th>
                       </tr>
                     </thead>
                     <tbody>

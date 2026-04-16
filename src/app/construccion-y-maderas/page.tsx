@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AlertTriangle, Hammer, ShieldCheck, Trees, Wrench } from "lucide-react";
+import { AlertTriangle, Hammer, ShieldCheck, Trees, Wrench, Building2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Construcción y Maderas | Maderera Don Antonio",
@@ -62,6 +62,37 @@ const aislantes = [
   {
     name: "Mexpol 3 mm sin aluminio",
     detail: "Aislante específico recomendado para pisos flotantes.",
+  },
+];
+
+const tablasEncofrado = [
+  {
+    material: "Eucalipto",
+    rows: [
+      { medida: '1" x 6" x 4.0m', descripcion: "Tabla de 15cm (famosa)", uso: "Ideal para encadenados" },
+      { medida: '1" x 8" x 4.0m', descripcion: "Tabla de 20cm", uso: "Para encofrar" },
+    ],
+  },
+  {
+    material: "Pino",
+    rows: [
+      { medida: '1" x 8" x 4.0m', descripcion: "Tabla de 20cm", uso: "Para encofrar" },
+    ],
+  },
+];
+
+const estructuraObra = [
+  { producto: "Puntales", medida: '3" x 3" x 3.0m', detalle: "Soporte estructural" },
+  { producto: "Bastidores", medida: '1" x 2" x 4m', detalle: "Eucalipto en bruto" },
+  { producto: "Bastidores", medida: '1" x 1" x 4.0m', detalle: "Eucalipto en bruto" },
+  { producto: "Fenólicos", medida: "18mm (1.22 x 2.44m)", detalle: "Planchas de Pino" },
+];
+
+const materialesSecos = [
+  {
+    name: "Bolsas de Yeso Yemaco",
+    detail: "Producto destacado por su calidad para revestimientos y terminaciones interiores.",
+    destacado: true,
   },
 ];
 
@@ -214,6 +245,99 @@ export default function ConstruccionYMaderasPage() {
                   <p className="mt-3 text-sm text-da-gray leading-relaxed">{item.detail}</p>
                 </article>
               ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <Building2 className="text-wood-600" size={24} />
+              <h2 className="text-2xl font-bold text-da-dark">Materiales de Obra y Encofrado</h2>
+            </div>
+
+            {/* Tablas para Encofrado */}
+            <div className="mb-12">
+              <h3 className="text-xl font-bold text-da-dark mb-4">Tablas para Encofrado</h3>
+              <p className="text-sm text-da-gray mb-4 italic">
+                Maderas en bruto (sin cepillar) ya que no requieren terminación estética para este uso.
+              </p>
+              <div className="overflow-x-auto rounded-2xl border border-wood-200 bg-white shadow-sm">
+                <table className="min-w-full text-sm">
+                  <thead className="bg-wood-100 text-wood-700">
+                    <tr>
+                      <th className="px-4 py-3 text-left font-semibold">Material</th>
+                      <th className="px-4 py-3 text-left font-semibold">Medida</th>
+                      <th className="px-4 py-3 text-left font-semibold">Descripción</th>
+                      <th className="px-4 py-3 text-left font-semibold">Uso recomendado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablasEncofrado.map((group) =>
+                      group.rows.map((row) => (
+                        <tr key={`${group.material}-${row.medida}`} className="border-t border-wood-100">
+                          <td className="px-4 py-3 font-semibold text-da-dark">{group.material}</td>
+                          <td className="px-4 py-3 text-da-dark">{row.medida}</td>
+                          <td className="px-4 py-3 text-da-gray">{row.descripcion}</td>
+                          <td className="px-4 py-3">
+                            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                              {row.uso}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Estructura de Obra */}
+            <div className="mb-12">
+              <h3 className="text-xl font-bold text-da-dark mb-4">Estructura de Obra</h3>
+              <div className="overflow-x-auto rounded-2xl border border-wood-200 bg-white shadow-sm">
+                <table className="min-w-full text-sm">
+                  <thead className="bg-wood-100 text-wood-700">
+                    <tr>
+                      <th className="px-4 py-3 text-left font-semibold">Producto</th>
+                      <th className="px-4 py-3 text-left font-semibold">Medida</th>
+                      <th className="px-4 py-3 text-left font-semibold">Detalle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {estructuraObra.map((item) => (
+                      <tr key={`${item.producto}-${item.medida}`} className="border-t border-wood-100">
+                        <td className="px-4 py-3 font-semibold text-da-dark">{item.producto}</td>
+                        <td className="px-4 py-3 text-da-dark">{item.medida}</td>
+                        <td className="px-4 py-3 text-da-gray">{item.detalle}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Materiales Secos */}
+            <div>
+              <h3 className="text-xl font-bold text-da-dark mb-4">Materiales Secos</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                {materialesSecos.map((item) => (
+                  <article
+                    key={item.name}
+                    className={`rounded-2xl border p-6 ${
+                      item.destacado
+                        ? "border-amber-400 bg-amber-50"
+                        : "border-wood-200 bg-white"
+                    }`}
+                  >
+                    {item.destacado && (
+                      <span className="inline-block mb-3 text-xs font-bold uppercase tracking-widest text-amber-700">
+                        Destacado
+                      </span>
+                    )}
+                    <h3 className="text-lg font-bold text-da-dark">{item.name}</h3>
+                    <p className="mt-3 text-sm text-da-gray leading-relaxed">{item.detail}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </div>

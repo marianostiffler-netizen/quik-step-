@@ -1,11 +1,45 @@
 import type { Metadata } from "next";
-import { Armchair, Clock } from "lucide-react";
+import Image from "next/image";
+import { Armchair } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Artículos del Hogar | Maderera Don Antonio",
   description:
-    "Muebles, sillas y mesas de madera. Próximamente catálogo completo.",
+    "Muebles, sillas y mesas de madera de alta calidad para tu hogar.",
 };
+
+const galleryItems = [
+  {
+    image: "/products/hogar/585346193_1369242518229953_6634413815702805960_n.jpg",
+    title: "Mueble de sala en madera",
+    description: "Mueble artesanal en madera de calidad ideal para sala de estar.",
+  },
+  {
+    image: "/products/hogar/646197206_1452442863243251_6173634275258237884_n.jpg",
+    title: "Comedor de madera",
+    description: "Comedor robusto en madera tratada para uso diario prolongado.",
+  },
+  {
+    image: "/products/hogar/KxgNg.jpg",
+    title: "Estantería modular",
+    description: "Estantería artesanal de Pino cepillado para organización y decoración.",
+  },
+  {
+    image: "/products/hogar/WhatsApp Image 2026-04-08 at 21.17.59 (2).jpeg",
+    title: "Juego de sillas",
+    description: "Sillas de madera con acabado natural para comedor o escritorio.",
+  },
+  {
+    image: "/products/hogar/banco blanco.png",
+    title: "Banco blanco",
+    description: "Banco de madera con acabado blanco, versátil para distintos ambientes.",
+  },
+  {
+    image: "/products/hogar/t03xp.jpg",
+    title: "Mesa de centro",
+    description: "Mesa de centro en madera resistente, diseño minimalista y funcional.",
+  },
+];
 
 export default function ArticulosHogarPage() {
   return (
@@ -20,29 +54,40 @@ export default function ArticulosHogarPage() {
             Artículos del Hogar
           </h1>
           <p className="mt-4 text-xl text-wood-200 max-w-2xl">
-            Muebles, sillas y mesas de madera
+            Muebles, sillas y mesas de madera de alta calidad para tu hogar.
           </p>
         </div>
       </section>
 
-      {/* Coming soon placeholder */}
-      <section className="py-24 bg-da-cream">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mx-auto w-20 h-20 bg-wood-100 rounded-full flex items-center justify-center mb-6">
-            <Clock size={36} className="text-wood-600" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-da-dark mb-4">
-            Próximamente
-          </h2>
-          <p className="text-da-gray text-lg leading-relaxed">
-            Estamos preparando el catálogo completo de artículos del hogar:
-            muebles, sillas, mesas y más. Todo en madera de calidad.
-          </p>
-          <div className="mt-8 p-6 bg-white rounded-2xl border border-wood-200">
-            <p className="text-sm text-da-gray">
-              Mientras tanto, podés ver nuestros pisos flotantes y servicios
-              de maderera.
-            </p>
+      {/* Gallery Grid */}
+      <section className="py-16 bg-da-cream">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {galleryItems.map((item, index) => (
+              <div
+                key={index}
+                className="group relative overflow-hidden rounded-2xl border border-wood-200 bg-white shadow-sm hover:shadow-xl hover:border-amber-500/40 transition-all duration-300"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-bold text-da-dark group-hover:text-wood-600 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-da-gray leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

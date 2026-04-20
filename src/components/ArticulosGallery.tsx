@@ -121,14 +121,9 @@ const galleryItems = [
     description: "Vitrina artesanal de madera para exhibir objetos.",
   },
   {
-    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.39.jpeg",
-    title: "Mesa de centro",
-    description: "Mesa de centro de madera con diseño moderno y funcional.",
-  },
-  {
     image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.40.jpeg",
-    title: "Sillón de madera",
-    description: "Sillón artesanal de madera con acabado natural.",
+    title: "Vanitory de Pino",
+    description: "Mueble de apoyo artesanal de Pino, ideal para baño o como vanity.",
   },
   {
     image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.41 (1).jpeg",
@@ -141,24 +136,19 @@ const galleryItems = [
     description: "Perchero artesanal de madera para colgar abrigos y accesorios.",
   },
   {
-    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.41.jpeg",
-    title: "Mesa de trabajo",
-    description: "Mesa de trabajo de madera resistente para taller o garaje.",
-  },
-  {
     image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42 (1).jpeg",
-    title: "Estante flotante",
-    description: "Estante flotante de madera para decoración y libros.",
+    title: "Mesa Ratona Minimalista - Madera Clara",
+    description: "Mesa ratona minimalista en madera clara, diseño compacto y elegante.",
   },
   {
     image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42 (2).jpeg",
-    title: "Mesa de café",
-    description: "Mesa de café de madera con diseño compacto y elegante.",
+    title: "Mesa Ratona Minimalista - Gris",
+    description: "Mesa ratona minimalista en tono gris, diseño compacto y elegante.",
   },
   {
     image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42.jpeg",
-    title: "Mueble de TV",
-    description: "Mueble de TV de madera con espacio para equipos y almacenamiento.",
+    title: "Mesa Ratona Minimalista - Negra",
+    description: "Mesa ratona minimalista en tono negro, diseño compacto y elegante.",
   },
 ];
 

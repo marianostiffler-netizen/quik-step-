@@ -1,6 +1,9 @@
+"use client";
+
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Sparkles } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
+import { useState } from "react";
 
 export const metadata: Metadata = {
   title: "Espejos Artesanales | Maderera Don Antonio",
@@ -55,6 +58,8 @@ const caracteristicasGenerales = [
 ];
 
 export default function EspejosArtesanalesPage() {
+  const [selectedEspajo, setSelectedEspajo] = useState<typeof espejos[0] | null>(null);
+
   return (
     <main>
       {/* Header */}
@@ -100,14 +105,15 @@ export default function EspejosArtesanalesPage() {
             {espejos.map((espejo) => (
               <div
                 key={espejo.id}
-                className="group relative overflow-hidden rounded-2xl border border-wood-200 bg-white shadow-sm hover:shadow-xl hover:border-amber-500/40 transition-all duration-300"
+                onClick={() => setSelectedEspajo(espejo)}
+                className="group relative overflow-hidden rounded-2xl border border-wood-200 bg-white shadow-sm hover:shadow-xl hover:border-amber-500/40 transition-all duration-300 cursor-pointer"
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden bg-gray-50">
                   <Image
                     src={espejo.image}
                     alt={`Espejo ${espejo.modelo}`}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
@@ -116,7 +122,6 @@ export default function EspejosArtesanalesPage() {
                   <h3 className="font-bold text-lg text-da-dark group-hover:text-wood-600 transition-colors">
                     {espejo.modelo}
                   </h3>
-                  <p className="mt-2 text-sm text-da-gray">{espejo.forma}</p>
                   <p className="mt-1 text-sm font-semibold text-amber-600">
                     {espejo.medidas}
                   </p>
@@ -126,6 +131,51 @@ export default function EspejosArtesanalesPage() {
           </div>
         </div>
       </section>
+
+      {/* Modal */}
+      {selectedEspajo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setSelectedEspajo(null)}
+        >
+          <div
+            className="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedEspajo(null)}
+              className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-colors"
+            >
+              <X size={24} className="text-da-dark" />
+            </button>
+            <div className="relative aspect-video bg-gray-50">
+              <Image
+                src={selectedEspajo.image}
+                alt={`Espejo ${selectedEspajo.modelo}`}
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="p-8">
+              <h2 className="text-2xl font-bold text-da-dark mb-4">
+                {selectedEspajo.modelo}
+              </h2>
+              <div className="space-y-3 text-da-gray">
+                <p>
+                  <span className="font-semibold text-da-dark">Medidas:</span> {selectedEspajo.medidas}
+                </p>
+                <p>
+                  <span className="font-semibold text-da-dark">Forma:</span> {selectedEspajo.forma}
+                </p>
+                <p className="pt-2 border-t border-wood-200">
+                  <span className="font-semibold text-da-dark">Tecnología:</span> LED 3 tonos, sensor de movimiento, desempañador y display LCD.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

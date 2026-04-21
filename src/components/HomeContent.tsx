@@ -13,6 +13,7 @@ import {
   MessageCircle,
   ArrowRight,
   LayoutGrid,
+  Scissors,
 } from "lucide-react";
 
 const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
@@ -32,12 +33,21 @@ const categoryFilters: Array<{
   icon: ComponentType<IconProps>;
 }> = [
   { id: "todo", label: "Todo", icon: LayoutGrid },
-  { id: "pisos", label: "Pisos Flotantes", icon: Layers },
-  { id: "construccion", label: "Construcción", icon: Hammer },
   { id: "espejos", label: "Espejos LED", icon: Sparkles },
-  { id: "cielorrasos", label: "Cielorrasos", icon: Layers },
-  { id: "servicios", label: "Servicios", icon: Wrench },
-  { id: "hogar", label: "Hogar", icon: Armchair },
+  { id: "hogar", label: "Artículos del Hogar", icon: Armchair },
+];
+
+const otrosServicios: Array<{
+  label: string;
+  description: string;
+  href: string;
+  icon: ComponentType<IconProps>;
+  color: string;
+}> = [
+  { label: "Pisos Flotantes", description: "Quick-Step AC4/AC5. Hydroseal y Uniclic.", href: "/pisos-flotantes", icon: Layers, color: "bg-amber-500" },
+  { label: "Construcción y Maderas", description: "Machimbres, tirantería y materiales de obra.", href: "/construccion-y-maderas", icon: Hammer, color: "bg-wood-600" },
+  { label: "Cielorrasos", description: "Placas en distintos tonos y terminaciones.", href: "/cielorrasos", icon: Layers, color: "bg-wood-500" },
+  { label: "Servicios", description: "Cepillado, cortes y lijado profesional.", href: "/servicios", icon: Scissors, color: "bg-forest-600" },
 ];
 
 type ProductItem = {
@@ -48,9 +58,7 @@ type ProductItem = {
   categoryLabel: string;
   categoryBadge: string;
   href: string;
-  image?: string;
-  gradient?: string;
-  GradientIcon?: ComponentType<IconProps>;
+  image: string;
 };
 
 const featuredProducts: ProductItem[] = [
@@ -65,6 +73,16 @@ const featuredProducts: ProductItem[] = [
     image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (1).jpeg",
   },
   {
+    id: "espejo-2",
+    name: "Espejo LED N°2",
+    description: "Rectangular vertical, 70×90 cm. LED 3 tonos y regulador de intensidad.",
+    category: "espejos",
+    categoryLabel: "Espejos LED",
+    categoryBadge: "bg-violet-100 text-violet-700",
+    href: "/espejos-artesanales",
+    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (2).jpeg",
+  },
+  {
     id: "espejo-3",
     name: "Espejo LED N°3 Circular",
     description: "Diseño circular 80×80 cm. LED 3 tonos, desempañador y display LCD con hora.",
@@ -75,26 +93,14 @@ const featuredProducts: ProductItem[] = [
     image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38.jpeg",
   },
   {
-    id: "piso-smart",
-    name: "Piso Quick-Step Smart",
-    description: "7 mm, AC4 Aqua. 48 hs de resistencia al agua. Instalación Uniclic sin pegamento.",
-    category: "pisos",
-    categoryLabel: "Pisos Flotantes",
-    categoryBadge: "bg-amber-100 text-amber-700",
-    href: "/pisos-flotantes",
-    gradient: "from-amber-900 to-amber-700",
-    GradientIcon: Layers,
-  },
-  {
-    id: "piso-vision",
-    name: "Piso Quick-Step Vision",
-    description: "8 mm, AC5. 100 hs de resistencia al agua. Tabla gran formato 1800 mm, tope de gama.",
-    category: "pisos",
-    categoryLabel: "Pisos Flotantes",
-    categoryBadge: "bg-amber-100 text-amber-700",
-    href: "/pisos-flotantes",
-    gradient: "from-stone-800 to-stone-600",
-    GradientIcon: Layers,
+    id: "espejo-4",
+    name: "Espejo LED N°4",
+    description: "Rectangular horizontal, 90×70 cm. Sensor de movimiento y desempañador integrado.",
+    category: "espejos",
+    categoryLabel: "Espejos LED",
+    categoryBadge: "bg-violet-100 text-violet-700",
+    href: "/espejos-artesanales",
+    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.39 (1).jpeg",
   },
   {
     id: "mesa-ratona",
@@ -137,48 +143,34 @@ const featuredProducts: ProductItem[] = [
     image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.40.jpeg",
   },
   {
-    id: "machimbre-pino",
-    name: "Machimbre de Pino",
-    description: "Cepillado, ideal para cielorrasos y revestimientos. Medidas 1/2\"×4\", 5\" y 6\".",
-    category: "construccion",
-    categoryLabel: "Construcción",
-    categoryBadge: "bg-orange-100 text-orange-700",
-    href: "/construccion-y-maderas",
-    gradient: "from-amber-800 to-amber-600",
-    GradientIcon: Hammer,
+    id: "mueble-sala",
+    name: "Mueble de Sala",
+    description: "Mueble artesanal en madera de calidad, ideal para living o sala de estar.",
+    category: "hogar",
+    categoryLabel: "Artículos del Hogar",
+    categoryBadge: "bg-green-100 text-green-700",
+    href: "/articulos-hogar",
+    image: "/products/hogar/585346193_1369242518229953_6634413815702805960_n.jpg",
   },
   {
-    id: "encofrado-eucalipto",
-    name: "Tabla Eucalipto Encofrado",
-    description: "1\"×6\"×4.0 m en bruto. Tabla de 15 cm, ideal para encadenados y obra gruesa.",
-    category: "construccion",
-    categoryLabel: "Construcción",
-    categoryBadge: "bg-orange-100 text-orange-700",
-    href: "/construccion-y-maderas",
-    gradient: "from-lime-900 to-lime-700",
-    GradientIcon: Hammer,
+    id: "comedor-madera",
+    name: "Comedor de Madera",
+    description: "Comedor robusto en madera tratada, ideal para uso diario y reuniones familiares.",
+    category: "hogar",
+    categoryLabel: "Artículos del Hogar",
+    categoryBadge: "bg-green-100 text-green-700",
+    href: "/articulos-hogar",
+    image: "/products/hogar/646197206_1452442863243251_6173634275258237884_n.jpg",
   },
   {
-    id: "cepillado",
-    name: "Cepillado y Corte a Medida",
-    description: "Cepillado, cortes y lijado profesional. Trabajamos tu madera con maquinaria de primera.",
-    category: "servicios",
-    categoryLabel: "Servicios",
-    categoryBadge: "bg-blue-100 text-blue-700",
-    href: "/servicios",
-    gradient: "from-slate-700 to-slate-500",
-    GradientIcon: Wrench,
-  },
-  {
-    id: "cielorrasos",
-    name: "Cielorrasos de Madera",
-    description: "Placas y machimbres para cielorrasos en distintos tonos y terminaciones.",
-    category: "cielorrasos",
-    categoryLabel: "Cielorrasos",
-    categoryBadge: "bg-sky-100 text-sky-700",
-    href: "/cielorrasos",
-    gradient: "from-teal-800 to-teal-600",
-    GradientIcon: Layers,
+    id: "rack-tv",
+    name: "Rack de TV",
+    description: "Rack en madera natural con espacio para equipo y almacenamiento.",
+    category: "hogar",
+    categoryLabel: "Artículos del Hogar",
+    categoryBadge: "bg-green-100 text-green-700",
+    href: "/articulos-hogar",
+    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.13.44.jpeg",
   },
 ];
 
@@ -290,9 +282,7 @@ export default function HomeContent() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {filtered.map((product) => {
-                const GIcon = product.GradientIcon;
-                return (
+              {filtered.map((product) => (
                   <div
                     key={product.id}
                     className="bg-white rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:shadow-lg hover:border-amber-400/50 transition-all duration-300 flex flex-col"
@@ -300,8 +290,7 @@ export default function HomeContent() {
                     {/* Image or gradient */}
                     <Link href={product.href} className="block shrink-0">
                       <div className="relative aspect-[4/3]">
-                        {product.image ? (
-                          <Image
+                        <Image
                             src={product.image}
                             alt={product.name}
                             fill
@@ -309,13 +298,6 @@ export default function HomeContent() {
                             loading="lazy"
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                           />
-                        ) : (
-                          <div
-                            className={`w-full h-full bg-gradient-to-br ${product.gradient} flex items-center justify-center`}
-                          >
-                            {GIcon && <GIcon size={52} className="text-white/40" />}
-                          </div>
-                        )}
                       </div>
                     </Link>
 
@@ -343,29 +325,45 @@ export default function HomeContent() {
                       </a>
                     </div>
                   </div>
-                );
-              })}
+              ))}
             </div>
           )}
 
-          {/* Quick-links a secciones completas */}
+          {/* Ver catálogos completos */}
           <div className="mt-10 flex flex-wrap gap-3 justify-center border-t border-wood-200 pt-8">
-            {[
-              { label: "Ver todos los pisos", href: "/pisos-flotantes" },
-              { label: "Ver espejos LED", href: "/espejos-artesanales" },
-              { label: "Ver muebles del hogar", href: "/articulos-hogar" },
-              { label: "Materiales de construcción", href: "/construccion-y-maderas" },
-              { label: "Servicios de maderera", href: "/servicios" },
-            ].map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors"
-              >
-                {link.label}
-                <ArrowRight size={14} />
-              </Link>
-            ))}
+            <Link href="/espejos-artesanales" className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors">
+              Ver todos los espejos <ArrowRight size={14} />
+            </Link>
+            <Link href="/articulos-hogar" className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors">
+              Ver todos los muebles <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TAMBIÉN OFRECEMOS ── */}
+      <section className="py-12 bg-white border-t border-wood-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-lg font-bold text-da-dark mb-6">También ofrecemos</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {otrosServicios.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group flex items-start gap-3 p-4 rounded-xl border border-wood-200 bg-da-cream hover:border-amber-400 hover:shadow-sm transition-all"
+                >
+                  <div className={`shrink-0 w-9 h-9 ${item.color} rounded-lg flex items-center justify-center`}>
+                    <Icon size={18} className="text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-da-dark group-hover:text-wood-600 leading-snug">{item.label}</p>
+                    <p className="text-xs text-da-gray mt-0.5 leading-relaxed">{item.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -58,6 +58,15 @@ const sections = [
     icon: Armchair,
     color: "bg-wood-400",
   },
+  {
+    id: "espejos-artesanales",
+    title: "Espejos Artesanales",
+    description:
+      "Tecnología LED y diseño moderno. Desempañador, sensor de movimiento y tres tonos de luz.",
+    href: "/espejos-artesanales",
+    icon: Sparkles,
+    color: "bg-amber-600",
+  },
 ];
 
 const highlights = [

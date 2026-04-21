@@ -14,6 +14,7 @@ import {
   ArrowRight,
   LayoutGrid,
   Scissors,
+  Palette,
 } from "lucide-react";
 
 const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
@@ -48,6 +49,7 @@ const otrosServicios: Array<{
   { label: "Construcción y Maderas", description: "Machimbres, tirantería y materiales de obra.", href: "/construccion-y-maderas", icon: Hammer, color: "bg-wood-600" },
   { label: "Cielorrasos", description: "Placas en distintos tonos y terminaciones.", href: "/cielorrasos", icon: Layers, color: "bg-wood-500" },
   { label: "Servicios", description: "Cepillado, cortes y lijado profesional.", href: "/servicios", icon: Scissors, color: "bg-forest-600" },
+  { label: "Melaminas Faplac", description: "Muestrario completo: Mesopotamia y Táctil.", href: "/melaminas", icon: Palette, color: "bg-purple-600" },
 ];
 
 type ProductItem = {
@@ -365,7 +367,7 @@ export default function HomeContent() {
       <section className="py-12 bg-white border-t border-wood-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-lg font-bold text-da-dark mb-6">También ofrecemos</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {otrosServicios.map((item) => {
               const Icon = item.icon;
               return (

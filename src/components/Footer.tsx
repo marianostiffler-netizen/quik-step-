@@ -77,7 +77,7 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="text-amber-500 shrink-0 mt-0.5" />
-                Buenos Aires, Argentina
+                San Jorge, Santa Fe, Argentina
               </li>
             </ul>
             <Link

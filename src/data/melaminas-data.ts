@@ -1025,6 +1025,14 @@ export const melaminas: Melamina[] = [
     imagen: "https://www.faplaconline.com.ar/home/medias/AR-135TXT-MEL-base-300Wx300H?context=bWFzdGVyfGltYWdlc3wzMjE1fGltYWdlL2pwZWd8YURFeEwyZzFPQzg0T0RNeU1UQTBNVE0yTnpNMEwwRlNYekV6TlZSWVZGOU5SVXhmWW1GelpWOHpNREJYZURNd01FZ3xiNzMxYzIxYzg4NTZmODNmNDY0ZmJkZDJhMDFiMTI2NDQ4YmNkNjQzYjRhNWViNjQ3ZGUyZGVhODAzZmRmMGM5",
   },
   {
+    id: "blanco-fondo",
+    nombre: "Blanco Fondo",
+    linea: "Línea Lisos",
+    medidas: "1830 x 2600 x 3 mm",
+    esRevestimiento: false,
+    imagen: "https://www.faplaconline.com.ar/home/medias/AR-135TXT-MEL-base-300Wx300H?context=bWFzdGVyfGltYWdlc3wzMjE1fGltYWdlL2pwZWd8YURFeEwyZzFPQzg0T0RNeU1UQTBNVE0yTnpNMEwwRlNYekV6TlZSWVZGOU5SVXhmWW1GelpWOHpNREJYZURNd01FZ3xiNzMxYzIxYzg4NTZmODNmNDY0ZmJkZDJhMDFiMTI2NDQ4YmNkNjQzYjRhNWViNjQ3ZGUyZGVhODAzZmRmMGM5",
+  },
+  {
     id: "blanco-rev",
     nombre: "Blanco",
     linea: "Línea Lisos",

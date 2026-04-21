@@ -69,7 +69,7 @@ const tablasEncofrado = [
   {
     material: "Eucalipto",
     rows: [
-      { medida: '1" x 6" x 4.0m', descripcion: "Tabla de 15cm (famosa)", uso: "Ideal para encadenados" },
+      { medida: '1" x 6" x 4.0m', descripcion: "Tabla de 15cm", uso: "Ideal para encadenados" },
       { medida: '1" x 8" x 4.0m', descripcion: "Tabla de 20cm", uso: "Para encofrar" },
     ],
   },

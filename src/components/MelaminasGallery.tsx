@@ -23,6 +23,7 @@ const FILTERS = [
   { id: "nordica", label: "Línea Nórdica" },
   { id: "nature", label: "Línea Nature" },
   { id: "maderas-clasicas", label: "Línea Maderas clásicas" },
+  { id: "lisos", label: "Línea Lisos" },
   { id: "revestimiento", label: "Revestimiento" },
 ] as const;
 
@@ -38,6 +39,7 @@ const LINE_BADGE: Record<string, string> = {
   "Línea Nórdica": "bg-indigo-100 text-indigo-700",
   "Línea Nature": "bg-emerald-100 text-emerald-700",
   "Línea Maderas clásicas": "bg-orange-100 text-orange-700",
+  "Línea Lisos": "bg-gray-100 text-gray-700",
 };
 
 export default function MelaminasGallery() {
@@ -63,6 +65,8 @@ export default function MelaminasGallery() {
       return m.linea === "Línea Nature" && !m.esRevestimiento;
     if (activeFilter === "maderas-clasicas")
       return m.linea === "Línea Maderas clásicas" && !m.esRevestimiento;
+    if (activeFilter === "lisos")
+      return m.linea === "Línea Lisos" && !m.esRevestimiento;
     if (activeFilter === "revestimiento") return m.esRevestimiento;
     return true;
   });

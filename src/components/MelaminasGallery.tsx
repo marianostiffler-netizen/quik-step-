@@ -16,6 +16,10 @@ const FILTERS = [
   { id: "todo", label: "Todo" },
   { id: "mesopotamia", label: "Línea Mesopotamia" },
   { id: "tactil", label: "Línea Táctil" },
+  { id: "blend", label: "Línea Blend" },
+  { id: "urban-concept", label: "Línea Urban Concept" },
+  { id: "hilados", label: "Línea Hilados" },
+  { id: "etnica", label: "Línea Étnica" },
   { id: "revestimiento", label: "Revestimiento" },
 ] as const;
 
@@ -24,6 +28,10 @@ type FilterId = (typeof FILTERS)[number]["id"];
 const LINE_BADGE: Record<string, string> = {
   "Línea Mesopotamia": "bg-amber-100 text-amber-700",
   "Línea Táctil": "bg-blue-100 text-blue-700",
+  "Línea Blend": "bg-rose-100 text-rose-700",
+  "Línea Urban Concept": "bg-slate-100 text-slate-700",
+  "Línea Hilados": "bg-cyan-100 text-cyan-700",
+  "Línea Étnica": "bg-yellow-100 text-yellow-700",
 };
 
 export default function MelaminasGallery() {
@@ -35,6 +43,14 @@ export default function MelaminasGallery() {
     if (activeFilter === "mesopotamia")
       return m.linea === "Línea Mesopotamia" && !m.esRevestimiento;
     if (activeFilter === "tactil") return m.linea === "Línea Táctil";
+    if (activeFilter === "blend")
+      return m.linea === "Línea Blend" && !m.esRevestimiento;
+    if (activeFilter === "urban-concept")
+      return m.linea === "Línea Urban Concept" && !m.esRevestimiento;
+    if (activeFilter === "hilados")
+      return m.linea === "Línea Hilados" && !m.esRevestimiento;
+    if (activeFilter === "etnica")
+      return m.linea === "Línea Étnica" && !m.esRevestimiento;
     if (activeFilter === "revestimiento") return m.esRevestimiento;
     return true;
   });

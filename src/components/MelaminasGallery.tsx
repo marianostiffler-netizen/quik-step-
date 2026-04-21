@@ -121,6 +121,9 @@ export default function MelaminasGallery() {
                   <p className="font-semibold text-sm text-da-dark leading-snug truncate">
                     {m.nombre}
                   </p>
+                  <p className="text-xs text-da-gray mt-0.5">
+                    Medidas: {m.medidas}
+                  </p>
                   <div className="mt-1.5 flex flex-wrap gap-1">
                     <span
                       className={`text-xs px-2 py-0.5 rounded-full font-medium ${

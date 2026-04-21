@@ -20,6 +20,7 @@ const FILTERS = [
   { id: "urban-concept", label: "Línea Urban Concept" },
   { id: "hilados", label: "Línea Hilados" },
   { id: "etnica", label: "Línea Étnica" },
+  { id: "nature", label: "Línea Nature" },
   { id: "revestimiento", label: "Revestimiento" },
 ] as const;
 
@@ -32,6 +33,7 @@ const LINE_BADGE: Record<string, string> = {
   "Línea Urban Concept": "bg-slate-100 text-slate-700",
   "Línea Hilados": "bg-cyan-100 text-cyan-700",
   "Línea Étnica": "bg-yellow-100 text-yellow-700",
+  "Línea Nature": "bg-emerald-100 text-emerald-700",
 };
 
 export default function MelaminasGallery() {
@@ -51,6 +53,8 @@ export default function MelaminasGallery() {
       return m.linea === "Línea Hilados" && !m.esRevestimiento;
     if (activeFilter === "etnica")
       return m.linea === "Línea Étnica" && !m.esRevestimiento;
+    if (activeFilter === "nature")
+      return m.linea === "Línea Nature" && !m.esRevestimiento;
     if (activeFilter === "revestimiento") return m.esRevestimiento;
     return true;
   });

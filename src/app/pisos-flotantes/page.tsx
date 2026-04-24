@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { categories, products, accessories } from "@/data/site-data";
 import { CategoryCard } from "@/components/CategoryCard";
-import { ProductCard } from "@/components/ProductCard";
+import PisosSwatchGallery from "@/components/PisosSwatchGallery";
 
 export const metadata: Metadata = {
   title: "Pisos Flotantes Quick-Step | Maderera Don Antonio",
@@ -39,35 +39,21 @@ export default function ProductosPage() {
         </div>
       </section>
 
-      {/* All products grid */}
-      <section className="py-16 bg-wood-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-da-dark mb-2">
-            Todos los Diseños
-          </h2>
-          <p className="text-da-gray mb-8">
-            {products.length} productos disponibles
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.sku} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* All products grid with swatches */}
+      <PisosSwatchGallery />
 
       {/* Zócalos Santa Luzia section */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-da-dark mb-2">
-            Complementos: Zócalos Santa Luzia
+            Complementos Necesarios
           </h2>
           <p className="text-da-gray mb-8">
-            Terminaciones de alta calidad para completar tu instalación
+            Zócalos EPS Santa Luzia para completar tu instalación
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {accessories
-              .filter((a) => a.category === "zocalo")
+              .filter((a) => a.category === "zocalo" && ["SL623", "SL414", "SL163"].includes(a.sku))
               .map((zocalo) => (
                 <div
                   key={zocalo.sku}

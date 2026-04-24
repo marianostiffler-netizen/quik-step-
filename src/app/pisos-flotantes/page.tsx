@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { categories, products } from "@/data/site-data";
+import { categories, products, accessories } from "@/data/site-data";
 import { CategoryCard } from "@/components/CategoryCard";
 import { ProductCard } from "@/components/ProductCard";
 
@@ -48,10 +48,45 @@ export default function ProductosPage() {
           <p className="text-da-gray mb-8">
             {products.length} productos disponibles
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((product) => (
               <ProductCard key={product.sku} product={product} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Zócalos Santa Luzia section */}
+      <section className="py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-da-dark mb-2">
+            Complementos: Zócalos Santa Luzia
+          </h2>
+          <p className="text-da-gray mb-8">
+            Terminaciones de alta calidad para completar tu instalación
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {accessories
+              .filter((a) => a.category === "zocalo")
+              .map((zocalo) => (
+                <div
+                  key={zocalo.sku}
+                  className="bg-white rounded-xl border border-wood-200 p-6 hover:shadow-md transition-shadow"
+                >
+                  <h3 className="font-semibold text-lg text-da-dark mb-2">
+                    {zocalo.name}
+                  </h3>
+                  <p className="text-sm text-da-gray mb-4">
+                    {zocalo.description}
+                  </p>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-da-gray">{zocalo.dimensions}</span>
+                    <span className="font-bold text-amber-600">
+                      USD {zocalo.price_usd.toFixed(2)}/{zocalo.price_unit}
+                    </span>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </section>

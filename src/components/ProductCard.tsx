@@ -50,7 +50,7 @@ export function ProductCard({ product }: { product: Product }) {
             {product.dimensions.thickness}mm
           </span>
           <span className="ml-auto font-semibold text-da-dark">
-            {product.rating}
+            {product.water_resistance_hours === 100 ? "AC5 - Uso Comercial Intenso" : product.rating.replace(" Aqua", "")}
           </span>
         </div>
 

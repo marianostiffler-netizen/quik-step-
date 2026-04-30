@@ -61,6 +61,7 @@ export const site = {
 export const navigation = [
   { id: "inicio", label: "Inicio", href: "/" },
   { id: "pisos-flotantes", label: "Pisos Flotantes", href: "/pisos-flotantes" },
+  { id: "espejos-inteligentes", label: "Espejos Inteligentes", href: "/espejos-inteligentes" },
   { id: "construccion-maderas", label: "Construcción y Maderas", href: "/construccion-y-maderas" },
   { id: "espejos", label: "Espejos", href: "/espejos-artesanales" },
   { id: "cielorrasos", label: "Cielorrasos", href: "/cielorrasos" },

@@ -211,7 +211,7 @@ export default function PisosSwatchGallery() {
                       </span>
                     )}
                     {p.price_usd_m2 && (
-                      <span className="text-xs font-bold text-amber-600 ml-auto">
+                      <span className="text-sm font-bold text-amber-600 ml-auto bg-amber-50 px-2 py-1 rounded-lg">
                         USD {p.price_usd_m2.toFixed(2)}/m²
                       </span>
                     )}

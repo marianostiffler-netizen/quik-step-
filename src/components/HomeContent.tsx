@@ -223,13 +223,13 @@ export default function HomeContent() {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" />
         <FadeInOnScroll immediate delay={200} className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center">
           <p className="text-amber-400 font-semibold text-xs uppercase tracking-[0.2em] mb-4">
             San Jorge, Santa Fe, Argentina
           </p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 tracking-tight">
-            PROYECTO ACTUALIZADO - 12:46
+            Maderera Don Antonio
           </h1>
           <p className="text-lg md:text-xl text-white/85 mb-10 max-w-xl mx-auto leading-relaxed">
             Pisos flotantes, espejos LED, muebles artesanales y materiales de construcción.
@@ -255,7 +255,7 @@ export default function HomeContent() {
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
           >
             <MessageCircle size={18} />
             Consultá por WhatsApp
@@ -306,7 +306,7 @@ export default function HomeContent() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {filtered.map((product, index) => (
-                  <FadeInOnScroll key={product.id} delay={index === 0 ? 0 : index === 1 ? 100 : index === 2 ? 200 : 300} className="group bg-white rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:shadow-lg hover:border-amber-400/50 transition-all duration-500 ease-in-out flex flex-col">
+                  <FadeInOnScroll key={product.id} delay={index === 0 ? 0 : index === 1 ? 100 : index === 2 ? 200 : 300} className="group bg-white/90 backdrop-blur-md rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:shadow-lg hover:border-amber-400/50 transition-all duration-500 ease-in-out flex flex-col">
                     {/* Image or gradient */}
                     <Link href={product.href} className="block shrink-0 overflow-hidden">
                       <div className="relative aspect-[4/3]">

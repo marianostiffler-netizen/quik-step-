@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ComponentType } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -14,12 +15,24 @@ import {
   LayoutGrid,
   Scissors,
   Palette,
-  MapPin,
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-// Expo ease-out: arranca rápido, asienta perfecto. Sensación de lujo.
+// Canvas se carga solo en el cliente (no tiene sentido en SSR)
+const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
+
+// Expo ease-out: la curva más premium para reveals de alto impacto
 const EXPO = [0.16, 1, 0.3, 1] as const;
+
+// Variant reutilizable para stagger padre→hijo
+const fadeUp = {
+  hidden:  { opacity: 0, y: 22 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, delay, ease: EXPO },
+  }),
+};
 
 const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
 
@@ -215,195 +228,330 @@ export default function HomeContent() {
     return matchCat && matchSearch;
   });
 
-  const prefersReducedMotion = useReducedMotion();
-
-  // Cuando el usuario prefiere sin movimiento, todos los elementos aparecen directo.
-  const instant = prefersReducedMotion
-    ? { initial: {}, animate: {}, transition: {} }
-    : {};
+  const rm = useReducedMotion();
 
   return (
     <>
-      {/* ══════════════════════════════════════
-          HERO — Secuencia coreografiada en 5 actos
-          Acto 1 (0–600ms):   Fondo + overlay
-          Acto 2 (300ms):     Badge de ubicación
-          Acto 3 (450–700ms): Headline word-by-word
-          Acto 4 (800ms):     Divider + subtítulo
-          Acto 5 (1000–1200ms): Search + CTA
-      ══════════════════════════════════════ */}
-      <section className="relative text-white overflow-hidden min-h-[92vh] flex items-center">
+      {/* ═══════════════════════════════════════════
+          HERO — Dark Atelier. Fullscreen, 2 columnas.
+          Fondo: #0D0A08 + partículas canvas aserrín
+          Izquierda: contenido coreografiado
+          Derecha: tablón de madera 3D CSS
+      ═══════════════════════════════════════════ */}
+      <section
+        className="relative min-h-screen flex items-center overflow-hidden text-white"
+        style={{ background: "#0D0A08" }}
+      >
+        {/* ── Canvas partículas aserrín (client-only) ── */}
+        <HeroCanvas />
 
-        {/* Acto 1a — Fondo: Ken Burns suave (scale 1.06 → 1.00) */}
-        <motion.div
-          className="absolute inset-0"
-          initial={prefersReducedMotion ? {} : { scale: 1.07, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 2.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        {/* ── Foto de fondo: muy atenuada, solo da textura ── */}
+        <div
+          className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: "url('/hero-background.png')",
             backgroundSize: "cover",
             backgroundPosition: "center",
+            opacity: 0.08,
           }}
         />
 
-        {/* Acto 1b — Overlay degradado: más profundidad que un flat black */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/62 to-black/85"
-          initial={prefersReducedMotion ? {} : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.1, ease: "easeOut" }}
+        {/* ── Vignette: oscurece los bordes para profundidad ── */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(0,0,0,0.7) 100%)",
+          }}
         />
 
-        {/* Grain texture — añade materialidad orgánica al fondo */}
+        {/* ── Grain orgánico (simula madera, no pantalla plana) ── */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-[0.038]"
           style={{
             backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            backgroundRepeat: "repeat",
-            backgroundSize: "200px",
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)'/%3E%3C/svg%3E\")",
+            backgroundSize: "180px",
           }}
         />
 
-        {/* Contenido centrado */}
-        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-24 text-center w-full">
+        {/* ══════════ CONTENIDO PRINCIPAL ══════════ */}
+        <div className="relative w-full mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-20 lg:py-0">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 min-h-screen lg:min-h-0 lg:py-32">
 
-          {/* Acto 2 — Badge de ubicación: slide desde la izquierda */}
-          <motion.div
-            className="inline-flex items-center gap-2 mb-7"
-            initial={prefersReducedMotion ? {} : { opacity: 0, x: -18 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.55, delay: 0.28, ease: EXPO }}
-          >
-            <motion.span
-              className="flex items-center gap-1.5 text-amber-400/90 font-semibold text-[11px] uppercase tracking-[0.28em]"
-            >
-              <MapPin size={11} className="text-amber-400" />
-              San Jorge · Santa Fe · Argentina
-            </motion.span>
-            {/* Línea decorativa derecha */}
-            <motion.span
-              className="block h-px bg-amber-400/40 w-12"
-              initial={prefersReducedMotion ? {} : { scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.5, delay: 0.55, ease: EXPO }}
-              style={{ transformOrigin: "left" }}
-            />
-          </motion.div>
+            {/* ─────────── COLUMNA IZQUIERDA (60%) ─────────── */}
+            <div className="flex-1 lg:max-w-[58%] w-full">
 
-          {/* Acto 3 — Headline: word-by-word wipe desde abajo */}
-          <motion.div
-            className="mb-5"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: prefersReducedMotion ? 0 : 0.085,
-                  delayChildren: prefersReducedMotion ? 0 : 0.42,
-                },
-              },
-            }}
-          >
-            <h1 className="text-[clamp(2.8rem,8vw,5.5rem)] font-extrabold leading-[0.95] tracking-tight">
-              {["Maderera", "Don", "Antonio"].map((word) => (
-                <span key={word} className="inline-block overflow-hidden align-bottom">
-                  <motion.span
-                    className="inline-block"
-                    variants={{
-                      hidden:  { y: "108%", opacity: 0 },
-                      visible: {
-                        y: "0%",
-                        opacity: 1,
-                        transition: { duration: 0.62, ease: EXPO },
-                      },
-                    }}
-                  >
-                    {word}
-                  </motion.span>
-                  {/* Espacio entre palabras */}
-                  <span className="inline-block w-[0.22em]" aria-hidden />
+              {/* Badge de ubicación */}
+              <motion.div
+                initial={rm ? {} : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.15, ease: EXPO }}
+                className="mb-8"
+              >
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-400 border border-amber-500/25 bg-amber-500/8">
+                  <span className="text-amber-500">◇</span>
+                  San Jorge · Santa Fe · Argentina
+                  <span className="text-amber-500">◇</span>
                 </span>
-              ))}
-            </h1>
-          </motion.div>
+              </motion.div>
 
-          {/* Acto 4a — Divider: scale desde el centro */}
-          <motion.div
-            className="mx-auto mb-6 h-px max-w-[220px]"
-            style={{
-              background:
-                "linear-gradient(to right, transparent, rgba(251,191,36,0.6), transparent)",
-              transformOrigin: "center",
-            }}
-            initial={prefersReducedMotion ? {} : { scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 0.65, delay: 0.82, ease: EXPO }}
-          />
+              {/* Headline — word-by-word wipe desde abajo */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: rm ? 0 : 0.09,
+                      delayChildren: rm ? 0 : 0.28,
+                    },
+                  },
+                }}
+                className="mb-7"
+              >
+                <h1
+                  className="font-serif leading-[0.92] tracking-tight"
+                  style={{
+                    fontSize: "clamp(3.4rem, 9vw, 7.5rem)",
+                    textShadow: "0 4px 60px rgba(200,149,106,0.25)",
+                  }}
+                >
+                  {/* Línea 1 */}
+                  <span className="block overflow-hidden">
+                    <motion.span
+                      className="block"
+                      variants={{
+                        hidden:  { y: "110%", opacity: 0 },
+                        visible: { y: "0%", opacity: 1, transition: { duration: 0.7, ease: EXPO } },
+                      }}
+                    >
+                      Maderera
+                    </motion.span>
+                  </span>
+                  {/* Línea 2 — color ámbar para contraste */}
+                  <span className="block overflow-hidden">
+                    <motion.span
+                      className="block text-amber-400"
+                      variants={{
+                        hidden:  { y: "110%", opacity: 0 },
+                        visible: { y: "0%", opacity: 1, transition: { duration: 0.7, ease: EXPO } },
+                      }}
+                    >
+                      Don Antonio
+                    </motion.span>
+                  </span>
+                </h1>
+              </motion.div>
 
-          {/* Acto 4b — Subtítulo */}
-          <motion.p
-            className="text-base md:text-lg text-white/75 mb-10 max-w-md mx-auto leading-relaxed"
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: 11 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.88, ease: EXPO }}
-          >
-            Pisos flotantes, espejos LED, muebles artesanales y materiales de construcción.
-          </motion.p>
+              {/* Subheading */}
+              <motion.p
+                className="text-lg text-white/55 font-light max-w-md leading-relaxed mb-9"
+                custom={0.78}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+              >
+                Pisos flotantes, espejos LED, muebles artesanales y materiales de construcción.
+              </motion.p>
 
-          {/* Acto 5a — Barra de búsqueda */}
-          <motion.div
-            className="relative max-w-xl mx-auto mb-5"
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 1.02, ease: EXPO }}
-          >
-            <Search
-              size={17}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-            />
-            <input
-              type="text"
-              placeholder="Buscá un producto (piso, espejo, machimbre...)"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-11 pr-4 py-4 rounded-xl bg-white/96 text-da-dark placeholder-gray-400 text-sm shadow-2xl focus:outline-none focus:ring-2 focus:ring-amber-400 transition-shadow duration-300"
-            />
-          </motion.div>
+              {/* Search bar */}
+              <motion.div
+                className="relative max-w-lg mb-6"
+                custom={0.92}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+              >
+                <Search
+                  size={17}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none z-10"
+                />
+                <input
+                  type="text"
+                  placeholder="Buscá un producto (piso, espejo, machimbre...)"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full pl-11 pr-4 py-4 rounded-xl text-da-dark placeholder-gray-500 text-sm shadow-2xl focus:outline-none focus:ring-2 focus:ring-amber-400 transition-shadow duration-300"
+                  style={{ background: "rgba(255,255,255,0.96)" }}
+                />
+              </motion.div>
 
-          {/* Acto 5b — CTA: scale + fade, último en aparecer */}
-          <motion.a
-            href={waLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-colors duration-300"
-            initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.45, delay: 1.18, ease: EXPO }}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <MessageCircle size={18} />
-            Consultá por WhatsApp
-          </motion.a>
+              {/* CTA WhatsApp */}
+              <motion.div
+                custom={1.06}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                className="mb-9"
+              >
+                <motion.a
+                  href={waLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-colors duration-300"
+                  whileHover={rm ? {} : { scale: 1.03 }}
+                  whileTap={rm ? {} : { scale: 0.97 }}
+                >
+                  <motion.span
+                    animate={rm ? {} : { scale: [1, 1.18, 1] }}
+                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                  >
+                    <MessageCircle size={18} />
+                  </motion.span>
+                  Consultá por WhatsApp
+                </motion.a>
+              </motion.div>
 
-          {/* Scroll indicator — aparece al final de la secuencia */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/40"
-            initial={prefersReducedMotion ? {} : { opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.5, ease: "easeOut" }}
-          >
-            <span className="text-[10px] uppercase tracking-[0.2em] font-medium">scroll</span>
+              {/* Trust badges */}
+              <motion.div
+                className="flex flex-wrap gap-2.5"
+                custom={1.18}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+              >
+                {[
+                  { emoji: "🪵", label: "Pisos Premium" },
+                  { emoji: "🪞", label: "Espejos LED" },
+                  { emoji: "🏗️", label: "Materiales" },
+                ].map(({ emoji, label }) => (
+                  <span
+                    key={label}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium text-white/60 border border-white/10 bg-white/5"
+                  >
+                    <span>{emoji}</span>
+                    {label}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ─────────── COLUMNA DERECHA (40%) — Tablón 3D ─────────── */}
             <motion.div
-              className="w-px h-6 bg-gradient-to-b from-white/50 to-transparent"
-              animate={prefersReducedMotion ? {} : { scaleY: [1, 0.4, 1], opacity: [0.4, 0.8, 0.4] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
+              className="hidden lg:flex flex-1 items-center justify-center lg:max-w-[38%] w-full"
+              initial={rm ? {} : { opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.1, delay: 0.5, ease: EXPO }}
+            >
+              <div className="relative" style={{ perspective: "1200px" }}>
+                {/* Tablón principal */}
+                <motion.div
+                  className="relative w-64 xl:w-72 rounded-[18px] overflow-hidden cursor-default"
+                  style={{
+                    height: "420px",
+                    rotateY: -14,
+                    rotateX: 3,
+                    transformPerspective: 1200,
+                    boxShadow:
+                      "40px 40px 80px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.09)",
+                  }}
+                  animate={rm ? {} : { y: [0, -10, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  whileHover={rm ? {} : { rotateY: -5, rotateX: 1, transition: { duration: 0.5, ease: "easeOut" } }}
+                >
+                  {/* Capa 1 — base madera oscura */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(168deg, #4A2810 0%, #6B3A1F 9%, #3D1F0A 20%, #7A4828 32%, #2D1508 44%, #5C3218 55%, #3A1D09 67%, #6B3A1F 78%, #4A2810 88%, #3D1F0A 100%)",
+                    }}
+                  />
+                  {/* Capa 2 — vetas horizontales de fibra */}
+                  <div
+                    className="absolute inset-0 opacity-60"
+                    style={{
+                      background:
+                        "repeating-linear-gradient(175deg, transparent 0px, transparent 18px, rgba(255,180,80,0.04) 18px, rgba(255,180,80,0.04) 19px, transparent 19px, transparent 36px, rgba(0,0,0,0.08) 36px, rgba(0,0,0,0.08) 37px)",
+                    }}
+                  />
+                  {/* Capa 3 — turbulencia SVG para grano orgánico */}
+                  <svg
+                    className="absolute inset-0 w-full h-full opacity-25"
+                    preserveAspectRatio="xMidYMid slice"
+                    aria-hidden
+                  >
+                    <filter id="wg">
+                      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="5" seed="8" />
+                      <feColorMatrix type="saturate" values="0.3" />
+                      <feBlend in="SourceGraphic" mode="multiply" result="blend" />
+                      <feComposite in="blend" in2="SourceGraphic" operator="in" />
+                    </filter>
+                    <rect width="100%" height="100%" filter="url(#wg)" />
+                  </svg>
+                  {/* Capa 4 — destello satinado diagonal */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(125deg, transparent 28%, rgba(255,200,110,0.10) 42%, rgba(255,230,160,0.22) 48%, rgba(255,200,110,0.08) 54%, transparent 68%)",
+                    }}
+                  />
+                  {/* Capa 5 — borde superior iluminado */}
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-300/30 to-transparent" />
+                  {/* Capa 6 — sombra inferior interna */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-28"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }}
+                  />
+
+                  {/* Info card superpuesta */}
+                  <div className="absolute bottom-5 left-4 right-4">
+                    <div
+                      className="rounded-xl p-4 border border-white/12"
+                      style={{ background: "rgba(13,10,8,0.65)", backdropFilter: "blur(12px)" }}
+                    >
+                      <p className="text-white/45 text-[10px] uppercase tracking-[0.22em] mb-0.5 font-medium">
+                        Línea Premium
+                      </p>
+                      <p className="text-white font-bold text-base leading-tight mb-1">
+                        Quick-Step Vision
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <p className="text-amber-400 font-extrabold text-sm">
+                          USD 15.90<span className="text-amber-400/60 font-normal">/m²</span>
+                        </p>
+                        <span className="text-[10px] text-white/40 bg-white/8 px-2 py-0.5 rounded-full border border-white/10">
+                          AC5 · 100hs
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Sombra proyectada en el piso */}
+                <div
+                  className="absolute -bottom-6 left-1/2 -translate-x-1/2 rounded-full"
+                  style={{
+                    width: "80%",
+                    height: "24px",
+                    background: "radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%)",
+                    filter: "blur(8px)",
+                  }}
+                />
+              </div>
+            </motion.div>
+
+          </div>
         </div>
+
+        {/* ── Scroll indicator ── */}
+        <motion.div
+          className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 pointer-events-none"
+          initial={rm ? {} : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8, duration: 0.6 }}
+        >
+          <span className="text-[9px] uppercase tracking-[0.25em] font-medium">scroll</span>
+          <motion.div
+            className="w-px h-7 bg-gradient-to-b from-white/40 to-transparent"
+            animate={rm ? {} : { scaleY: [1, 0.35, 1], opacity: [0.35, 0.7, 0.35] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
       </section>
 
       {/* ── CATEGORY PILLS ── */}

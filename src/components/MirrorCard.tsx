@@ -1,99 +1,111 @@
 "use client";
 
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { Sparkles, Thermometer, Clock, Wind, Zap } from "lucide-react";
 import type { Mirror } from "@/data/espejos-inteligentes-data";
-import { lightTypeLabels } from "@/data/espejos-inteligentes-data";
 
-type Variant = "touch" | "full";
+const FULL_FEATURES = [
+  { icon: Zap,         label: "Touch 3 tonos" },
+  { icon: Wind,        label: "Desempañador" },
+  { icon: Clock,       label: "Display LCD" },
+  { icon: Thermometer, label: "Temperatura" },
+  { icon: Sparkles,    label: "Sensor mov." },
+];
+
+const BASIC_FEATURES = [
+  { icon: Zap,     label: "Touch 3 tonos" },
+  { icon: Sparkles, label: "LED regulable" },
+];
 
 export function MirrorCard({ mirror }: { mirror: Mirror }) {
-  const [variant, setVariant] = useState<Variant>("touch");
-
-  const price = variant === "touch" ? mirror.pricing.touch : mirror.pricing.full;
-  const variantLabel = variant === "touch" ? "Versión Touch" : "Versión Touch + Desempañador + Reloj";
+  const features = mirror.fullFeatured ? FULL_FEATURES : BASIC_FEATURES;
+  const isLarge = mirror.dimensions.width * mirror.dimensions.height >= 7000;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-      {/* Placeholder gris para la foto */}
-      <div className="aspect-[4/5] bg-gray-200 flex items-center justify-center">
-        <div className="text-center p-4">
-          <div className="w-32 h-40 mx-auto bg-gray-300 rounded-lg mb-4 flex items-center justify-center">
-            <svg
-              className="w-16 h-16 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
+    <motion.div
+      whileHover={{ y: -6, boxShadow: "0 24px 48px -8px rgba(0,0,0,0.15)" }}
+      transition={{ duration: 0.3 }}
+      className="group relative bg-white/75 backdrop-blur-xl rounded-2xl border border-white/60 shadow-md overflow-hidden flex flex-col"
+    >
+      {/* Imagen / placeholder */}
+      <div className="relative aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 gap-2">
+          {/* Silueta del espejo según shape */}
+          <div
+            className={`bg-gradient-to-br from-slate-300 to-slate-200 border-2 border-slate-300 shadow-inner flex items-center justify-center ${
+              mirror.shape === "square"
+                ? "rounded-lg w-24 h-24"
+                : mirror.dimensions.height > mirror.dimensions.width
+                ? "rounded-xl w-16 h-24"
+                : "rounded-xl w-24 h-16"
+            }`}
+          >
+            <div className="w-1/2 h-1/2 rounded-sm bg-white/40" />
           </div>
-          <p className="text-sm text-gray-500">Foto pendiente</p>
-          <p className="text-xs text-gray-400 mt-1">{mirror.name}</p>
+          <span className="text-xs text-slate-500 font-medium mt-1">Foto pendiente</span>
+        </div>
+
+        {/* Badges */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-violet-600 text-white shadow">
+            <Zap size={9} />
+            {mirror.modelo}
+          </span>
+          {mirror.fullFeatured ? (
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-amber-500 text-white shadow">
+              Full
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-slate-400 text-white shadow">
+              Basic
+            </span>
+          )}
+          {isLarge && (
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full bg-emerald-500 text-white shadow">
+              Gran formato
+            </span>
+          )}
         </div>
       </div>
 
-      {/* Info de la tarjeta */}
-      <div className="p-4">
-        <h3 className="font-semibold text-lg text-gray-900 mb-2">{mirror.name}</h3>
-        
-        {/* Características */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          <span className="text-xs px-2 py-1 rounded-full bg-amber-100 text-amber-700">
-            {lightTypeLabels[mirror.features.lightType]}
-          </span>
-          {mirror.features.frameIncluded && (
-            <span className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-700">
-              Bastidor incluido
-            </span>
-          )}
-          <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">
-            {mirror.dimensions.width}x{mirror.dimensions.height}cm
-          </span>
-        </div>
+      {/* Cuerpo */}
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="font-bold text-da-dark text-sm leading-snug mb-0.5">
+          {mirror.name}
+        </h3>
+        <p className="text-xs text-da-gray mb-3">
+          {mirror.dimensions.width}×{mirror.dimensions.height} cm ·{" "}
+          {mirror.shape === "square" ? "Cuadrado" : "Rectangular"}
+        </p>
 
-        {/* Selector de variante */}
-        <div className="mb-4">
-          <label className="text-xs font-medium text-gray-600 mb-2 block">Versión:</label>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setVariant("touch")}
-              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
-                variant === "touch"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
+        {/* Features */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {features.map(({ icon: Icon, label }) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-100"
             >
-              Touch
-            </button>
-            <button
-              onClick={() => setVariant("full")}
-              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
-                variant === "full"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              Full
-            </button>
-          </div>
-          <p className="text-xs text-gray-500 mt-2">{variantLabel}</p>
+              <Icon size={9} />
+              {label}
+            </span>
+          ))}
         </div>
 
         {/* Precio */}
-        <div className="border-t border-gray-200 pt-3">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Precio:</span>
-            <span className="text-xl font-bold text-amber-600">
-              USD {price.toFixed(2)}
-            </span>
+        <div className="mt-auto pt-3 border-t border-wood-100">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="text-[10px] text-da-gray uppercase tracking-wide">Precio</p>
+              <p className="text-xl font-extrabold text-amber-600 leading-none">
+                USD {mirror.price_usd.toFixed(2)}
+              </p>
+              <p className="text-[10px] text-da-gray mt-0.5">
+                ($ {mirror.price_ars.toLocaleString("es-AR")} ARS)
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

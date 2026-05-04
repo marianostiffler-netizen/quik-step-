@@ -315,16 +315,24 @@ export default function HomeContent() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {filtered.map((product, index) => (
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.07 } },
+              }}
+            >
+              {filtered.map((product) => (
                   <motion.div
                     key={product.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="group bg-white/90 backdrop-blur-md rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:border-amber-400/50 flex flex-col"
+                    variants={{
+                      hidden:  { opacity: 0, y: 24 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+                    }}
+                    whileHover={{ y: -8, boxShadow: "0 20px 30px -6px rgba(0,0,0,0.12)" }}
+                    className="group bg-white/80 backdrop-blur-md rounded-2xl border border-white/60 shadow-md hover:border-amber-400/50 overflow-hidden flex flex-col"
                   >
                     {/* Image or gradient */}
                     <Link href={product.href} className="block shrink-0 overflow-hidden">
@@ -365,7 +373,7 @@ export default function HomeContent() {
                     </div>
                   </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
 
           {/* Ver catálogos completos */}

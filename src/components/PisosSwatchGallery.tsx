@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Droplets, FileText, Shield } from "lucide-react";
+import { Droplets, FileText } from "lucide-react";
+import { motion } from "framer-motion";
 import { products, type Product } from "@/data/site-data";
 
 // Mapeo de tonos por SKU
@@ -165,10 +166,15 @@ export default function PisosSwatchGallery() {
       <section className="py-10 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {filtered.map((p) => (
-              <div
+            {filtered.map((p, index) => (
+              <motion.div
                 key={p.sku}
-                className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-amber-400 transition-all duration-500 ease-in-out"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -5, boxShadow: "0 20px 32px -6px rgba(0,0,0,0.12)" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: (index % 10) * 0.05 }}
+                className="group relative bg-white/80 backdrop-blur-sm rounded-xl border border-white/60 shadow-sm overflow-hidden hover:border-amber-400 transition-colors duration-300"
               >
                 {/* Imagen cuadrada */}
                 <div className="relative aspect-square overflow-hidden bg-gray-100">
@@ -180,15 +186,15 @@ export default function PisosSwatchGallery() {
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
                     loading="lazy"
                   />
-                  
+
                   {/* Badge de agua */}
                   {getWaterBadge(p.water_resistance_hours)}
-                  
+
                   {/* Botón de hover */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out flex items-center justify-center">
-                    <button className="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-amber-500 hover:text-white transition-colors duration-500 ease-in-out flex items-center gap-2">
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button className="bg-white/90 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-amber-500 hover:text-white transition-colors duration-300 flex items-center gap-2">
                       <FileText size={16} />
-                      Ver Ficha Técnica
+                      Ver Ficha
                     </button>
                   </div>
                 </div>
@@ -199,11 +205,11 @@ export default function PisosSwatchGallery() {
                     <span className="text-xs font-mono text-gray-500">{p.sku}</span>
                     {getTrafficBadge(p.rating)}
                   </div>
-                  
+
                   <h3 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-2">
                     {p.name}
                   </h3>
-                  
+
                   <div className="flex items-center gap-2 mt-2">
                     {hasBezelEIR(p.category_id) && (
                       <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">
@@ -211,13 +217,13 @@ export default function PisosSwatchGallery() {
                       </span>
                     )}
                     {p.price_usd_m2 && (
-                      <span className="text-sm font-bold text-amber-600 ml-auto bg-amber-50 px-2 py-1 rounded-lg">
+                      <span className="text-sm font-bold text-amber-600 ml-auto bg-amber-50/80 px-2 py-1 rounded-lg border border-amber-100">
                         USD {p.price_usd_m2.toFixed(2)}/m²
                       </span>
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

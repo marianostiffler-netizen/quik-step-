@@ -215,28 +215,23 @@ export default function HomeContent() {
   return (
     <>
       {/* ── HERO ── */}
-      <section className="relative text-white overflow-hidden bg-wood-800">
-        {/* Video de fondo cinematográfico (con poster fallback a imagen) */}
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/hero-video.mp4"
-          poster="/hero-background.png"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-black/65" />
+      <section
+        className="relative text-white"
+        style={{
+          backgroundImage: "url('/hero-background.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/65 backdrop-blur-[2px]" />
         <FadeInOnScroll immediate delay={200} className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <p className="text-amber-400 font-semibold text-xs uppercase tracking-widest mb-3">
+          <p className="text-amber-400 font-semibold text-xs uppercase tracking-[0.2em] mb-4">
             San Jorge, Santa Fe, Argentina
           </p>
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-3">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 tracking-tight">
             Maderera Don Antonio
           </h1>
-          <p className="text-base text-white/75 mb-8 max-w-xl mx-auto">
+          <p className="text-lg md:text-xl text-white/85 mb-10 max-w-xl mx-auto leading-relaxed">
             Pisos flotantes, espejos LED, muebles artesanales y materiales de construcción.
           </p>
 

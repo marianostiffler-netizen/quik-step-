@@ -94,7 +94,7 @@ export default function PisosSwatchGallery() {
     if (!hours) return null;
     const badgeClass = WATER_BADGE[hours];
     return badgeClass ? (
-      <div className={`absolute top-2 right-2 px-3 py-1.5 rounded-lg font-bold text-xs border-2 shadow-lg flex items-center gap-1 ${badgeClass}`}>
+      <div className={`badge-glow absolute top-2 right-2 px-3 py-1.5 rounded-lg font-bold text-xs border-2 shadow-lg flex items-center gap-1 transition-all duration-500 ease-in-out ${badgeClass}`}>
         <Droplets size={12} className="fill-current" />
         {hours}hs
       </div>
@@ -168,7 +168,7 @@ export default function PisosSwatchGallery() {
             {filtered.map((p) => (
               <div
                 key={p.sku}
-                className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-amber-400 transition-all duration-300"
+                className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-amber-400 transition-all duration-500 ease-in-out"
               >
                 {/* Imagen cuadrada */}
                 <div className="relative aspect-square overflow-hidden bg-gray-100">
@@ -176,7 +176,7 @@ export default function PisosSwatchGallery() {
                     src={`/products/${p.image}`}
                     alt={p.name}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
                     loading="lazy"
                   />
@@ -185,8 +185,8 @@ export default function PisosSwatchGallery() {
                   {getWaterBadge(p.water_resistance_hours)}
                   
                   {/* Botón de hover */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <button className="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-amber-500 hover:text-white transition-colors flex items-center gap-2">
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out flex items-center justify-center">
+                    <button className="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-amber-500 hover:text-white transition-colors duration-500 ease-in-out flex items-center gap-2">
                       <FileText size={16} />
                       Ver Ficha Técnica
                     </button>

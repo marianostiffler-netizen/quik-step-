@@ -16,6 +16,7 @@ import {
   Scissors,
   Palette,
 } from "lucide-react";
+import { FadeInOnScroll } from "@/components/FadeInOnScroll";
 
 const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
 
@@ -223,7 +224,7 @@ export default function HomeContent() {
         }}
       >
         <div className="absolute inset-0 bg-black/65" />
-        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <FadeInOnScroll immediate delay={200} className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center">
           <p className="text-amber-400 font-semibold text-xs uppercase tracking-widest mb-3">
             San Jorge, Santa Fe, Argentina
           </p>
@@ -254,12 +255,12 @@ export default function HomeContent() {
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-colors shadow-lg"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
           >
             <MessageCircle size={18} />
             Consultá por WhatsApp
           </a>
-        </div>
+        </FadeInOnScroll>
       </section>
 
       {/* ── CATEGORY PILLS ── */}
@@ -289,7 +290,7 @@ export default function HomeContent() {
       </section>
 
       {/* ── PRODUCT GRID ── */}
-      <section className="py-10 bg-da-cream">
+      <FadeInOnScroll as="section" className="py-10 bg-da-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {filtered.length === 0 ? (
             <div className="text-center py-20 text-da-gray">
@@ -307,16 +308,16 @@ export default function HomeContent() {
               {filtered.map((product) => (
                   <div
                     key={product.id}
-                    className="bg-white rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:shadow-lg hover:border-amber-400/50 transition-all duration-300 flex flex-col"
+                    className="group bg-white rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:shadow-lg hover:border-amber-400/50 transition-all duration-500 ease-in-out flex flex-col"
                   >
                     {/* Image or gradient */}
-                    <Link href={product.href} className="block shrink-0">
+                    <Link href={product.href} className="block shrink-0 overflow-hidden">
                       <div className="relative aspect-[4/3]">
                         <Image
                             src={product.image}
                             alt={product.name}
                             fill
-                            className="object-contain bg-gray-50"
+                            className="object-contain bg-gray-50 transition-transform duration-500 ease-in-out group-hover:scale-105"
                             loading="lazy"
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                           />
@@ -340,7 +341,7 @@ export default function HomeContent() {
                         href={waLink(product.name)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 py-2.5 bg-green-500 hover:bg-green-400 text-white text-sm font-semibold rounded-xl transition-colors"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 bg-green-500 hover:bg-green-400 text-white text-sm font-semibold rounded-xl transition-all duration-500 ease-in-out hover:shadow-md"
                       >
                         <MessageCircle size={15} />
                         Consultar por WhatsApp
@@ -353,18 +354,18 @@ export default function HomeContent() {
 
           {/* Ver catálogos completos */}
           <div className="mt-10 flex flex-wrap gap-3 justify-center border-t border-wood-200 pt-8">
-            <Link href="/espejos-artesanales" className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors">
+            <Link href="/espejos-artesanales" className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors duration-500 ease-in-out">
               Ver todos los espejos <ArrowRight size={14} />
             </Link>
-            <Link href="/articulos-hogar" className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors">
+            <Link href="/articulos-hogar" className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors duration-500 ease-in-out">
               Ver todos los muebles <ArrowRight size={14} />
             </Link>
           </div>
         </div>
-      </section>
+      </FadeInOnScroll>
 
       {/* ── TAMBIÉN OFRECEMOS ── */}
-      <section className="py-12 bg-white border-t border-wood-200">
+      <FadeInOnScroll as="section" className="py-12 bg-white border-t border-wood-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-lg font-bold text-da-dark mb-6">También ofrecemos</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -374,7 +375,7 @@ export default function HomeContent() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group flex items-start gap-3 p-4 rounded-xl border border-wood-200 bg-da-cream hover:border-amber-400 hover:shadow-sm transition-all"
+                  className="group flex items-start gap-3 p-4 rounded-xl border border-wood-200 bg-da-cream hover:border-amber-400 hover:shadow-md transition-all duration-500 ease-in-out hover:-translate-y-0.5"
                 >
                   <div className={`shrink-0 w-9 h-9 ${item.color} rounded-lg flex items-center justify-center`}>
                     <Icon size={18} className="text-white" />
@@ -388,10 +389,10 @@ export default function HomeContent() {
             })}
           </div>
         </div>
-      </section>
+      </FadeInOnScroll>
 
       {/* ── CTA FINAL ── */}
-      <section className="py-14 bg-wood-800 text-white text-center">
+      <FadeInOnScroll as="section" className="py-14 bg-wood-800 text-white text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-3">
           ¿No encontrás lo que buscás?
         </h2>
@@ -402,12 +403,12 @@ export default function HomeContent() {
           href={waLink()}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-colors shadow-lg"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
         >
           <MessageCircle size={20} />
           Consultá por WhatsApp
         </a>
-      </section>
+      </FadeInOnScroll>
     </>
   );
 }

@@ -9,14 +9,17 @@ import {
   Hammer,
   Sparkles,
   Armchair,
-  Wrench,
   MessageCircle,
   ArrowRight,
   LayoutGrid,
   Scissors,
   Palette,
+  MapPin,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+
+// Expo ease-out: arranca rápido, asienta perfecto. Sensación de lujo.
+const EXPO = [0.16, 1, 0.3, 1] as const;
 
 const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
 
@@ -212,38 +215,153 @@ export default function HomeContent() {
     return matchCat && matchSearch;
   });
 
+  const prefersReducedMotion = useReducedMotion();
+
+  // Cuando el usuario prefiere sin movimiento, todos los elementos aparecen directo.
+  const instant = prefersReducedMotion
+    ? { initial: {}, animate: {}, transition: {} }
+    : {};
+
   return (
     <>
-      {/* ── HERO ── */}
-      <section
-        className="relative text-white"
-        style={{
-          backgroundImage: "url('/hero-background.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center"
-        >
-          <p className="text-amber-400 font-semibold text-xs uppercase tracking-[0.2em] mb-4">
-            San Jorge, Santa Fe, Argentina
-          </p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 tracking-tight">
-            Maderera Don Antonio
-          </h1>
-          <p className="text-lg md:text-xl text-white/85 mb-10 max-w-xl mx-auto leading-relaxed">
-            Pisos flotantes, espejos LED, muebles artesanales y materiales de construcción.
-          </p>
+      {/* ══════════════════════════════════════
+          HERO — Secuencia coreografiada en 5 actos
+          Acto 1 (0–600ms):   Fondo + overlay
+          Acto 2 (300ms):     Badge de ubicación
+          Acto 3 (450–700ms): Headline word-by-word
+          Acto 4 (800ms):     Divider + subtítulo
+          Acto 5 (1000–1200ms): Search + CTA
+      ══════════════════════════════════════ */}
+      <section className="relative text-white overflow-hidden min-h-[92vh] flex items-center">
 
-          {/* Search bar */}
-          <div className="relative max-w-xl mx-auto mb-6">
+        {/* Acto 1a — Fondo: Ken Burns suave (scale 1.06 → 1.00) */}
+        <motion.div
+          className="absolute inset-0"
+          initial={prefersReducedMotion ? {} : { scale: 1.07, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 2.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{
+            backgroundImage: "url('/hero-background.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
+        {/* Acto 1b — Overlay degradado: más profundidad que un flat black */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/62 to-black/85"
+          initial={prefersReducedMotion ? {} : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
+        />
+
+        {/* Grain texture — añade materialidad orgánica al fondo */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            backgroundRepeat: "repeat",
+            backgroundSize: "200px",
+          }}
+        />
+
+        {/* Contenido centrado */}
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-24 text-center w-full">
+
+          {/* Acto 2 — Badge de ubicación: slide desde la izquierda */}
+          <motion.div
+            className="inline-flex items-center gap-2 mb-7"
+            initial={prefersReducedMotion ? {} : { opacity: 0, x: -18 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.55, delay: 0.28, ease: EXPO }}
+          >
+            <motion.span
+              className="flex items-center gap-1.5 text-amber-400/90 font-semibold text-[11px] uppercase tracking-[0.28em]"
+            >
+              <MapPin size={11} className="text-amber-400" />
+              San Jorge · Santa Fe · Argentina
+            </motion.span>
+            {/* Línea decorativa derecha */}
+            <motion.span
+              className="block h-px bg-amber-400/40 w-12"
+              initial={prefersReducedMotion ? {} : { scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.5, delay: 0.55, ease: EXPO }}
+              style={{ transformOrigin: "left" }}
+            />
+          </motion.div>
+
+          {/* Acto 3 — Headline: word-by-word wipe desde abajo */}
+          <motion.div
+            className="mb-5"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: prefersReducedMotion ? 0 : 0.085,
+                  delayChildren: prefersReducedMotion ? 0 : 0.42,
+                },
+              },
+            }}
+          >
+            <h1 className="text-[clamp(2.8rem,8vw,5.5rem)] font-extrabold leading-[0.95] tracking-tight">
+              {["Maderera", "Don", "Antonio"].map((word) => (
+                <span key={word} className="inline-block overflow-hidden align-bottom">
+                  <motion.span
+                    className="inline-block"
+                    variants={{
+                      hidden:  { y: "108%", opacity: 0 },
+                      visible: {
+                        y: "0%",
+                        opacity: 1,
+                        transition: { duration: 0.62, ease: EXPO },
+                      },
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                  {/* Espacio entre palabras */}
+                  <span className="inline-block w-[0.22em]" aria-hidden />
+                </span>
+              ))}
+            </h1>
+          </motion.div>
+
+          {/* Acto 4a — Divider: scale desde el centro */}
+          <motion.div
+            className="mx-auto mb-6 h-px max-w-[220px]"
+            style={{
+              background:
+                "linear-gradient(to right, transparent, rgba(251,191,36,0.6), transparent)",
+              transformOrigin: "center",
+            }}
+            initial={prefersReducedMotion ? {} : { scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.65, delay: 0.82, ease: EXPO }}
+          />
+
+          {/* Acto 4b — Subtítulo */}
+          <motion.p
+            className="text-base md:text-lg text-white/75 mb-10 max-w-md mx-auto leading-relaxed"
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 11 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.88, ease: EXPO }}
+          >
+            Pisos flotantes, espejos LED, muebles artesanales y materiales de construcción.
+          </motion.p>
+
+          {/* Acto 5a — Barra de búsqueda */}
+          <motion.div
+            className="relative max-w-xl mx-auto mb-5"
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 1.02, ease: EXPO }}
+          >
             <Search
-              size={18}
+              size={17}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
             />
             <input
@@ -251,21 +369,41 @@ export default function HomeContent() {
               placeholder="Buscá un producto (piso, espejo, machimbre...)"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-11 pr-4 py-4 rounded-xl bg-white text-da-dark placeholder-gray-400 text-sm shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-400"
+              className="w-full pl-11 pr-4 py-4 rounded-xl bg-white/96 text-da-dark placeholder-gray-400 text-sm shadow-2xl focus:outline-none focus:ring-2 focus:ring-amber-400 transition-shadow duration-300"
             />
-          </div>
+          </motion.div>
 
-          {/* WhatsApp CTA */}
-          <a
+          {/* Acto 5b — CTA: scale + fade, último en aparecer */}
+          <motion.a
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-colors duration-300"
+            initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.45, delay: 1.18, ease: EXPO }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
             <MessageCircle size={18} />
             Consultá por WhatsApp
-          </a>
-        </motion.div>
+          </motion.a>
+
+          {/* Scroll indicator — aparece al final de la secuencia */}
+          <motion.div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/40"
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.5, ease: "easeOut" }}
+          >
+            <span className="text-[10px] uppercase tracking-[0.2em] font-medium">scroll</span>
+            <motion.div
+              className="w-px h-6 bg-gradient-to-b from-white/50 to-transparent"
+              animate={prefersReducedMotion ? {} : { scaleY: [1, 0.4, 1], opacity: [0.4, 0.8, 0.4] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
+        </div>
       </section>
 
       {/* ── CATEGORY PILLS ── */}

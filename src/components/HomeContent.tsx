@@ -16,7 +16,7 @@ import {
   Scissors,
   Palette,
 } from "lucide-react";
-import { FadeInOnScroll } from "@/components/FadeInOnScroll";
+import { motion } from "framer-motion";
 
 const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
 
@@ -224,7 +224,12 @@ export default function HomeContent() {
         }}
       >
         <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" />
-        <FadeInOnScroll immediate delay={200} className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center"
+        >
           <p className="text-amber-400 font-semibold text-xs uppercase tracking-[0.2em] mb-4">
             San Jorge, Santa Fe, Argentina
           </p>
@@ -260,7 +265,7 @@ export default function HomeContent() {
             <MessageCircle size={18} />
             Consultá por WhatsApp
           </a>
-        </FadeInOnScroll>
+        </motion.div>
       </section>
 
       {/* ── CATEGORY PILLS ── */}
@@ -290,7 +295,13 @@ export default function HomeContent() {
       </section>
 
       {/* ── PRODUCT GRID ── */}
-      <FadeInOnScroll as="section" className="py-10 bg-da-cream">
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+        className="py-10 bg-da-cream"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {filtered.length === 0 ? (
             <div className="text-center py-20 text-da-gray">
@@ -306,7 +317,15 @@ export default function HomeContent() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {filtered.map((product, index) => (
-                  <FadeInOnScroll key={product.id} delay={index === 0 ? 0 : index === 1 ? 100 : index === 2 ? 200 : 300} className="group bg-white/90 backdrop-blur-md rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:shadow-lg hover:border-amber-400/50 transition-all duration-500 ease-in-out flex flex-col">
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    whileHover={{ y: -10, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    className="group bg-white/90 backdrop-blur-md rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:border-amber-400/50 flex flex-col"
+                  >
                     {/* Image or gradient */}
                     <Link href={product.href} className="block shrink-0 overflow-hidden">
                       <div className="relative aspect-[4/3]">
@@ -338,13 +357,13 @@ export default function HomeContent() {
                         href={waLink(product.name)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 py-2.5 bg-green-500 hover:bg-green-400 text-white text-sm font-semibold rounded-xl transition-all duration-500 ease-in-out hover:shadow-md"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl transition-all duration-500 ease-in-out hover:shadow-md"
                       >
                         <MessageCircle size={15} />
                         Consultar por WhatsApp
                       </a>
                     </div>
-                  </FadeInOnScroll>
+                  </motion.div>
               ))}
             </div>
           )}
@@ -359,10 +378,16 @@ export default function HomeContent() {
             </Link>
           </div>
         </div>
-      </FadeInOnScroll>
+      </motion.section>
 
       {/* ── TAMBIÉN OFRECEMOS ── */}
-      <FadeInOnScroll as="section" className="py-12 bg-white border-t border-wood-200">
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="py-12 bg-white border-t border-wood-200"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-lg font-bold text-da-dark mb-6">También ofrecemos</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -386,10 +411,16 @@ export default function HomeContent() {
             })}
           </div>
         </div>
-      </FadeInOnScroll>
+      </motion.section>
 
       {/* ── CTA FINAL ── */}
-      <FadeInOnScroll as="section" className="py-14 bg-wood-800 text-white text-center">
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="py-14 bg-wood-800 text-white text-center"
+      >
         <h2 className="text-2xl md:text-3xl font-bold mb-3">
           ¿No encontrás lo que buscás?
         </h2>
@@ -400,12 +431,12 @@ export default function HomeContent() {
           href={waLink()}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
         >
           <MessageCircle size={20} />
           Consultá por WhatsApp
         </a>
-      </FadeInOnScroll>
+      </motion.section>
     </>
   );
 }

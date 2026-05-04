@@ -229,7 +229,7 @@ export default function HomeContent() {
             San Jorge, Santa Fe, Argentina
           </p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 tracking-tight">
-            Maderera Don Antonio
+            PROYECTO ACTUALIZADO - 12:46
           </h1>
           <p className="text-lg md:text-xl text-white/85 mb-10 max-w-xl mx-auto leading-relaxed">
             Pisos flotantes, espejos LED, muebles artesanales y materiales de construcción.
@@ -255,7 +255,7 @@ export default function HomeContent() {
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"
           >
             <MessageCircle size={18} />
             Consultá por WhatsApp

@@ -215,14 +215,19 @@ export default function HomeContent() {
   return (
     <>
       {/* ── HERO ── */}
-      <section
-        className="relative text-white"
-        style={{
-          backgroundImage: "url('/hero-background.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <section className="relative text-white overflow-hidden bg-wood-800">
+        {/* Video de fondo cinematográfico (con poster fallback a imagen) */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/hero-video.mp4"
+          poster="/hero-background.png"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        />
         <div className="absolute inset-0 bg-black/65" />
         <FadeInOnScroll immediate delay={200} className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center">
           <p className="text-amber-400 font-semibold text-xs uppercase tracking-widest mb-3">

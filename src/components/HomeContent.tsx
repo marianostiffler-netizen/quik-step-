@@ -305,11 +305,8 @@ export default function HomeContent() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {filtered.map((product) => (
-                  <div
-                    key={product.id}
-                    className="group bg-white rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:shadow-lg hover:border-amber-400/50 transition-all duration-500 ease-in-out flex flex-col"
-                  >
+              {filtered.map((product, index) => (
+                  <FadeInOnScroll key={product.id} delay={index === 0 ? 0 : index === 1 ? 100 : index === 2 ? 200 : 300} className="group bg-white rounded-2xl border border-wood-200 overflow-hidden shadow-sm hover:shadow-lg hover:border-amber-400/50 transition-all duration-500 ease-in-out flex flex-col">
                     {/* Image or gradient */}
                     <Link href={product.href} className="block shrink-0 overflow-hidden">
                       <div className="relative aspect-[4/3]">
@@ -347,7 +344,7 @@ export default function HomeContent() {
                         Consultar por WhatsApp
                       </a>
                     </div>
-                  </div>
+                  </FadeInOnScroll>
               ))}
             </div>
           )}

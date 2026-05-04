@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type FadeInOnScrollProps = {
   children: ReactNode;
-  delay?: 0 | 200 | 300 | 500;
+  delay?: 0 | 100 | 200 | 300 | 500;
   className?: string;
   /** Si true, anima en cuanto monta (sin esperar scroll). Útil para hero. */
   immediate?: boolean;

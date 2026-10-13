@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 
 type FadeInOnScrollProps = {
   children: ReactNode;
@@ -24,17 +24,18 @@ export function FadeInOnScroll({
 }: FadeInOnScrollProps) {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(immediate);
+  const supportsObserver = useSyncExternalStore(
+    () => () => {},
+    () => typeof IntersectionObserver !== "undefined",
+    () => true
+  );
+  const shown = visible || !supportsObserver;
 
   useEffect(() => {
-    if (immediate) return;
+    // Si IntersectionObserver no existe (raro), se muestra sin animar (ver `shown`).
+    if (immediate || !supportsObserver) return;
     const el = ref.current;
     if (!el) return;
-
-    // Si IntersectionObserver no existe (raro), mostramos sin animar.
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -50,10 +51,10 @@ export function FadeInOnScroll({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [immediate]);
+  }, [immediate, supportsObserver]);
 
   const delayClass = delay ? ` delay-${delay}` : "";
-  const classes = `fade-in-up${delayClass}${visible ? " is-visible" : ""} ${className}`.trim();
+  const classes = `fade-in-up${delayClass}${shown ? " is-visible" : ""} ${className}`.trim();
 
   return (
     <Tag ref={ref as React.RefObject<HTMLDivElement>} className={classes}>

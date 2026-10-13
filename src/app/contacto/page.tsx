@@ -31,20 +31,20 @@ export default function ContactoPage() {
               <form className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-da-dark mb-2">
+                    <label htmlFor="contacto-nombre" className="block text-sm font-medium text-da-dark mb-2">
                       Nombre
                     </label>
-                    <input
+                    <input id="contacto-nombre"
                       type="text"
                       className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
                       placeholder="Tu nombre"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-da-dark mb-2">
+                    <label htmlFor="contacto-email" className="block text-sm font-medium text-da-dark mb-2">
                       Email
                     </label>
-                    <input
+                    <input id="contacto-email"
                       type="email"
                       className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
                       placeholder="tu@email.com"
@@ -53,10 +53,10 @@ export default function ContactoPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-da-dark mb-2">
+                  <label htmlFor="contacto-telefono" className="block text-sm font-medium text-da-dark mb-2">
                     Teléfono
                   </label>
-                  <input
+                  <input id="contacto-telefono"
                     type="tel"
                     className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
                     placeholder="+54 11 ..."
@@ -64,10 +64,10 @@ export default function ContactoPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-da-dark mb-2">
+                  <label htmlFor="contacto-mensaje" className="block text-sm font-medium text-da-dark mb-2">
                     Mensaje
                   </label>
-                  <textarea
+                  <textarea id="contacto-mensaje"
                     rows={5}
                     className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition resize-none"
                     placeholder="Contanos sobre tu proyecto o consulta..."

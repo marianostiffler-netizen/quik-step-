@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Droplets, FileText } from "lucide-react";
 import { motion } from "framer-motion";
-import { products, type Product } from "@/data/site-data";
+import { products } from "@/data/site-data";
 
 // Mapeo de tonos por SKU
 const PRODUCT_TONES: Record<string, string> = {

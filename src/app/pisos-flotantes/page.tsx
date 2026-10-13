@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { categories, products, accessories } from "@/data/site-data";
+import { categories, accessories } from "@/data/site-data";
 import { CategoryCard } from "@/components/CategoryCard";
 import PisosSwatchGallery from "@/components/PisosSwatchGallery";
 

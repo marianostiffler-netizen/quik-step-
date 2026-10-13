@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Sparkles, X, Zap, Wind, Clock, Thermometer } from "lucide-react";
 import { useState } from "react";
+import { useDialogA11y } from "./useDialogA11y";
 import { motion, AnimatePresence } from "framer-motion";
 
 const espejos = [
@@ -53,6 +54,7 @@ const caracteristicasGenerales = [
 
 export default function EspejosGallery() {
   const [selectedEspejo, setSelectedEspejo] = useState<typeof espejos[0] | null>(null);
+  const dialogRef = useDialogA11y(!!selectedEspejo, () => setSelectedEspejo(null));
 
   return (
     <>
@@ -91,7 +93,9 @@ export default function EspejosGallery() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {espejos.map((espejo, index) => (
-              <motion.div
+              <motion.button
+                type="button"
+                aria-haspopup="dialog"
                 key={espejo.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -99,9 +103,9 @@ export default function EspejosGallery() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 onClick={() => setSelectedEspejo(espejo)}
-                className="group relative overflow-hidden rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-md hover:border-amber-500/40 transition-colors duration-300 cursor-pointer"
+                className="group relative overflow-hidden rounded-2xl bg-white/80 backdrop-blur-md border border-white/60 shadow-md hover:border-amber-500/40 transition-colors duration-300 cursor-pointer flex flex-col w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-gray-50">
+                <span className="block relative aspect-[4/3] overflow-hidden bg-gray-50">
                   <Image
                     src={espejo.image}
                     alt={`Espejo ${espejo.modelo}`}
@@ -110,17 +114,17 @@ export default function EspejosGallery() {
                     loading="lazy"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                </div>
-                <div className="p-5 bg-gradient-to-b from-white/60 to-white/90 backdrop-blur-sm">
-                  <h3 className="font-bold text-lg text-da-dark group-hover:text-wood-600 transition-colors">
+                </span>
+                <span className="block p-5 bg-gradient-to-b from-white/60 to-white/90 backdrop-blur-sm">
+                  <span className="block font-bold text-lg text-da-dark group-hover:text-wood-600 transition-colors">
                     {espejo.modelo}
-                  </h3>
-                  <p className="mt-1 text-sm font-semibold text-amber-600">
+                  </span>
+                  <span className="block mt-1 text-sm font-semibold text-amber-600">
                     {espejo.medidas}
-                  </p>
-                  <p className="mt-0.5 text-xs text-da-gray">{espejo.forma}</p>
-                </div>
-              </motion.div>
+                  </span>
+                  <span className="block mt-0.5 text-xs text-da-gray">{espejo.forma}</span>
+                </span>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -140,6 +144,10 @@ export default function EspejosGallery() {
           >
             <motion.div
               key="modal"
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={selectedEspejo.modelo}
               initial={{ opacity: 0, scale: 0.92, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 16 }}
@@ -148,8 +156,10 @@ export default function EspejosGallery() {
               onClick={(e) => e.stopPropagation()}
             >
               <button
+                type="button"
+                aria-label="Cerrar"
                 onClick={() => setSelectedEspejo(null)}
-                className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-colors"
+                className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
               >
                 <X size={24} className="text-da-dark" />
               </button>
@@ -159,7 +169,6 @@ export default function EspejosGallery() {
                   alt={`Espejo ${selectedEspejo.modelo}`}
                   fill
                   className="object-contain"
-                  priority
                 />
               </div>
               <div className="p-8">

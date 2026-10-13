@@ -159,10 +159,10 @@ export default function ConstruccionYMaderasPage() {
             </div>
             <div className="mt-4 flex flex-wrap gap-3 text-sm">
               <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-800">
-                Más vendido · 1/2" x 4" para cielorrasos
+                Más vendido · 1/2&quot; x 4&quot; para cielorrasos
               </span>
               <span className="rounded-full bg-wood-100 px-3 py-1 font-semibold text-wood-700">
-                1" x 6" recomendado para entrepisos
+                1&quot; x 6&quot; recomendado para entrepisos
               </span>
             </div>
           </div>

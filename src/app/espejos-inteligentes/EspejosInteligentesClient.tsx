@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { mirrors, discountTiers, shapeLabels } from "@/data/espejos-inteligentes-data";
+import { mirrors, discountTiers } from "@/data/espejos-inteligentes-data";
 import { MirrorCard } from "@/components/MirrorCard";
 
 type ShapeFilter = "all" | "rectangular" | "square" | "oval" | "circular";

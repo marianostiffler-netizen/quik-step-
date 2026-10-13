@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { X, MessageCircle } from "lucide-react";
+import { useDialogA11y } from "./useDialogA11y";
 import { melaminas, type Melamina } from "@/data/melaminas-data";
 
 const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
@@ -45,6 +46,7 @@ const LINE_BADGE: Record<string, string> = {
 export default function MelaminasGallery() {
   const [activeFilter, setActiveFilter] = useState<FilterId>("todo");
   const [selected, setSelected] = useState<Melamina | null>(null);
+  const dialogRef = useDialogA11y(!!selected, () => setSelected(null));
 
   const filtered = melaminas.filter((m) => {
     if (activeFilter === "todo") return true;
@@ -152,13 +154,18 @@ export default function MelaminasGallery() {
           onClick={() => setSelected(null)}
         >
           <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={selected.nombre}
             className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              type="button"
               onClick={() => setSelected(null)}
               aria-label="Cerrar"
-              className="absolute top-3 right-3 z-10 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow hover:bg-white transition-colors"
+              className="absolute top-3 right-3 z-10 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow hover:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             >
               <X size={16} />
             </button>

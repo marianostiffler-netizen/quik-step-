@@ -11,7 +11,6 @@ import {
   CheckCircle2,
   DollarSign,
   Package,
-  Tag,
 } from "lucide-react";
 import {
   categories,

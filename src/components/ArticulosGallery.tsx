@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useState } from "react";
+import { useDialogA11y } from "./useDialogA11y";
 
 const galleryItems = [
   {
@@ -154,6 +155,7 @@ const galleryItems = [
 
 export default function ArticulosGallery() {
   const [selectedItem, setSelectedItem] = useState<typeof galleryItems[0] | null>(null);
+  const dialogRef = useDialogA11y(!!selectedItem, () => setSelectedItem(null));
 
   return (
     <>
@@ -162,12 +164,13 @@ export default function ArticulosGallery() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {galleryItems.map((item, index) => (
-              <div
+              <button
+                type="button"
                 key={index}
                 onClick={() => setSelectedItem(item)}
-                className="group relative overflow-hidden rounded-2xl border border-wood-200 bg-white shadow-sm hover:shadow-xl hover:border-amber-500/40 transition-all duration-300 cursor-pointer"
+                className="group relative overflow-hidden rounded-2xl border border-wood-200 bg-white shadow-sm hover:shadow-xl hover:border-amber-500/40 transition-all duration-300 cursor-pointer flex flex-col w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-gray-50">
+                <span className="block relative aspect-[4/3] overflow-hidden bg-gray-50">
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -176,13 +179,13 @@ export default function ArticulosGallery() {
                     loading="lazy"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-lg text-da-dark group-hover:text-wood-600 transition-colors">
+                </span>
+                <span className="block p-5">
+                  <span className="block font-bold text-lg text-da-dark group-hover:text-wood-600 transition-colors">
                     {item.title}
-                  </h3>
-                </div>
-              </div>
+                  </span>
+                </span>
+              </button>
             ))}
           </div>
         </div>
@@ -195,12 +198,18 @@ export default function ArticulosGallery() {
           onClick={() => setSelectedItem(null)}
         >
           <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={selectedItem.title}
             className="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              type="button"
+              aria-label="Cerrar"
               onClick={() => setSelectedItem(null)}
-              className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-colors"
+              className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             >
               <X size={24} className="text-da-dark" />
             </button>
@@ -210,7 +219,6 @@ export default function ArticulosGallery() {
                 alt={selectedItem.title}
                 fill
                 className="object-contain"
-                priority
               />
             </div>
             <div className="p-8">

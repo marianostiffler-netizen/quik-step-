@@ -500,8 +500,9 @@ export default function HomeContent() {
 
                   {/* Info card superpuesta */}
                   <div className="absolute bottom-5 left-4 right-4">
-                    <div
-                      className="rounded-xl p-4 border border-white/12"
+                    <Link
+                      href="/pisos-flotantes"
+                      className="block rounded-xl p-4 border border-white/12 transition-transform duration-300 hover:scale-105"
                       style={{ background: "rgba(13,10,8,0.65)", backdropFilter: "blur(12px)" }}
                     >
                       <p className="text-white/45 text-[10px] uppercase tracking-[0.22em] mb-0.5 font-medium">
@@ -518,7 +519,7 @@ export default function HomeContent() {
                           AC5 · 100hs
                         </span>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 </motion.div>
 

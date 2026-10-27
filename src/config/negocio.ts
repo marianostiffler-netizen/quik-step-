@@ -47,3 +47,13 @@ export function direccionCorta(): string {
   const { calle, localidad, provincia } = negocio.direccion;
   return [calle, localidad, provincia].filter(Boolean).join(", ");
 }
+
+// URL base del sitio (metadataBase, sitemap, robots, JSON-LD).
+// Prioridad: sitioUrl del cliente > dominio de producción de Vercel > localhost.
+// TODO(cliente): cargar el dominio definitivo en negocio.sitioUrl.
+export function urlSitio(): string {
+  if (negocio.sitioUrl) return negocio.sitioUrl.replace(/\/$/, "");
+  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (vercel) return `https://${vercel}`;
+  return "http://localhost:3000";
+}

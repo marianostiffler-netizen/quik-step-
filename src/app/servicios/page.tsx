@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Hammer, Scissors, FileText, TreePine, CheckCircle2 } from "lucide-react";
+import { Hammer, FileText, TreePine, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Servicios de Maderera | Cepillado, Cortes, Lijado",
+  title: "Servicios de Maderera | Cepillado y Lijado",
   description:
-    "Servicios artesanales de Maderera Don Antonio: cepillado de madera, cortes a medida y lijado profesional.",
+    "Servicios artesanales de Maderera Don Antonio: cepillado de madera y lijado profesional.",
 };
 
 const services = [
@@ -21,19 +21,7 @@ const services = [
       "Trabajo en diferentes tipos de madera",
     ],
   },
-  {
-    id: "cortes",
-    icon: Scissors,
-    title: "Cortes a Medida",
-    description:
-      "Cortamos cualquier pieza de madera según las dimensiones exactas que necesitás para tu proyecto.",
-    features: [
-      "Cortes precisos a medida",
-      "Ajuste de largo y ancho",
-      "Cortes en ángulo especiales",
-      "Para todo tipo de proyectos",
-    ],
-  },
+  // TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo
   {
     id: "lijado",
     icon: FileText,
@@ -63,8 +51,8 @@ export default function ServiciosPage() {
             Servicios de Maderera
           </h1>
           <p className="mt-4 text-xl text-wood-200 max-w-2xl">
-            Trabajo artesanal con maquinaria de primera: cepillado, cortes a
-            medida y lijado profesional.
+            Trabajo artesanal con maquinaria de primera: cepillado y lijado
+            profesional.
           </p>
         </div>
       </section>
@@ -72,7 +60,7 @@ export default function ServiciosPage() {
       {/* Services grid */}
       <section className="py-20 bg-da-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {services.map((service) => {
               const Icon = service.icon;
               return (

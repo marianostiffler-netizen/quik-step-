@@ -17,8 +17,9 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Maderera Don Antonio | Pisos, Cielorrasos y Servicios en Madera",
+  // TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo
   description:
-    "Maderera Don Antonio: pisos flotantes Quick-Step, cielorrasos, cortes a medida, cepillado y lijado de madera. Tradición y calidad artesanal.",
+    "Maderera Don Antonio: pisos flotantes Quick-Step, cielorrasos, cepillado y lijado de madera. Tradición y calidad artesanal.",
 };
 
 export default function RootLayout({

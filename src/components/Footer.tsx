@@ -55,7 +55,7 @@ export function Footer() {
             </h3>
             <ul className="space-y-2 text-wood-300 text-sm">
               <li>Cepillado de madera</li>
-              <li>Cortes a medida</li>
+              {/* TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo */}
               <li>Lijado profesional</li>
               <li>Pisos flotantes Quick-Step</li>
               <li>Cielorrasos</li>

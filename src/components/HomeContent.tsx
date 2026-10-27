@@ -64,7 +64,7 @@ const otrosServicios: Array<{
   { label: "Pisos Flotantes", description: "Quick-Step AC4/AC5. Hydroseal y Uniclic.", href: "/pisos-flotantes", icon: Layers, color: "bg-amber-500" },
   { label: "Construcción y Maderas", description: "Machimbres, tirantería y materiales de obra.", href: "/construccion-y-maderas", icon: Hammer, color: "bg-wood-600" },
   { label: "Cielorrasos", description: "Placas en distintos tonos y terminaciones.", href: "/cielorrasos", icon: Layers, color: "bg-wood-500" },
-  { label: "Servicios", description: "Cepillado, cortes y lijado profesional.", href: "/servicios", icon: Scissors, color: "bg-forest-600" },
+  { label: "Servicios", description: "Cepillado y lijado profesional.", href: "/servicios", icon: Scissors, color: "bg-forest-600" },
   { label: "Melaminas Faplac", description: "Muestrario completo: Mesopotamia y Táctil.", href: "/melaminas", icon: Palette, color: "bg-purple-600" },
 ];
 

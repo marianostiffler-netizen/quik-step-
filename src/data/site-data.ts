@@ -54,8 +54,9 @@ export interface Feature {
 export const site = {
   brand: "Maderera Don Antonio",
   tagline: "Tradición, calidad y servicio en madera",
+  // TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo
   description:
-    "Maderera Don Antonio: pisos flotantes, cielorrasos, cortes a medida, cepillado y lijado. Todo lo que tu hogar necesita en madera, con atención personalizada.",
+    "Maderera Don Antonio: pisos flotantes, cielorrasos, cepillado y lijado. Todo lo que tu hogar necesita en madera, con atención personalizada.",
 };
 
 export const navigation = [
@@ -72,8 +73,9 @@ export const navigation = [
 
 export const heroSection = {
   title: "La madera que tu hogar merece",
+  // TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo
   subtitle:
-    "Pisos flotantes, cielorrasos, cortes a medida y servicios artesanales. Más de una generación trabajando con madera.",
+    "Pisos flotantes, cielorrasos y servicios artesanales. Más de una generación trabajando con madera.",
   cta_primary: { label: "Ver Pisos Flotantes", href: "/pisos-flotantes" },
   cta_secondary: { label: "Nuestros Servicios", href: "/servicios" },
 };

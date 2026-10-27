@@ -3,15 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { X, MessageCircle } from "lucide-react";
+import { waLink } from "@/config/negocio";
 import { useDialogA11y } from "./useDialogA11y";
 import { melaminas, type Melamina } from "@/data/melaminas-data";
 
-const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
-
-const waLink = (nombre: string) =>
-  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-    `Hola! Me interesa consultar sobre la melamina: ${nombre}`
-  )}`;
+const waMelamina = (nombre: string) =>
+  waLink(`Hola! Me interesa consultar sobre la melamina: ${nombre}`);
 
 const FILTERS = [
   { id: "todo", label: "Todo" },
@@ -205,7 +202,7 @@ export default function MelaminasGallery() {
               </p>
 
               <a
-                href={waLink(selected.nombre)}
+                href={waMelamina(selected.nombre)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-colors"

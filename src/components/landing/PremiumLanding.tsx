@@ -24,17 +24,15 @@ import {
   Sparkles,
   Clock,
 } from "lucide-react";
+import { waLink } from "@/config/negocio";
 import { useLenis } from "./useLenis";
 
 // Expo ease-out — la curva premium del sitio
 const EXPO = [0.16, 1, 0.3, 1] as const;
 
-// Mismo placeholder de WhatsApp que el resto del sitio (TODO global: número real)
-const WA_NUMBER = "5493000000000";
-const waLink = (msg?: string) =>
-  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-    msg ?? "Hola! Quisiera hacer una consulta sobre sus productos."
-  )}`;
+// WhatsApp: el número vive en src/config/negocio.ts
+const waConsulta = (msg?: string) =>
+  waLink(msg ?? "Hola! Quisiera hacer una consulta sobre sus productos.");
 
 // ─── Datos reales (línea Vision, tope de gama) ───
 const visionSpecs = [
@@ -131,7 +129,7 @@ function PremiumNav() {
           </nav>
 
           <a
-            href={waLink()}
+            href={waConsulta()}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-colors"
@@ -586,7 +584,7 @@ function FinalCTA() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <motion.a
-            href={waLink()}
+            href={waConsulta()}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.04 }}

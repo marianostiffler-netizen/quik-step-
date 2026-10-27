@@ -16,6 +16,7 @@ import {
   Scissors,
   Palette,
 } from "lucide-react";
+import { waLink } from "@/config/negocio";
 import { motion, useReducedMotion } from "framer-motion";
 
 // Canvas se carga solo en el cliente (no tiene sentido en SSR)
@@ -34,14 +35,12 @@ const fadeUp = {
   }),
 };
 
-const WA_NUMBER = "5493000000000"; // TODO: Reemplazá con el número real de WhatsApp
-
-const waLink = (productName?: string) => {
-  const text = productName
-    ? `Hola! Me interesa consultar sobre: ${productName}`
-    : "Hola! Quisiera hacer una consulta sobre sus productos.";
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
-};
+const waProducto = (productName?: string) =>
+  waLink(
+    productName
+      ? `Hola! Me interesa consultar sobre: ${productName}`
+      : "Hola! Quisiera hacer una consulta sobre sus productos."
+  );
 
 type IconProps = { size?: number; className?: string };
 
@@ -388,7 +387,7 @@ export default function HomeContent() {
                 className="mb-9"
               >
                 <motion.a
-                  href={waLink()}
+                  href={waProducto()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition-colors duration-300"
@@ -649,7 +648,7 @@ export default function HomeContent() {
                         {product.description}
                       </p>
                       <a
-                        href={waLink(product.name)}
+                        href={waProducto(product.name)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full flex items-center justify-center gap-2 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl transition-all duration-500 ease-in-out hover:shadow-md"
@@ -723,7 +722,7 @@ export default function HomeContent() {
           Escribinos por WhatsApp y te asesoramos con tu proyecto. Presupuestos sin compromiso.
         </p>
         <a
-          href={waLink()}
+          href={waProducto()}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02]"

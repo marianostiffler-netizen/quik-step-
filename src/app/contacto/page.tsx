@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle, Clock } from "lucide-react";
+import { negocio, direccionCorta, waLink } from "@/config/negocio";
 
 export const metadata: Metadata = {
   title: "Contacto | Maderera Don Antonio",
@@ -59,7 +60,7 @@ export default function ContactoPage() {
                   <input id="contacto-telefono"
                     type="tel"
                     className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
-                    placeholder="+54 11 ..."
+                    placeholder="Tu teléfono"
                   />
                 </div>
 
@@ -88,28 +89,49 @@ export default function ContactoPage() {
               <div className="p-6 rounded-2xl bg-wood-100">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-lg bg-wood-200 flex items-center justify-center">
-                    <Mail size={18} className="text-wood-600" />
+                    <MessageCircle size={18} className="text-wood-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-da-dark">Email</p>
-                    <p className="text-sm text-da-gray">info@madereradonantonio.com.ar</p>
+                    <p className="text-sm font-semibold text-da-dark">WhatsApp</p>
+                    <a
+                      href={waLink("Hola! Quisiera hacer una consulta.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-da-gray hover:text-amber-600 transition-colors"
+                    >
+                      Escribinos por WhatsApp
+                    </a>
                   </div>
                 </div>
               </div>
 
+              {negocio.email && (
+              <div className="p-6 rounded-2xl bg-wood-100">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-wood-200 flex items-center justify-center">
+                    <Mail size={18} className="text-wood-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-da-dark">Email</p>
+                    <p className="text-sm text-da-gray">{negocio.email}</p>
+                  </div>
+                </div>
+              </div>
+              )}
+
+              {negocio.telefono && (
               <div className="p-6 rounded-2xl bg-wood-100">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-lg bg-wood-200 flex items-center justify-center">
                     <Phone size={18} className="text-wood-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-da-dark">
-                      Teléfono
-                    </p>
-                    <p className="text-sm text-da-gray">+54 11 0000-0000</p>
+                    <p className="text-sm font-semibold text-da-dark">Teléfono</p>
+                    <p className="text-sm text-da-gray">{negocio.telefono}</p>
                   </div>
                 </div>
               </div>
+              )}
 
               <div className="p-6 rounded-2xl bg-wood-100">
                 <div className="flex items-center gap-3 mb-3">
@@ -117,15 +139,29 @@ export default function ContactoPage() {
                     <MapPin size={18} className="text-wood-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-da-dark">
-                      Ubicación
-                    </p>
-                    <p className="text-sm text-da-gray">
-                      Buenos Aires, Argentina
-                    </p>
+                    <p className="text-sm font-semibold text-da-dark">Ubicación</p>
+                    <p className="text-sm text-da-gray">{direccionCorta()}</p>
                   </div>
                 </div>
               </div>
+
+              {negocio.horarios && (
+              <div className="p-6 rounded-2xl bg-wood-100">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-wood-200 flex items-center justify-center">
+                    <Clock size={18} className="text-wood-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-da-dark">Horarios</p>
+                    {negocio.horarios.map((h) => (
+                      <p key={h.dias} className="text-sm text-da-gray">
+                        {h.dias}: {h.horas}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              )}
             </div>
           </div>
         </div>

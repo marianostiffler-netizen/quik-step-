@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, MapPin, Mail } from "lucide-react";
+import { Phone, MapPin, Mail, MessageCircle, Clock } from "lucide-react";
 import { site, navigation } from "@/data/site-data";
+import { negocio, direccionCorta, waLink } from "@/config/negocio";
 
 export function Footer() {
   return (
@@ -68,17 +69,44 @@ export function Footer() {
             </h3>
             <ul className="space-y-3 text-wood-300 text-sm">
               <li className="flex items-center gap-2">
-                <Phone size={14} className="text-amber-500 shrink-0" />
-                Consultanos sin compromiso
+                <MessageCircle size={14} className="text-amber-500 shrink-0" />
+                <a
+                  href={waLink("Hola! Quisiera hacer una consulta.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-amber-500 transition-colors"
+                >
+                  Escribinos por WhatsApp
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail size={14} className="text-amber-500 shrink-0" />
-                Escribinos por email
-              </li>
+              {negocio.telefono && (
+                <li className="flex items-center gap-2">
+                  <Phone size={14} className="text-amber-500 shrink-0" />
+                  {negocio.telefono}
+                </li>
+              )}
+              {negocio.email && (
+                <li className="flex items-center gap-2">
+                  <Mail size={14} className="text-amber-500 shrink-0" />
+                  {negocio.email}
+                </li>
+              )}
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="text-amber-500 shrink-0 mt-0.5" />
-                San Jorge, Santa Fe, Argentina
+                {direccionCorta()}, Argentina
               </li>
+              {negocio.horarios && (
+                <li className="flex items-start gap-2">
+                  <Clock size={14} className="text-amber-500 shrink-0 mt-0.5" />
+                  <span>
+                    {negocio.horarios.map((h) => (
+                      <span key={h.dias} className="block">
+                        {h.dias}: {h.horas}
+                      </span>
+                    ))}
+                  </span>
+                </li>
+              )}
             </ul>
             <Link
               href="/contacto"

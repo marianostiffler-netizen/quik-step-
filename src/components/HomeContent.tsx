@@ -301,7 +301,7 @@ export default function HomeContent() {
 
               {/* Headline — word-by-word wipe desde abajo */}
               <motion.div
-                initial="hidden"
+                initial={false}
                 animate="visible"
                 variants={{
                   hidden: {},
@@ -353,7 +353,7 @@ export default function HomeContent() {
                 className="text-lg text-white/55 font-light max-w-md leading-relaxed mb-9"
                 custom={0.78}
                 variants={fadeUp}
-                initial="hidden"
+                initial={false}
                 animate="visible"
               >
                 Pisos flotantes, espejos LED, muebles artesanales y materiales de construcción.
@@ -385,7 +385,7 @@ export default function HomeContent() {
               <motion.div
                 custom={1.06}
                 variants={fadeUp}
-                initial="hidden"
+                initial={false}
                 animate="visible"
                 className="mb-9"
               >

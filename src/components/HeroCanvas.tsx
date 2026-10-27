@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 
 interface Particle {
   x: number; y: number;
@@ -30,10 +30,25 @@ function makeParticle(canvas: HTMLCanvasElement, atBottom = false): Particle {
   };
 }
 
+// Solo se anima en pantallas >= 768 px y sin prefers-reduced-motion
+const QUERY_ANIMAR = "(min-width: 768px) and (prefers-reduced-motion: no-preference)";
+
+function suscribir(cb: () => void) {
+  const mq = window.matchMedia(QUERY_ANIMAR);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+
 export default function HeroCanvas() {
   const ref = useRef<HTMLCanvasElement>(null);
+  const animar = useSyncExternalStore(
+    suscribir,
+    () => window.matchMedia(QUERY_ANIMAR).matches,
+    () => false
+  );
 
   useEffect(() => {
+    if (!animar) return;
     const canvas = ref.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -92,7 +107,9 @@ export default function HeroCanvas() {
       window.removeEventListener("resize", onResize);
       particles = [];
     };
-  }, []);
+  }, [animar]);
+
+  if (!animar) return null;
 
   return (
     <canvas

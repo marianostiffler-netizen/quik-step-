@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Mail, Phone, MapPin, MessageCircle, Clock } from "lucide-react";
+import { ContactForm } from "@/components/ContactForm";
 import { negocio, direccionCorta, waLink } from "@/config/negocio";
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export default function ContactoPage() {
           </h1>
           <p className="mt-4 text-da-gray text-lg max-w-2xl">
             ¿Tenés consultas sobre nuestros productos o servicios? Completá el
-            formulario y te respondemos a la brevedad.
+            formulario y te respondemos por WhatsApp.
           </p>
         </div>
       </section>
@@ -29,59 +30,7 @@ export default function ContactoPage() {
           <div className="grid md:grid-cols-3 gap-12">
             {/* Form */}
             <div className="md:col-span-2">
-              <form className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="contacto-nombre" className="block text-sm font-medium text-da-dark mb-2">
-                      Nombre
-                    </label>
-                    <input id="contacto-nombre"
-                      type="text"
-                      className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
-                      placeholder="Tu nombre"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="contacto-email" className="block text-sm font-medium text-da-dark mb-2">
-                      Email
-                    </label>
-                    <input id="contacto-email"
-                      type="email"
-                      className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
-                      placeholder="tu@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="contacto-telefono" className="block text-sm font-medium text-da-dark mb-2">
-                    Teléfono
-                  </label>
-                  <input id="contacto-telefono"
-                    type="tel"
-                    className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
-                    placeholder="Tu teléfono"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="contacto-mensaje" className="block text-sm font-medium text-da-dark mb-2">
-                    Mensaje
-                  </label>
-                  <textarea id="contacto-mensaje"
-                    rows={5}
-                    className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition resize-none"
-                    placeholder="Contanos sobre tu proyecto o consulta..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="px-8 py-3.5 bg-amber-500 text-wood-800 font-bold rounded-xl hover:bg-amber-400 transition-colors"
-                >
-                  Enviar Consulta
-                </button>
-              </form>
+              <ContactForm />
             </div>
 
             {/* Sidebar */}

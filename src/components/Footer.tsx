@@ -13,7 +13,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <Image
-                src="/logo-maderera.png"
+                src="/logo-maderera.webp"
                 alt="Maderera Don Antonio Logo"
                 width={24}
                 height={24}

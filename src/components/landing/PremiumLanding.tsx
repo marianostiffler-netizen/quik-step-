@@ -44,13 +44,13 @@ const visionSpecs = [
 
 // Una tabla representativa por línea — imágenes reales del catálogo
 const planks = [
-  { src: "/products/Smart-5795-01.png", name: "Smart" },
-  { src: "/products/Catedral-701-01.png", name: "Catedral" },
-  { src: "/products/PremierePlus-1067-01.png", name: "Premiere Plus" },
-  { src: "/products/Nesto-900-01.png", name: "Nesto" },
-  { src: "/products/Eligna-3676-01.png", name: "Eligna Wide" },
-  { src: "/products/Impressive-1856-01.png", name: "Impressive" },
-  { src: "/products/Vision-866-01.png", name: "Vision" },
+  { src: "/products/Smart-5795-01.webp", name: "Smart" },
+  { src: "/products/Catedral-701-01.webp", name: "Catedral" },
+  { src: "/products/PremierePlus-1067-01.webp", name: "Premiere Plus" },
+  { src: "/products/Nesto-900-01.webp", name: "Nesto" },
+  { src: "/products/Eligna-3676-01.webp", name: "Eligna Wide" },
+  { src: "/products/Impressive-1856-01.webp", name: "Impressive" },
+  { src: "/products/Vision-866-01.webp", name: "Vision" },
 ];
 
 // Características reales del espejo LED inteligente
@@ -107,7 +107,7 @@ function PremiumNav() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="flex h-16 items-center justify-between">
           <Link href="/landing" className="flex items-center gap-2.5">
-            <Image src="/logo-maderera.png" alt="Maderera Don Antonio" width={30} height={30} className="rounded" />
+            <Image src="/logo-maderera.webp" alt="Maderera Don Antonio" width={30} height={30} className="rounded" />
             <div className="leading-tight">
               <span className="block text-white font-bold text-sm tracking-wide">MADERERA</span>
               <span className="block text-amber-400 text-[11px] font-semibold -mt-0.5 tracking-[0.2em]">
@@ -178,7 +178,7 @@ function Hero() {
           style={{ background: "radial-gradient(circle, rgba(212,134,10,0.28), transparent 70%)" }}
         />
         <Image
-          src="/products/Vision-877-01.png"
+          src="/products/Vision-877-01.webp"
           alt="Piso flotante Quick-Step Vision"
           fill
           priority
@@ -278,7 +278,7 @@ function RevealSpecs() {
               <div className="w-full h-full rounded-full" style={{ background: "radial-gradient(circle, rgba(212,134,10,0.5), transparent 70%)" }} />
             </motion.div>
             <Image
-              src="/products/Vision-866-01.png"
+              src="/products/Vision-866-01.webp"
               alt="Tabla Quick-Step Vision"
               fill
               className="object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
@@ -496,7 +496,7 @@ function MirrorFeature() {
             className="relative w-[260px] sm:w-[320px] aspect-[3/4] rounded-[28px] overflow-hidden ring-1 ring-white/15 shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
           >
             <Image
-              src="/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (1).jpeg"
+              src="/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (1).webp"
               alt="Espejo LED inteligente"
               fill
               className="object-cover"
@@ -620,7 +620,7 @@ function MiniFooter() {
     <footer className="relative bg-[#0D0A08] border-t border-white/10 py-10">
       <div className="mx-auto max-w-7xl px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
         <div className="flex items-center gap-2.5">
-          <Image src="/logo-maderera.png" alt="Maderera Don Antonio" width={26} height={26} className="rounded" />
+          <Image src="/logo-maderera.webp" alt="Maderera Don Antonio" width={26} height={26} className="rounded" />
           <span className="text-white/60 text-sm">© {new Date().getFullYear()} Maderera Don Antonio · San Jorge, Santa Fe</span>
         </div>
         <Link href="/" className="text-white/40 hover:text-amber-400 text-sm transition-colors">
@@ -670,13 +670,16 @@ function WoodAmbience() {
     <>
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "url('/hero-background.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.07,
-        }}
-      />
+        style={{ opacity: 0.07 }}
+      >
+        <Image
+          src="/hero-background.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, transparent 38%, rgba(0,0,0,0.78) 100%)" }}

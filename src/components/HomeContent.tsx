@@ -88,7 +88,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Espejos LED",
     categoryBadge: "bg-violet-100 text-violet-700",
     href: "/espejos-artesanales",
-    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (1).jpeg",
+    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (1).webp",
   },
   {
     id: "espejo-2",
@@ -98,7 +98,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Espejos LED",
     categoryBadge: "bg-violet-100 text-violet-700",
     href: "/espejos-artesanales",
-    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (2).jpeg",
+    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (2).webp",
   },
   {
     id: "espejo-3",
@@ -108,7 +108,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Espejos LED",
     categoryBadge: "bg-violet-100 text-violet-700",
     href: "/espejos-artesanales",
-    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38.jpeg",
+    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38.webp",
   },
   {
     id: "espejo-4",
@@ -118,7 +118,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Espejos LED",
     categoryBadge: "bg-violet-100 text-violet-700",
     href: "/espejos-artesanales",
-    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.39 (1).jpeg",
+    image: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.39 (1).webp",
   },
   {
     id: "mesa-ratona-clara",
@@ -128,7 +128,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42 (1).jpeg",
+    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42 (1).webp",
   },
   {
     id: "mesa-ratona-gris",
@@ -138,7 +138,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42 (2).jpeg",
+    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42 (2).webp",
   },
   {
     id: "mesa-ratona-negra",
@@ -148,7 +148,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42.jpeg",
+    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.42.webp",
   },
   {
     id: "banco-blanco",
@@ -158,7 +158,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/banco blanco.png",
+    image: "/products/hogar/banco blanco.webp",
   },
   {
     id: "estanteria-pino",
@@ -168,7 +168,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/KxgNg.jpg",
+    image: "/products/hogar/KxgNg.webp",
   },
   {
     id: "vanitory-pino",
@@ -178,7 +178,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.40.jpeg",
+    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.35.40.webp",
   },
   {
     id: "mueble-sala",
@@ -188,7 +188,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/585346193_1369242518229953_6634413815702805960_n.jpg",
+    image: "/products/hogar/585346193_1369242518229953_6634413815702805960_n.webp",
   },
   {
     id: "comedor-madera",
@@ -198,7 +198,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/646197206_1452442863243251_6173634275258237884_n.jpg",
+    image: "/products/hogar/646197206_1452442863243251_6173634275258237884_n.webp",
   },
   {
     id: "rack-tv",
@@ -208,7 +208,7 @@ const featuredProducts: ProductItem[] = [
     categoryLabel: "Artículos del Hogar",
     categoryBadge: "bg-green-100 text-green-700",
     href: "/articulos-hogar",
-    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.13.44.jpeg",
+    image: "/products/hogar/WhatsApp Image 2026-04-17 at 14.13.44.webp",
   },
 ];
 
@@ -247,13 +247,16 @@ export default function HomeContent() {
         {/* ── Foto de fondo: muy atenuada, solo da textura ── */}
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "url('/hero-background.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: 0.08,
-          }}
-        />
+          style={{ opacity: 0.08 }}
+        >
+          <Image
+            src="/hero-background.webp"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
 
         {/* ── Vignette: oscurece los bordes para profundidad ── */}
         <div

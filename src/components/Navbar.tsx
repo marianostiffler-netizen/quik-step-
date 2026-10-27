@@ -18,7 +18,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
             <Image
-              src="/logo-maderera.png"
+              src="/logo-maderera.webp"
               alt="Maderera Don Antonio Logo"
               width={32}
               height={32}

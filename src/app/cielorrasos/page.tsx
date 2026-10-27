@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Sparkles, Wrench } from "lucide-react";
+import { Sparkles, MessageCircle } from "lucide-react";
+import { waLink } from "@/config/negocio";
 
 export const metadata: Metadata = {
   title: "Cielorrasos | Maderera Don Antonio",
   description:
-    "Placas para cielorrasos en distintos tonos y terminaciones. Renová tus ambientes desde arriba.",
+    "Sección de cielorrasos en preparación. Consultanos por WhatsApp.",
+  // Sección en "próximamente": no se indexa hasta que tenga contenido
+  robots: { index: false, follow: true },
 };
 
 export default function CielorrasosPage() {
@@ -18,31 +21,27 @@ export default function CielorrasosPage() {
           </div>
           <h1 className="text-3xl md:text-5xl font-bold">Cielorrasos</h1>
           <p className="mt-4 text-xl text-wood-200 max-w-2xl">
-            Placas para cielorrasos en distintos tonos y terminaciones
+            Próximamente
           </p>
         </div>
       </section>
 
-      {/* Coming soon placeholder */}
+      {/* Próximamente */}
       <section className="py-24 bg-da-cream">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mx-auto w-20 h-20 bg-wood-100 rounded-full flex items-center justify-center mb-6">
-            <Wrench size={36} className="text-wood-600" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-da-dark mb-4">
-            Catálogo en construcción
-          </h2>
           <p className="text-da-gray text-lg leading-relaxed">
-            Estamos preparando el catálogo completo de cielorrasos con
-            distintos tonos y terminaciones. Próximamente podrás ver todas las
-            opciones disponibles.
+            Estamos preparando esta sección. Mientras tanto, consultanos por
+            WhatsApp.
           </p>
-          <div className="mt-8 p-6 bg-white rounded-2xl border border-wood-200">
-            <p className="text-sm text-da-gray">
-              Si necesitás información sobre cielorrasos ya, contactanos y te
-              asesoramos con lo que tenemos disponible.
-            </p>
-          </div>
+          <a
+            href={waLink("Hola! Quisiera consultar sobre cielorrasos.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex min-h-11 items-center gap-2 px-6 py-3 bg-amber-500 text-wood-800 font-bold rounded-lg hover:bg-amber-400 transition-colors"
+          >
+            <MessageCircle size={20} />
+            Consultar por WhatsApp
+          </a>
         </div>
       </section>
     </>

@@ -65,7 +65,8 @@ export const navigation = [
   { id: "espejos-inteligentes", label: "Espejos Inteligentes", href: "/espejos-inteligentes" },
   { id: "construccion-maderas", label: "Construcción y Maderas", href: "/construccion-y-maderas" },
   { id: "espejos", label: "Espejos", href: "/espejos-artesanales" },
-  { id: "cielorrasos", label: "Cielorrasos", href: "/cielorrasos" },
+  // TODO(cliente): volver a mostrar cuando la sección tenga contenido
+  // { id: "cielorrasos", label: "Cielorrasos", href: "/cielorrasos" },
   { id: "servicios", label: "Servicios", href: "/servicios" },
   { id: "articulos-hogar", label: "Artículos del Hogar", href: "/articulos-hogar" },
   { id: "contacto", label: "Contacto", href: "/contacto" },

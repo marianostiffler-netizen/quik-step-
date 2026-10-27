@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import type { Category } from "@/data/site-data";
 import { getProductsByCategory } from "@/data/site-data";
+import { formatearPrecio } from "@/lib/precios";
 
 export function CategoryCard({ category }: { category: Category }) {
   const products = getProductsByCategory(category.id);
@@ -35,8 +36,8 @@ export function CategoryCard({ category }: { category: Category }) {
               <p className="text-white/80 text-sm drop-shadow">{category.tagline}</p>
             </div>
             {category.specs_summary.price_usd_m2 && (
-              <div className="absolute top-3 right-3 bg-amber-500 text-white text-xs font-bold px-2.5 py-1.5 rounded-xl shadow-lg">
-                USD {category.specs_summary.price_usd_m2.toFixed(2)}/m²
+              <div className="tabular-nums absolute top-3 right-3 bg-amber-500 text-white text-xs font-bold px-2.5 py-1.5 rounded-xl shadow-lg">
+                {formatearPrecio(category.specs_summary.price_usd_m2, "USD")}/m²
               </div>
             )}
           </div>

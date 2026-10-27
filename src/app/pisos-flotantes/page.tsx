@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { categories, accessories } from "@/data/site-data";
 import { CategoryCard } from "@/components/CategoryCard";
 import PisosSwatchGallery from "@/components/PisosSwatchGallery";
+import { formatearPrecio } from "@/lib/precios";
 
 export const metadata: Metadata = {
   title: "Pisos Flotantes Quick-Step | Maderera Don Antonio",
@@ -67,8 +68,8 @@ export default function ProductosPage() {
                   </p>
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-da-gray">{zocalo.dimensions}</span>
-                    <span className="font-bold text-amber-600">
-                      USD {zocalo.price_usd.toFixed(2)}/{zocalo.price_unit}
+                    <span className="tabular-nums font-bold text-amber-600">
+                      {formatearPrecio(zocalo.price_usd, "USD")}/{zocalo.price_unit}
                     </span>
                   </div>
                 </div>

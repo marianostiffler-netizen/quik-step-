@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { MotionConfig } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
@@ -20,14 +21,18 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   );
 
   if (isFullscreen) {
-    return <main className="flex-1">{children}</main>;
+    return (
+      <MotionConfig reducedMotion="user">
+        <main className="flex-1">{children}</main>
+      </MotionConfig>
+    );
   }
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
-    </>
+    </MotionConfig>
   );
 }

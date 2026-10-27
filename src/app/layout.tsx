@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
-import { DM_Sans, Playfair_Display } from "next/font/google";
+import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteChrome } from "@/components/SiteChrome";
 import { LocalBusinessJsonLd } from "@/components/LocalBusinessJsonLd";
 import { negocio, urlSitio } from "@/config/negocio";
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700", "800"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
 });
 
 const titulo = "Maderera Don Antonio | Pisos, Cielorrasos y Servicios en Madera";
@@ -42,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${dmSans.variable} ${playfair.variable} h-full antialiased`}>
+    <html lang="es" className={`${inter.variable} ${archivo.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <LocalBusinessJsonLd />
         <SiteChrome>{children}</SiteChrome>

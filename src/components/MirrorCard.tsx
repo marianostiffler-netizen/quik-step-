@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Sparkles, Thermometer, Clock, Wind, Zap } from "lucide-react";
 import type { Mirror } from "@/data/espejos-inteligentes-data";
+import { formatearPrecio } from "@/lib/precios";
 
 const FULL_FEATURES = [
   { icon: Zap,         label: "Touch 3 tonos" },
@@ -96,11 +97,11 @@ export function MirrorCard({ mirror }: { mirror: Mirror }) {
           <div className="flex items-end justify-between">
             <div>
               <p className="text-[10px] text-da-gray uppercase tracking-wide">Precio</p>
-              <p className="text-xl font-extrabold text-amber-600 leading-none">
-                USD {mirror.price_usd.toFixed(2)}
+              <p className="tabular-nums text-xl font-extrabold text-amber-600 leading-none">
+                {formatearPrecio(mirror.price_usd, "USD")}
               </p>
-              <p className="text-[10px] text-da-gray mt-0.5">
-                ($ {mirror.price_ars.toLocaleString("es-AR")} ARS)
+              <p className="tabular-nums text-[10px] text-da-gray mt-0.5">
+                ({formatearPrecio(mirror.price_ars, "ARS")} ARS)
               </p>
             </div>
           </div>

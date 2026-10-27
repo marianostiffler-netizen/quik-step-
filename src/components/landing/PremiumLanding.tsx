@@ -9,7 +9,6 @@ import {
   useScroll,
   useTransform,
   useSpring,
-  useReducedMotion,
   type MotionValue,
 } from "framer-motion";
 import {
@@ -25,7 +24,7 @@ import {
   Clock,
 } from "lucide-react";
 import { waLink } from "@/config/negocio";
-import { useLenis } from "./useLenis";
+import { formatearPrecio } from "@/lib/precios";
 
 // Expo ease-out — la curva premium del sitio
 const EXPO = [0.16, 1, 0.3, 1] as const;
@@ -69,8 +68,6 @@ const navLinks = [
 ];
 
 export default function PremiumLanding() {
-  const rm = useReducedMotion();
-  useLenis(!rm);
 
   return (
     <MotionConfig reducedMotion="user">
@@ -201,7 +198,7 @@ function Hero() {
           <span>◇</span> San Jorge · Santa Fe <span>◇</span>
         </motion.span>
 
-        <h1 className="font-serif leading-[0.92] tracking-tight" style={{ fontSize: "clamp(3rem, 9vw, 7rem)" }}>
+        <h1 className="font-display leading-[0.92] tracking-tight" style={{ fontSize: "clamp(3rem, 9vw, 7rem)" }}>
           <WipeLine delay={0.3}>La madera que</WipeLine>
           <WipeLine delay={0.42} className="text-amber-400">tu hogar merece</WipeLine>
         </h1>
@@ -260,7 +257,7 @@ function RevealSpecs() {
         {/* Encabezado */}
         <div className="absolute top-[12%] left-1/2 -translate-x-1/2 text-center px-6 z-20 w-full max-w-2xl">
           <p className="text-amber-400 text-xs font-semibold uppercase tracking-[0.3em] mb-3">Línea Vision · Tope de gama</p>
-          <h2 className="font-serif text-3xl sm:text-5xl leading-tight">
+          <h2 className="font-display text-3xl sm:text-5xl leading-tight">
             El piso más resistente <span className="text-amber-400">de Argentina</span>
           </h2>
         </div>
@@ -348,8 +345,8 @@ function PriceBadge({ progress }: { progress: MotionValue<number> }) {
       className="absolute bottom-[12%] left-1/2 -translate-x-1/2 z-20 text-center"
     >
       <p className="text-white/45 text-[11px] uppercase tracking-[0.22em] mb-1">Desde</p>
-      <p className="font-serif text-4xl sm:text-5xl text-amber-400">
-        USD 15.90<span className="text-amber-400/50 text-2xl font-sans">/m²</span>
+      <p className="tabular-nums font-display text-4xl sm:text-5xl text-amber-400">
+        {formatearPrecio(15.9, "USD")}<span className="text-amber-400/50 text-2xl font-sans">/m²</span>
       </p>
       <p className="text-white/40 text-xs mt-1">Caja de 2,71 m² · 5 diseños disponibles</p>
     </motion.div>
@@ -379,7 +376,7 @@ function DespieceGallery() {
           transition={{ duration: 0.7, ease: EXPO }}
         >
           <p className="text-amber-400 text-xs font-semibold uppercase tracking-[0.3em] mb-3">La colección completa</p>
-          <h2 className="font-serif text-3xl sm:text-5xl leading-tight mb-4">
+          <h2 className="font-display text-3xl sm:text-5xl leading-tight mb-4">
             Siete líneas. <span className="text-amber-400">Un mismo estándar.</span>
           </h2>
           <p className="text-white/50 max-w-xl mx-auto text-base leading-relaxed">
@@ -521,7 +518,7 @@ function MirrorFeature() {
           transition={{ duration: 0.7, ease: EXPO }}
         >
           <p className="text-sky-300 text-xs font-semibold uppercase tracking-[0.3em] mb-3">Espejos LED inteligentes</p>
-          <h2 className="font-serif text-3xl sm:text-5xl leading-tight mb-5">
+          <h2 className="font-display text-3xl sm:text-5xl leading-tight mb-5">
             Luz que se enciende <span className="text-sky-300">con vos</span>
           </h2>
           <p className="text-white/55 leading-relaxed mb-8 max-w-md">
@@ -549,7 +546,7 @@ function MirrorFeature() {
               Ver espejos LED <ArrowRight size={16} />
             </Link>
             <p className="text-white/50 text-sm">
-              Desde <span className="text-white font-bold text-base">USD 80</span>
+              Desde <span className="tabular-nums text-white font-bold text-base">{formatearPrecio(80, "USD")}</span>
             </p>
           </div>
         </motion.div>
@@ -574,7 +571,7 @@ function FinalCTA() {
         transition={{ duration: 0.8, ease: EXPO }}
         className="relative mx-auto max-w-2xl px-6 text-center"
       >
-        <h2 className="font-serif text-4xl sm:text-6xl leading-[0.95] mb-5">
+        <h2 className="font-display text-4xl sm:text-6xl leading-[0.95] mb-5">
           Tu proyecto <span className="text-amber-400">empieza acá</span>
         </h2>
         <p className="text-white/55 text-base sm:text-lg leading-relaxed mb-10 max-w-lg mx-auto">

@@ -1,6 +1,20 @@
 @import "tailwindcss";
 
 :root {
+  /* Paleta nueva (Madera Fina) */
+  --pino: #F6F0E6;
+  --superficie: #FFFCF7;
+  --nogal: #2A1F18;
+  --nogal-suave: #6B5B4E;
+  --veta: #E4D8C6;
+  --algarrobo: #8A4B2A;
+  --algarrobo-oscuro: #6F3B20;
+  --eucalipto: #4F6B4A;
+  --precio: #9A5F14;
+  --wa: #1F9D55;
+  --wa-oscuro: #197F45;
+
+  /* LEGADO: se eliminan a medida que se rediseña cada pantalla */
   --wood-800: #3e2723;
   --wood-700: #4e342e;
   --wood-600: #5d4037;
@@ -20,8 +34,22 @@
 }
 
 @theme inline {
-  --color-background: var(--da-cream);
-  --color-foreground: var(--da-dark);
+  --color-background: var(--pino);
+  --color-foreground: var(--nogal);
+  --color-pino: var(--pino);
+  --color-superficie: var(--superficie);
+  --color-nogal: var(--nogal);
+  --color-nogal-suave: var(--nogal-suave);
+  --color-veta: var(--veta);
+  --color-algarrobo: var(--algarrobo);
+  --color-algarrobo-oscuro: var(--algarrobo-oscuro);
+  --color-eucalipto: var(--eucalipto);
+  --color-precio: var(--precio);
+  --color-wa: var(--wa);
+  --radius-card: 12px;
+  --radius-campo: 8px;
+
+  /* LEGADO: se eliminan a medida que se rediseña cada pantalla */
   --color-wood-800: var(--wood-800);
   --color-wood-700: var(--wood-700);
   --color-wood-600: var(--wood-600);
@@ -38,25 +66,102 @@
   --color-da-dark: var(--da-dark);
   --color-da-gray: var(--da-gray);
   --color-da-cream: var(--da-cream);
-  --font-sans: var(--font-dm-sans);
-  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-archivo);
+}
+
+@utility tap {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@utility btn-primario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding-inline: 1.5rem;
+  border-radius: 9999px;
+  background-color: var(--algarrobo);
+  color: #fff;
+  font-weight: 600;
+  transition: background-color 150ms, color 150ms, border-color 150ms;
+  &:hover {
+    background-color: var(--algarrobo-oscuro);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--algarrobo);
+    outline-offset: 2px;
+  }
+}
+
+@utility btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding-inline: 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--veta);
+  background-color: var(--superficie);
+  color: var(--nogal);
+  font-weight: 600;
+  transition: background-color 150ms, color 150ms, border-color 150ms;
+  &:hover {
+    background-color: var(--pino);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--algarrobo);
+    outline-offset: 2px;
+  }
+}
+
+@utility btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding-inline: 1.5rem;
+  border-radius: 9999px;
+  background-color: var(--wa);
+  color: #fff;
+  font-weight: 600;
+  transition: background-color 150ms, color 150ms, border-color 150ms;
+  &:hover {
+    background-color: var(--wa-oscuro);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--wa);
+    outline-offset: 2px;
+  }
+}
+
+@utility tarjeta {
+  background-color: var(--superficie);
+  border: 1px solid var(--veta);
+  border-radius: var(--radius-card);
 }
 
 body {
-  background: var(--da-cream);
-  color: var(--da-dark);
+  background: var(--pino);
+  color: var(--nogal);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
 h1, h2, h3 {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-display), Arial, Helvetica, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-/* ─── Animaciones premium ─── */
+/* ─── Animaciones (solo si el usuario no pidió reducir movimiento) ─── */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 12px, 0);
   }
   to {
     opacity: 1;
@@ -64,43 +169,24 @@ h1, h2, h3 {
   }
 }
 
-@keyframes badgeGlow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4);
+@media (prefers-reduced-motion: no-preference) {
+  /* Estado inicial: invisible. Cuando .is-visible se aplica, anima. */
+  .fade-in-up {
+    opacity: 0;
+    will-change: opacity, transform;
   }
-  50% {
-    box-shadow: 0 0 16px 4px rgba(56, 189, 248, 0.65);
-  }
-}
 
-/* Estado inicial: invisible. Cuando .is-visible se aplica, anima. */
-.fade-in-up {
-  opacity: 0;
-  will-change: opacity, transform;
-}
-
-.fade-in-up.is-visible {
-  animation: fadeInUp 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.fade-in-up.delay-100 { animation-delay: 100ms; }
-.fade-in-up.delay-200 { animation-delay: 200ms; }
-.fade-in-up.delay-300 { animation-delay: 300ms; }
-.fade-in-up.delay-500 { animation-delay: 500ms; }
-
-/* Glow para badge de resistencia al hover de la card */
-.group:hover .badge-glow {
-  animation: badgeGlow 1.6s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .fade-in-up,
   .fade-in-up.is-visible {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+    animation: fadeInUp 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .group:hover .badge-glow {
-    animation: none !important;
-  }
+
+  .fade-in-up.delay-100 { animation-delay: 50ms; }
+  .fade-in-up.delay-200 { animation-delay: 100ms; }
+  .fade-in-up.delay-300 { animation-delay: 150ms; }
+  .fade-in-up.delay-500 { animation-delay: 200ms; }
+}
+
+/* Badge de resistencia: glow estático al hover (sin loop) */
+.group:hover .badge-glow {
+  box-shadow: 0 0 12px 2px rgba(56, 189, 248, 0.5);
 }

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Droplets, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { products } from "@/data/site-data";
+import { formatearPrecio } from "@/lib/precios";
 
 // Mapeo de tonos por SKU
 const PRODUCT_TONES: Record<string, string> = {
@@ -217,8 +218,8 @@ export default function PisosSwatchGallery() {
                       </span>
                     )}
                     {p.price_usd_m2 && (
-                      <span className="text-sm font-bold text-amber-600 ml-auto bg-amber-50/80 px-2 py-1 rounded-lg border border-amber-100">
-                        USD {p.price_usd_m2.toFixed(2)}/m²
+                      <span className="tabular-nums text-sm font-bold text-amber-600 ml-auto bg-amber-50/80 px-2 py-1 rounded-lg border border-amber-100">
+                        {formatearPrecio(p.price_usd_m2, "USD")}/m²
                       </span>
                     )}
                   </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Droplets, Ruler, Layers } from "lucide-react";
 import type { Product } from "@/data/site-data";
 import { categories } from "@/data/site-data";
+import { formatearPrecio } from "@/lib/precios";
 
 export function ProductCard({ product }: { product: Product }) {
   const category = categories.find((c) => c.id === product.category_id);
@@ -56,8 +57,8 @@ export function ProductCard({ product }: { product: Product }) {
 
         {product.price_usd_m2 && (
           <div className="mt-3 pt-3 border-t border-wood-100 flex items-center justify-between">
-            <span className="text-base font-bold text-amber-600">
-              USD {product.price_usd_m2.toFixed(2)}/m²
+            <span className="tabular-nums text-base font-bold text-amber-600">
+              {formatearPrecio(product.price_usd_m2, "USD")}/m²
             </span>
             {product.coverage_m2 && (
               <span className="text-xs text-da-gray">

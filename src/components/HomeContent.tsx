@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ComponentType } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -18,9 +17,7 @@ import {
 } from "lucide-react";
 import { waLink } from "@/config/negocio";
 import { motion, useReducedMotion } from "framer-motion";
-
-// Canvas se carga solo en el cliente (no tiene sentido en SSR)
-const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
+import { formatearPrecio } from "@/lib/precios";
 
 // Expo ease-out: la curva más premium para reveals de alto impacto
 const EXPO = [0.16, 1, 0.3, 1] as const;
@@ -241,9 +238,6 @@ export default function HomeContent() {
         className="relative min-h-screen flex items-center overflow-hidden text-white"
         style={{ background: "#0D0A08" }}
       >
-        {/* ── Canvas partículas aserrín (client-only) ── */}
-        <HeroCanvas />
-
         {/* ── Foto de fondo: muy atenuada, solo da textura ── */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -299,54 +293,19 @@ export default function HomeContent() {
                 </span>
               </motion.div>
 
-              {/* Headline — word-by-word wipe desde abajo */}
-              <motion.div
-                initial={false}
-                animate="visible"
-                variants={{
-                  hidden: {},
-                  visible: {
-                    transition: {
-                      staggerChildren: rm ? 0 : 0.09,
-                      delayChildren: rm ? 0 : 0.28,
-                    },
-                  },
-                }}
-                className="mb-7"
-              >
+              {/* Headline */}
+              <div className="mb-7">
                 <h1
-                  className="font-serif leading-[0.92] tracking-tight"
+                  className="font-display leading-[0.92] tracking-tight"
                   style={{
                     fontSize: "clamp(3.4rem, 9vw, 7.5rem)",
                     textShadow: "0 4px 60px rgba(200,149,106,0.25)",
                   }}
                 >
-                  {/* Línea 1 */}
-                  <span className="block overflow-hidden">
-                    <motion.span
-                      className="block"
-                      variants={{
-                        hidden:  { y: "110%", opacity: 0 },
-                        visible: { y: "0%", opacity: 1, transition: { duration: 0.7, ease: EXPO } },
-                      }}
-                    >
-                      Maderera
-                    </motion.span>
-                  </span>
-                  {/* Línea 2 — color ámbar para contraste */}
-                  <span className="block overflow-hidden">
-                    <motion.span
-                      className="block text-amber-400"
-                      variants={{
-                        hidden:  { y: "110%", opacity: 0 },
-                        visible: { y: "0%", opacity: 1, transition: { duration: 0.7, ease: EXPO } },
-                      }}
-                    >
-                      Don Antonio
-                    </motion.span>
-                  </span>
+                  <span className="block">Maderera</span>
+                  <span className="block text-amber-400">Don Antonio</span>
                 </h1>
-              </motion.div>
+              </div>
 
               {/* Subheading */}
               <motion.p
@@ -514,8 +473,8 @@ export default function HomeContent() {
                         Quick-Step Vision
                       </p>
                       <div className="flex items-center justify-between">
-                        <p className="text-amber-400 font-extrabold text-sm">
-                          USD 15.90<span className="text-amber-400/60 font-normal">/m²</span>
+                        <p className="tabular-nums text-amber-400 font-extrabold text-sm">
+                          {formatearPrecio(15.9, "USD")}<span className="text-amber-400/60 font-normal">/m²</span>
                         </p>
                         <span className="text-[10px] text-white/40 bg-white/8 px-2 py-0.5 rounded-full border border-white/10">
                           AC5 · 100hs

@@ -19,6 +19,7 @@ import {
   features,
 } from "@/data/site-data";
 import { FeatureBadge } from "@/components/FeatureBadge";
+import { formatearPrecio } from "@/lib/precios";
 
 export function generateStaticParams() {
   return categories.map((cat) => ({ categoria: cat.slug }));
@@ -128,8 +129,8 @@ export default async function CategoriaPage({
                 </div>
                 <div>
                   <p className="text-xs text-da-gray">Precio</p>
-                  <p className="font-semibold text-amber-600">
-                    USD {category.specs_summary.price_usd_m2.toFixed(2)}/m²
+                  <p className="tabular-nums font-semibold text-amber-600">
+                    {formatearPrecio(category.specs_summary.price_usd_m2, "USD")}/m²
                   </p>
                 </div>
               </div>

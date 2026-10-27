@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { AlertTriangle, Hammer, ShieldCheck, Trees, Wrench, Building2 } from "lucide-react";
 
@@ -96,6 +97,62 @@ const materialesSecos = [
   },
 ];
 
+type Columna = { label: string; cellClass?: string };
+
+// Tabla desde md; en mobile cada fila se muestra como tarjeta con pares etiqueta/valor
+function TablaResponsive({
+  columnas,
+  filas,
+  enmarcada = false,
+}: {
+  columnas: Columna[];
+  filas: { key: string; celdas: ReactNode[] }[];
+  enmarcada?: boolean;
+}) {
+  return (
+    <>
+      <div
+        className={`hidden md:block ${
+          enmarcada ? "overflow-x-auto rounded-2xl border border-wood-200 bg-white shadow-sm" : ""
+        }`}
+      >
+        <table className="min-w-full text-sm">
+          <thead className="bg-wood-100 text-wood-700">
+            <tr>
+              {columnas.map((col) => (
+                <th key={col.label} className="px-4 py-3 text-left font-semibold">{col.label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filas.map((fila) => (
+              <tr key={fila.key} className="border-t border-wood-100">
+                {fila.celdas.map((celda, i) => (
+                  <td key={columnas[i].label} className={`px-4 py-3 ${columnas[i].cellClass ?? ""}`}>
+                    {celda}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="md:hidden space-y-3">
+        {filas.map((fila) => (
+          <dl key={fila.key} className="rounded-xl border border-wood-200 bg-white p-4 text-sm space-y-2">
+            {fila.celdas.map((celda, i) => (
+              <div key={columnas[i].label} className="flex flex-col gap-0.5">
+                <dt className="text-xs font-semibold uppercase tracking-wide text-wood-700">{columnas[i].label}</dt>
+                <dd className={columnas[i].cellClass ?? ""}>{celda}</dd>
+              </div>
+            ))}
+          </dl>
+        ))}
+      </div>
+    </>
+  );
+}
+
 export default function ConstruccionYMaderasPage() {
   return (
     <main>
@@ -119,44 +176,35 @@ export default function ConstruccionYMaderasPage() {
               <Hammer className="text-wood-600" size={24} />
               <h2 className="text-2xl font-bold text-da-dark">Machimbres</h2>
             </div>
-            <div className="overflow-x-auto rounded-2xl border border-wood-200 bg-white shadow-sm">
-              <table className="min-w-full text-sm">
-                <thead className="bg-wood-100 text-wood-700">
-                  <tr>
-                    <th className="px-4 py-3 text-left font-semibold">Material</th>
-                    <th className="px-4 py-3 text-left font-semibold">Medida</th>
-                    <th className="px-4 py-3 text-left font-semibold">Largos</th>
-                    <th className="px-4 py-3 text-left font-semibold">Grosor</th>
-                    <th className="px-4 py-3 text-left font-semibold">Uso recomendado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {machimbres.map((group) =>
-                    group.rows.map((row, index) => (
-                      <tr key={`${group.material}-${row.medida}`} className="border-t border-wood-100">
-                        <td className="px-4 py-3 font-semibold text-da-dark">
-                          {group.material}
-                        </td>
-                        <td className="px-4 py-3 text-da-dark">{row.medida}</td>
-                        <td className="px-4 py-3 text-da-gray">{row.largo}</td>
-                        <td className="px-4 py-3 text-da-gray">{row.grosor}</td>
-                        <td className="px-4 py-3">
-                          <span
-                            className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                              index === 0
-                                ? "bg-amber-100 text-amber-800"
-                                : "bg-wood-700 text-white"
-                            }`}
-                          >
-                            {row.destaque}
-                          </span>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
+            <TablaResponsive
+              enmarcada
+              columnas={[
+                { label: "Material", cellClass: "font-semibold text-da-dark" },
+                { label: "Medida", cellClass: "text-da-dark" },
+                { label: "Largos", cellClass: "text-da-gray" },
+                { label: "Grosor", cellClass: "text-da-gray" },
+                { label: "Uso recomendado" },
+              ]}
+              filas={machimbres.flatMap((group) =>
+                group.rows.map((row, index) => ({
+                  key: `${group.material}-${row.medida}`,
+                  celdas: [
+                    group.material,
+                    row.medida,
+                    row.largo,
+                    row.grosor,
+                    <span
+                      key="destaque"
+                      className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                        index === 0 ? "bg-amber-100 text-amber-800" : "bg-wood-700 text-white"
+                      }`}
+                    >
+                      {row.destaque}
+                    </span>,
+                  ],
+                }))
+              )}
+            />
             <div className="mt-4 flex flex-wrap gap-3 text-sm">
               <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-800">
                 Más vendido · 1/2&quot; x 4&quot; para cielorrasos
@@ -179,30 +227,25 @@ export default function ConstruccionYMaderasPage() {
                     <h3 className="text-xl font-bold text-da-dark">{block.title}</h3>
                     <p className="text-sm text-da-gray mt-1">{block.material}</p>
                   </div>
-                  <table className="min-w-full text-sm">
-                    <thead className="bg-wood-100 text-wood-700">
-                      <tr>
-                        <th className="px-4 py-3 text-left font-semibold">Material</th>
-                        <th className="px-4 py-3 text-left font-semibold">Medida</th>
-                        <th className="px-4 py-3 text-left font-semibold">Largos</th>
-                        <th className="px-4 py-3 text-left font-semibold">Grosor/Uso</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {block.rows.map((row) => (
-                        <tr key={`${block.title}-${row.medida}`} className="border-t border-wood-100">
-                          <td className="px-4 py-3 font-semibold text-da-dark">{block.material}</td>
-                          <td className="px-4 py-3 text-da-dark">{row.medida}</td>
-                          <td className="px-4 py-3 text-da-gray">{row.largos}</td>
-                          <td className="px-4 py-3">
-                            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-                              {row.uso}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <TablaResponsive
+                    columnas={[
+                      { label: "Material", cellClass: "font-semibold text-da-dark" },
+                      { label: "Medida", cellClass: "text-da-dark" },
+                      { label: "Largos", cellClass: "text-da-gray" },
+                      { label: "Grosor/Uso" },
+                    ]}
+                    filas={block.rows.map((row) => ({
+                      key: `${block.title}-${row.medida}`,
+                      celdas: [
+                        block.material,
+                        row.medida,
+                        row.largos,
+                        <span key="uso" className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                          {row.uso}
+                        </span>,
+                      ],
+                    }))}
+                  />
                 </div>
               ))}
             </div>
@@ -260,59 +303,45 @@ export default function ConstruccionYMaderasPage() {
               <p className="text-sm text-da-gray mb-4 italic">
                 Maderas en bruto (sin cepillar) ya que no requieren terminación estética para este uso.
               </p>
-              <div className="overflow-x-auto rounded-2xl border border-wood-200 bg-white shadow-sm">
-                <table className="min-w-full text-sm">
-                  <thead className="bg-wood-100 text-wood-700">
-                    <tr>
-                      <th className="px-4 py-3 text-left font-semibold">Material</th>
-                      <th className="px-4 py-3 text-left font-semibold">Medida</th>
-                      <th className="px-4 py-3 text-left font-semibold">Descripción</th>
-                      <th className="px-4 py-3 text-left font-semibold">Uso recomendado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tablasEncofrado.map((group) =>
-                      group.rows.map((row) => (
-                        <tr key={`${group.material}-${row.medida}`} className="border-t border-wood-100">
-                          <td className="px-4 py-3 font-semibold text-da-dark">{group.material}</td>
-                          <td className="px-4 py-3 text-da-dark">{row.medida}</td>
-                          <td className="px-4 py-3 text-da-gray">{row.descripcion}</td>
-                          <td className="px-4 py-3">
-                            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-                              {row.uso}
-                            </span>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
+              <TablaResponsive
+                enmarcada
+                columnas={[
+                  { label: "Material", cellClass: "font-semibold text-da-dark" },
+                  { label: "Medida", cellClass: "text-da-dark" },
+                  { label: "Descripción", cellClass: "text-da-gray" },
+                  { label: "Uso recomendado" },
+                ]}
+                filas={tablasEncofrado.flatMap((group) =>
+                  group.rows.map((row) => ({
+                    key: `${group.material}-${row.medida}`,
+                    celdas: [
+                      group.material,
+                      row.medida,
+                      row.descripcion,
+                      <span key="uso" className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                        {row.uso}
+                      </span>,
+                    ],
+                  }))
+                )}
+              />
             </div>
 
             {/* Estructura de Obra */}
             <div className="mb-12">
               <h3 className="text-xl font-bold text-da-dark mb-4">Estructura de Obra</h3>
-              <div className="overflow-x-auto rounded-2xl border border-wood-200 bg-white shadow-sm">
-                <table className="min-w-full text-sm">
-                  <thead className="bg-wood-100 text-wood-700">
-                    <tr>
-                      <th className="px-4 py-3 text-left font-semibold">Producto</th>
-                      <th className="px-4 py-3 text-left font-semibold">Medida</th>
-                      <th className="px-4 py-3 text-left font-semibold">Detalle</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {estructuraObra.map((item) => (
-                      <tr key={`${item.producto}-${item.medida}`} className="border-t border-wood-100">
-                        <td className="px-4 py-3 font-semibold text-da-dark">{item.producto}</td>
-                        <td className="px-4 py-3 text-da-dark">{item.medida}</td>
-                        <td className="px-4 py-3 text-da-gray">{item.detalle}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <TablaResponsive
+                enmarcada
+                columnas={[
+                  { label: "Producto", cellClass: "font-semibold text-da-dark" },
+                  { label: "Medida", cellClass: "text-da-dark" },
+                  { label: "Detalle", cellClass: "text-da-gray" },
+                ]}
+                filas={estructuraObra.map((item) => ({
+                  key: `${item.producto}-${item.medida}`,
+                  celdas: [item.producto, item.medida, item.detalle],
+                }))}
+              />
             </div>
 
             {/* Materiales Secos */}

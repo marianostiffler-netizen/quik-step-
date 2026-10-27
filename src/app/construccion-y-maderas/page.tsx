@@ -171,7 +171,7 @@ export default function ConstruccionYMaderasPage() {
 
       <section className="py-16 bg-da-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
-          <div>
+          <div id="machimbres" className="scroll-mt-20">
             <div className="flex items-center gap-3 mb-6">
               <Hammer className="text-wood-600" size={24} />
               <h2 className="text-2xl font-bold text-da-dark">Machimbres</h2>
@@ -215,7 +215,7 @@ export default function ConstruccionYMaderasPage() {
             </div>
           </div>
 
-          <div>
+          <div id="tiranteria" className="scroll-mt-20">
             <div className="flex items-center gap-3 mb-6">
               <Wrench className="text-wood-600" size={24} />
               <h2 className="text-2xl font-bold text-da-dark">Tirantería y Vigas</h2>
@@ -276,7 +276,7 @@ export default function ConstruccionYMaderasPage() {
             </div>
           </section>
 
-          <div>
+          <div id="aislantes" className="scroll-mt-20">
             <div className="flex items-center gap-3 mb-6">
               <ShieldCheck className="text-wood-600" size={24} />
               <h2 className="text-2xl font-bold text-da-dark">Aislantes</h2>
@@ -291,7 +291,7 @@ export default function ConstruccionYMaderasPage() {
             </div>
           </div>
 
-          <div>
+          <div id="encofrado" className="scroll-mt-20">
             <div className="flex items-center gap-3 mb-6">
               <Building2 className="text-wood-600" size={24} />
               <h2 className="text-2xl font-bold text-da-dark">Materiales de Obra y Encofrado</h2>

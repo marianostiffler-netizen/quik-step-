@@ -132,7 +132,7 @@ function PremiumNav() {
             href={waConsulta()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-colors"
+            className="inline-flex min-h-11 items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-colors"
           >
             <MessageCircle size={15} />
             <span className="hidden sm:inline">WhatsApp</span>

@@ -56,7 +56,7 @@ export default async function CategoriaPage({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/pisos-flotantes"
-            className="inline-flex items-center gap-1 text-wood-200 hover:text-white text-sm mb-6 transition-colors"
+            className="inline-flex min-h-11 items-center gap-1 text-wood-200 hover:text-white text-sm mb-6 transition-colors"
           >
             <ArrowLeft size={16} /> Volver a Pisos Flotantes
           </Link>

@@ -34,12 +34,12 @@ export function Footer() {
             <h3 className="font-semibold text-sm uppercase tracking-wider mb-4 text-amber-500">
               Secciones
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-0">
               {navigation.filter(n => n.id !== "inicio").map((item) => (
                 <li key={item.id}>
                   <Link
                     href={item.href}
-                    className="text-wood-300 hover:text-amber-500 text-sm transition-colors"
+                    className="inline-flex min-h-11 items-center text-wood-300 hover:text-amber-500 text-sm transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -74,7 +74,7 @@ export function Footer() {
                   href={waLink("Hola! Quisiera hacer una consulta.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-amber-500 transition-colors"
+                  className="inline-flex min-h-11 items-center hover:text-amber-500 transition-colors"
                 >
                   Escribinos por WhatsApp
                 </a>
@@ -110,7 +110,7 @@ export function Footer() {
             </ul>
             <Link
               href="/contacto"
-              className="inline-block mt-4 px-5 py-2 bg-amber-500 text-wood-800 text-sm font-bold rounded-lg hover:bg-amber-400 transition-colors"
+              className="inline-flex min-h-11 items-center mt-4 px-5 bg-amber-500 text-wood-800 text-sm font-bold rounded-lg hover:bg-amber-400 transition-colors"
             >
               Contactanos
             </Link>

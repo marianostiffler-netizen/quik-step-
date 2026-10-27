@@ -77,7 +77,7 @@ export function ContactForm() {
       <div>
         <button
           type="submit"
-          className="px-8 py-3.5 bg-amber-500 text-wood-800 font-bold rounded-xl hover:bg-amber-400 transition-colors"
+          className="min-h-11 px-8 py-3.5 bg-amber-500 text-wood-800 font-bold rounded-xl hover:bg-amber-400 transition-colors"
         >
           Enviar por WhatsApp
         </button>

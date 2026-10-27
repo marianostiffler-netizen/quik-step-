@@ -129,7 +129,7 @@ export default function PisosSwatchGallery() {
                 <button
                   key={f.id}
                   onClick={() => setToneFilter(f.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border shrink-0 ${
+                  className={`min-h-11 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border shrink-0 ${
                     toneFilter === f.id
                       ? "bg-amber-500 text-white border-amber-500 shadow-sm"
                       : "bg-white text-gray-700 border-gray-300 hover:border-amber-400 hover:text-amber-600"
@@ -147,7 +147,7 @@ export default function PisosSwatchGallery() {
                 <button
                   key={f.id}
                   onClick={() => setResistanceFilter(f.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border shrink-0 ${
+                  className={`min-h-11 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border shrink-0 ${
                     resistanceFilter === f.id
                       ? "bg-blue-500 text-white border-blue-500 shadow-sm"
                       : "bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:text-blue-600"
@@ -192,7 +192,7 @@ export default function PisosSwatchGallery() {
 
                   {/* Botón de hover */}
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <button className="bg-white/90 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-amber-500 hover:text-white transition-colors duration-300 flex items-center gap-2">
+                    <button className="min-h-11 bg-white/90 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-amber-500 hover:text-white transition-colors duration-300 flex items-center gap-2">
                       <FileText size={16} />
                       Ver Ficha
                     </button>

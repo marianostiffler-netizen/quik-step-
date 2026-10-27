@@ -568,7 +568,7 @@ export default function HomeContent() {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border shrink-0 ${
+                  className={`flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border shrink-0 ${
                     isActive
                       ? "bg-amber-500 text-white border-amber-500 shadow-sm"
                       : "bg-white text-wood-700 border-wood-200 hover:border-amber-400 hover:text-amber-600"
@@ -598,7 +598,7 @@ export default function HomeContent() {
               <p className="text-lg font-medium">Sin resultados para &ldquo;{search}&rdquo;</p>
               <button
                 onClick={() => { setSearch(""); setActiveCategory("todo"); }}
-                className="mt-4 text-amber-600 hover:underline text-sm"
+                className="mt-4 inline-flex min-h-11 items-center text-amber-600 hover:underline text-sm"
               >
                 Limpiar filtros
               </button>
@@ -654,7 +654,7 @@ export default function HomeContent() {
                         href={waProducto(product.name)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl transition-all duration-500 ease-in-out hover:shadow-md"
+                        className="w-full flex min-h-11 items-center justify-center gap-2 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-xl transition-all duration-500 ease-in-out hover:shadow-md"
                       >
                         <MessageCircle size={15} />
                         Consultar por WhatsApp
@@ -667,10 +667,10 @@ export default function HomeContent() {
 
           {/* Ver catálogos completos */}
           <div className="mt-10 flex flex-wrap gap-3 justify-center border-t border-wood-200 pt-8">
-            <Link href="/espejos-artesanales" className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors duration-500 ease-in-out">
+            <Link href="/espejos-artesanales" className="inline-flex min-h-11 items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors duration-500 ease-in-out">
               Ver todos los espejos <ArrowRight size={14} />
             </Link>
-            <Link href="/articulos-hogar" className="inline-flex items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors duration-500 ease-in-out">
+            <Link href="/articulos-hogar" className="inline-flex min-h-11 items-center gap-1 text-sm text-wood-600 hover:text-amber-600 font-medium transition-colors duration-500 ease-in-out">
               Ver todos los muebles <ArrowRight size={14} />
             </Link>
           </div>

@@ -46,7 +46,7 @@ export default function ContactoPage() {
                       href={waLink("Hola! Quisiera hacer una consulta.")}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-da-gray hover:text-amber-600 transition-colors"
+                      className="inline-flex min-h-11 items-center text-sm text-da-gray hover:text-amber-600 transition-colors"
                     >
                       Escribinos por WhatsApp
                     </a>

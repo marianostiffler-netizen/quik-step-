@@ -45,7 +45,7 @@ export default function EspejosInteligentesClient() {
                 <button
                   key={opt.id}
                   onClick={() => setShapeFilter(opt.id)}
-                  className={`px-6 py-2 rounded-full font-medium transition-colors ${
+                  className={`min-h-11 px-6 py-2 rounded-full font-medium transition-colors ${
                     shapeFilter === opt.id
                       ? "bg-blue-500 text-white hover:bg-blue-600"
                       : "bg-white text-gray-700 border border-gray-300 hover:border-blue-400 hover:text-blue-600"

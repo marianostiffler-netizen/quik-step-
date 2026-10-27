@@ -159,7 +159,7 @@ export default function EspejosGallery() {
                 type="button"
                 aria-label="Cerrar"
                 onClick={() => setSelectedEspejo(null)}
-                className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full min-h-11 min-w-11 inline-flex items-center justify-center shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
               >
                 <X size={24} className="text-da-dark" />
               </button>

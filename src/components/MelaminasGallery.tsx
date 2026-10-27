@@ -80,7 +80,7 @@ export default function MelaminasGallery() {
               <button
                 key={f.id}
                 onClick={() => setActiveFilter(f.id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border shrink-0 ${
+                className={`flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border shrink-0 ${
                   activeFilter === f.id
                     ? "bg-amber-500 text-white border-amber-500 shadow-sm"
                     : "bg-white text-wood-700 border-wood-200 hover:border-amber-400 hover:text-amber-600"
@@ -162,7 +162,7 @@ export default function MelaminasGallery() {
               type="button"
               onClick={() => setSelected(null)}
               aria-label="Cerrar"
-              className="absolute top-3 right-3 z-10 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow hover:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="absolute top-2 right-2 z-10 w-11 h-11 bg-white/90 rounded-full flex items-center justify-center shadow hover:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             >
               <X size={16} />
             </button>

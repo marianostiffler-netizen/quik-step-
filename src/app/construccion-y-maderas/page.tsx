@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { AlertTriangle, Hammer, ShieldCheck, Trees, Wrench, Building2 } from "lucide-react";
+import { productosObra, type CategoriaObra } from "@/data/construccion-data";
 
 export const metadata: Metadata = {
   title: "Construcción y Maderas | Maderera Don Antonio",
@@ -8,94 +9,48 @@ export const metadata: Metadata = {
     "Machimbres, tirantería, vigas, aislantes y guía técnica experta para obras en madera.",
 };
 
-const machimbres = [
-  {
-    material: "Pino Eliotis",
-    rows: [
-      { medida: '1/2" x 4"', largo: "2.44 m", grosor: "12 mm", destaque: "Ideal para cielorrasos" },
-      { medida: '3/4" x 5"', largo: "2.44 m", grosor: "18 mm", destaque: "Uso general" },
-      { medida: '1" x 6"', largo: "2.44 m", grosor: "25 mm", destaque: "Ideal para entrepisos/pisos" },
-    ],
-  },
-  {
-    material: "Eucalipto",
-    rows: [
-      { medida: '1/2" x 4"', largo: "2.44 m", grosor: "12 mm", destaque: "Ideal para cielorrasos" },
-      { medida: '3/4" x 5"', largo: "2.44 m", grosor: "18 mm", destaque: "Uso general" },
-      { medida: '1" x 6"', largo: "2.44 m", grosor: "25 mm", destaque: "Ideal para entrepisos/pisos" },
-    ],
-  },
-];
+// Agrupa por una clave manteniendo el orden de los datos
+function agrupar<T>(lista: T[], clave: (t: T) => string): { clave: string; items: T[] }[] {
+  const grupos: { clave: string; items: T[] }[] = [];
+  for (const it of lista) {
+    const g = grupos.find((x) => x.clave === clave(it));
+    if (g) g.items.push(it);
+    else grupos.push({ clave: clave(it), items: [it] });
+  }
+  return grupos;
+}
 
-const tiranteria = [
-  {
-    title: "Interior",
-    material: "Pino Elliotis",
-    rows: [
-      { medida: '2" x 4"', largos: "De 3.05 m a 6.10 m", uso: "Estructuras de techos" },
-      { medida: '2" x 5"', largos: "De 3.05 m a 6.10 m", uso: "Estructuras de techos" },
-      { medida: '2" x 6"', largos: "De 3.05 m a 6.10 m", uso: "Entrepisos" },
-    ],
-  },
-  {
-    title: "Exterior",
-    material: "Eucalipto Grandis",
-    rows: [
-      { medida: '3" x 8"', largos: "Hasta 12 metros", uso: "Pérgolas" },
-      { medida: '4" x 10"', largos: "Hasta 12 metros", uso: "Decks y muelles" },
-    ],
-  },
-];
+const deCategoria = (c: CategoriaObra) => productosObra.filter((p) => p.categoria === c);
 
-const aislantes = [
-  {
-    name: "Lana de vidrio",
-    detail: "Disponible con y sin aluminio para aplicaciones térmicas y de confort interior.",
-  },
-  {
-    name: "Membrana hidrófuga",
-    detail: "Estilo Tyvek, pensada para proteger la envolvente y mejorar el desempeño frente a la humedad.",
-  },
-  {
-    name: "Espuma de polietileno",
-    detail: "Presentaciones de 10 mm y 20 mm para distintas necesidades de apoyo y aislación.",
-  },
-  {
-    name: "Mexpol 3 mm sin aluminio",
-    detail: "Aislante específico recomendado para pisos flotantes.",
-  },
-];
+const machimbres = agrupar(deCategoria("machimbre"), (p) => p.material ?? "").map((g) => ({
+  material: g.clave,
+  rows: g.items.map((p) => ({ medida: p.medida ?? "", largo: p.largo ?? "", grosor: p.grosor ?? "", destaque: p.detalle ?? "" })),
+}));
 
-const tablasEncofrado = [
-  {
-    material: "Eucalipto",
-    rows: [
-      { medida: '1" x 6" x 4.0m', descripcion: "Tabla de 15cm", uso: "Ideal para encadenados" },
-      { medida: '1" x 8" x 4.0m', descripcion: "Tabla de 20cm", uso: "Para encofrar" },
-    ],
-  },
-  {
-    material: "Pino",
-    rows: [
-      { medida: '1" x 8" x 4.0m', descripcion: "Tabla de 20cm", uso: "Para encofrar" },
-    ],
-  },
-];
+const tiranteria = agrupar(deCategoria("tirante"), (p) => p.ubicacion ?? "").map((g) => ({
+  title: g.clave,
+  material: g.items[0].material ?? "",
+  rows: g.items.map((p) => ({ medida: p.medida ?? "", largos: p.largo ?? "", uso: p.detalle ?? "" })),
+}));
 
-const estructuraObra = [
-  { producto: "Puntales", medida: '3" x 3" x 3.0m', detalle: "Soporte estructural" },
-  { producto: "Bastidores", medida: '1" x 2" x 4m', detalle: "Eucalipto en bruto" },
-  { producto: "Bastidores", medida: '1" x 1" x 4.0m', detalle: "Eucalipto en bruto" },
-  { producto: "Fenólicos", medida: "18mm (1.22 x 2.44m)", detalle: "Planchas de Pino" },
-];
+const aislantes = deCategoria("aislante").map((p) => ({ name: p.nombre, detail: p.detalle ?? "" }));
 
-const materialesSecos = [
-  {
-    name: "Bolsas de Yeso Yemaco",
-    detail: "Producto destacado por su calidad para revestimientos y terminaciones interiores.",
-    destacado: true,
-  },
-];
+const tablasEncofrado = agrupar(deCategoria("tabla-encofrado"), (p) => p.material ?? "").map((g) => ({
+  material: g.clave,
+  rows: g.items.map((p) => ({ medida: p.medida ?? "", descripcion: p.descripcion ?? "", uso: p.detalle ?? "" })),
+}));
+
+const estructuraObra = deCategoria("estructura").map((p) => ({
+  producto: p.nombre.startsWith("Bastidor") ? "Bastidores" : p.nombre.startsWith("Puntal") ? "Puntales" : "Fenólicos",
+  medida: p.medida ?? "",
+  detalle: p.detalle ?? "",
+}));
+
+const materialesSecos = deCategoria("material-seco").map((p) => ({
+  name: p.nombre,
+  detail: p.detalle ?? "",
+  destacado: p.destacado === true,
+}));
 
 type Columna = { label: string; cellClass?: string };
 

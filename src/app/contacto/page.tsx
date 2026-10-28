@@ -5,6 +5,7 @@ import HeaderListado from "@/components/catalogo/HeaderListado";
 import { negocio, direccionCorta, waLink } from "@/config/negocio";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contacto" },
   title: "Contacto | Maderera Don Antonio",
   description:
     "Contactanos por consultas sobre pisos flotantes, maderas y servicios de Maderera Don Antonio. Te respondemos por WhatsApp.",

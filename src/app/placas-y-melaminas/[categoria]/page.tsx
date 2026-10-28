@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: `${cat.nombre} Faplac | Maderera Don Antonio`,
     description: `${cat.descripcion} San Jorge, Santa Fe.`,
+    alternates: { canonical: cat.href },
   };
 }
 

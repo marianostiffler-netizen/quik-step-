@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: `${cat.nombre} | Maderas y construcción | Maderera Don Antonio`,
     description: cat.descripcion,
+    alternates: { canonical: cat.href },
   };
 }
 

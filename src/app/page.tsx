@@ -11,6 +11,7 @@ import Historia from "@/components/home/Historia";
 import Asesoramiento from "@/components/home/Asesoramiento";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/" },
   title: "Maderera Don Antonio | Pisos, Espejos y Madera · San Jorge, Santa Fe",
   description:
     "Pisos flotantes Quick-Step, espejos LED artesanales, muebles de madera, machimbres y servicios de cepillado. San Jorge, Santa Fe, Argentina.",

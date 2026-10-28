@@ -30,7 +30,7 @@ import CalculadoraCajas from "@/components/pisos/CalculadoraCajas";
 import { aCentesimas, formatearM2 } from "@/lib/calculadora";
 import { formatearPrecio } from "@/lib/precios";
 import Migas from "@/components/catalogo/Migas";
-import { RUTA_PISOS, buscarGrupo, grupos, hrefLineaPiso, resumenPorRuta } from "@/data/catalogo";
+import { RUTA_PISOS, buscarGrupo, grupos, hrefFichaPiso, hrefLineaPiso, resumenPorRuta } from "@/data/catalogo";
 
 const grupo = buscarGrupo("pisos-y-revestimientos")!;
 
@@ -59,6 +59,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: `${product.sku} ${category.name} | Pisos flotantes | Maderera Don Antonio`,
     description: `Piso flotante Quick-Step ${category.name} ${product.sku}: ${length} × ${width} mm, ${thickness} mm de espesor, ${product.rating}.${precio}`,
+    alternates: { canonical: hrefFichaPiso(category.slug, product.slug) },
   };
 }
 

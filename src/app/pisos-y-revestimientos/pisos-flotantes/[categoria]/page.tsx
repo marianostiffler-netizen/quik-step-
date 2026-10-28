@@ -26,7 +26,7 @@ import ItemCard from "@/components/catalogo/ItemCard";
 import { itemPiso } from "@/data/items";
 import { formatearPrecio } from "@/lib/precios";
 import Migas from "@/components/catalogo/Migas";
-import { RUTA_PISOS, buscarGrupo } from "@/data/catalogo";
+import { RUTA_PISOS, buscarGrupo, hrefLineaPiso } from "@/data/catalogo";
 
 const grupo = buscarGrupo("pisos-y-revestimientos")!;
 
@@ -52,6 +52,7 @@ export async function generateMetadata({
   return {
     title: `Línea ${category.name} | Pisos flotantes Quick-Step | Maderera Don Antonio`,
     description: `${category.name}: ${category.tagline}. ${category.description}`,
+    alternates: { canonical: hrefLineaPiso(category.slug) },
   };
 }
 

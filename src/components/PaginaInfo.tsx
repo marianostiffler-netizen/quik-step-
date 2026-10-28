@@ -10,6 +10,7 @@ export function metadataInfo(ruta: string): Metadata {
   return {
     title: `${p.titulo} | Maderera Don Antonio`,
     description: p.descripcion,
+    alternates: { canonical: ruta },
     ...(esIndexable(p) ? {} : { robots: { index: false } }),
   };
 }

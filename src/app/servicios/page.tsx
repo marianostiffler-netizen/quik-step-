@@ -4,6 +4,7 @@ import { Hammer, FileText, CheckCircle2 } from "lucide-react";
 import HeaderListado from "@/components/catalogo/HeaderListado";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/servicios" },
   title: "Servicios | Cepillado y lijado | Maderera Don Antonio",
   description:
     "Servicios de Maderera Don Antonio: cepillado y lijado de madera.",

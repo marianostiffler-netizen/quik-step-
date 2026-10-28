@@ -12,6 +12,7 @@ import HeaderListado from "@/components/catalogo/HeaderListado";
 const grupo = buscarGrupo("pisos-y-revestimientos")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/pisos-y-revestimientos/pisos-flotantes" },
   title: "Pisos flotantes Quick-Step | Pisos y revestimientos | Maderera Don Antonio",
   description:
     "Pisos laminados Quick-Step con tecnología europea. Líneas Smart, Catedral, Premiere Plus, Eligna Wide y Vision.",

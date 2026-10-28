@@ -9,6 +9,7 @@ const grupo = buscarGrupo("hogar-y-deco")!;
 const espejos = buscarCategoria("hogar-y-deco", "espejos")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/hogar-y-deco/espejos/artesanales" },
   title: "Espejos artesanales | Hogar y deco | Maderera Don Antonio",
   description:
     "Espejos con iluminación LED integrada, desempañador y tecnología inteligente para tu hogar.",

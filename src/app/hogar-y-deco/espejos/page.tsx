@@ -7,6 +7,7 @@ const grupo = buscarGrupo("hogar-y-deco")!;
 const cat = buscarCategoria("hogar-y-deco", "espejos")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/hogar-y-deco/espejos" },
   title: "Espejos | Hogar y deco | Maderera Don Antonio",
   description: "Espejos LED y espejos artesanales con iluminación LED integrada. San Jorge, Santa Fe.",
 };

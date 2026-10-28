@@ -6,6 +6,7 @@ import { GrillaCategorias } from "@/components/catalogo/TarjetaCategoria";
 const grupo = buscarGrupo("placas-y-melaminas")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/placas-y-melaminas" },
   title: "Placas y melaminas | Maderera Don Antonio",
   description: "Melaminas y revestimientos melamínicos Faplac: líneas Mesopotamia, Táctil y más. San Jorge, Santa Fe.",
 };

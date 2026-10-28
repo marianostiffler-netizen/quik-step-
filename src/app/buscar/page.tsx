@@ -5,6 +5,7 @@ import { formatearPrecio } from "@/lib/precios";
 import Migas from "@/components/catalogo/Migas";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/buscar" },
   title: "Buscar productos | Maderera Don Antonio",
   robots: { index: false },
 };

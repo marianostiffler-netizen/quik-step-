@@ -6,6 +6,7 @@ import { GrillaCategorias } from "@/components/catalogo/TarjetaCategoria";
 const grupo = buscarGrupo("pisos-y-revestimientos")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/pisos-y-revestimientos" },
   title: "Pisos y revestimientos | Maderera Don Antonio",
   description: "Pisos flotantes Quick-Step, zócalos EPS Santa Luzia y manta aislante. San Jorge, Santa Fe.",
 };

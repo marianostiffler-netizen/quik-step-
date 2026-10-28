@@ -11,6 +11,7 @@ const grupo = buscarGrupo("pisos-y-revestimientos")!;
 const cat = buscarCategoria("pisos-y-revestimientos", "zocalos-y-mantas")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/pisos-y-revestimientos/zocalos-y-mantas" },
   title: "Zócalos y mantas | Pisos y revestimientos | Maderera Don Antonio",
   description: "Zócalos EPS Santa Luzia y manta aislante Isolant para la instalación de pisos flotantes. San Jorge, Santa Fe.",
 };

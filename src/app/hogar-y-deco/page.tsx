@@ -6,6 +6,7 @@ import { GrillaCategorias } from "@/components/catalogo/TarjetaCategoria";
 const grupo = buscarGrupo("hogar-y-deco")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/hogar-y-deco" },
   title: "Hogar y deco | Maderera Don Antonio",
   description: "Artículos del hogar en madera y espejos LED y artesanales. San Jorge, Santa Fe.",
 };

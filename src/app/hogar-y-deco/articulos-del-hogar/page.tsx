@@ -8,6 +8,7 @@ const grupo = buscarGrupo("hogar-y-deco")!;
 const cat = buscarCategoria("hogar-y-deco", "articulos-del-hogar")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/hogar-y-deco/articulos-del-hogar" },
   title: "Artículos del hogar | Hogar y deco | Maderera Don Antonio",
   description: cat.descripcion,
 };

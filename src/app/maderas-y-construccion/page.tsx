@@ -11,6 +11,7 @@ import { GrillaCategorias } from "@/components/catalogo/TarjetaCategoria";
 const grupo = buscarGrupo("maderas-y-construccion")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/maderas-y-construccion" },
   title: "Maderas y construcción | Maderera Don Antonio",
   description: "Machimbres, tirantes y vigas, tablas para encofrado, estructura de obra, aislantes y materiales secos. San Jorge, Santa Fe.",
 };

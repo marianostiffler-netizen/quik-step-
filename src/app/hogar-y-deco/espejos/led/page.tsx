@@ -9,6 +9,7 @@ const grupo = buscarGrupo("hogar-y-deco")!;
 const espejos = buscarCategoria("hogar-y-deco", "espejos")!;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/hogar-y-deco/espejos/led" },
   title: "Espejos LED | Hogar y deco | Maderera Don Antonio",
   description: "Espejos LED con tecnología Touch, desempañador y reloj. Rectangulares, cuadrados, ovalados y circulares.",
 };

@@ -3,13 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  ArrowLeft,
+  ChevronRight,
+  MessageCircle,
+  TreePine,
+  Shield,
+  MousePointerClick,
   Ruler,
   Layers,
   Award,
   Droplets,
   CheckCircle2,
-  DollarSign,
   Package,
 } from "lucide-react";
 import {
@@ -18,8 +21,16 @@ import {
   getCategoryBySlug,
   features,
 } from "@/data/site-data";
-import { FeatureBadge } from "@/components/FeatureBadge";
-import { formatearPrecio } from "@/lib/precios";
+import { waLink } from "@/config/negocio";
+import PisoCard from "@/components/pisos/PisoCard";
+import { formatearPrecio, precioDesde } from "@/lib/precios";
+
+const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+  "wood-grain": TreePine,
+  "water-drop": Droplets,
+  shield: Shield,
+  click: MousePointerClick,
+};
 
 export function generateStaticParams() {
   return categories.map((cat) => ({ categoria: cat.slug }));
@@ -49,194 +60,139 @@ export default async function CategoriaPage({
   if (!category) notFound();
 
   const products = getProductsByCategory(category.id);
+  const s = category.specs_summary;
+  const desde = precioDesde(products.map((p) => p.price_usd_m2)) ?? precioDesde([s.price_usd_m2]);
+
+  const specs: { label: string; value: string; Icon: typeof Ruler; precio?: boolean }[] = [
+    { label: "Dimensiones", value: s.dimensions, Icon: Ruler },
+    { label: "Espesor", value: s.thickness, Icon: Layers },
+    { label: "Clasificación", value: s.rating, Icon: Award },
+  ];
+  if (s.water_resistance) specs.push({ label: "Resistencia al agua", value: s.water_resistance, Icon: Droplets });
+  // TODO(cliente): el precio de la línea (specs_summary) no coincide con el de sus productos;
+  // hasta confirmar cuál vale, la página muestra solo el "desde" calculado de los productos.
+  if (s.coverage_m2) specs.push({ label: "Cobertura por caja", value: `${new Intl.NumberFormat("es-AR").format(s.coverage_m2)} m²`, Icon: Package });
 
   return (
     <>
-      {/* Header */}
-      <section className="bg-wood-700 text-white py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/pisos-flotantes"
-            className="inline-flex min-h-11 items-center gap-1 text-wood-200 hover:text-white text-sm mb-6 transition-colors"
-          >
-            <ArrowLeft size={16} /> Volver a Pisos Flotantes
-          </Link>
-          <h1 className="text-3xl md:text-5xl font-bold">{category.name}</h1>
-          <p className="mt-2 text-xl text-wood-200">{category.tagline}</p>
-          <p className="mt-4 text-wood-100 max-w-2xl leading-relaxed">
-            {category.description}
-          </p>
-        </div>
-      </section>
-
-      {/* Specs */}
-      <section className="py-12 border-b border-wood-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-bold text-da-dark mb-6">
-            Especificaciones de la Línea
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-wood-100 flex items-center justify-center shrink-0">
-                <Ruler size={18} className="text-wood-600" />
-              </div>
-              <div>
-                <p className="text-xs text-da-gray">Dimensiones</p>
-                <p className="font-semibold text-da-dark">
-                  {category.specs_summary.dimensions}
+      <section className="bg-pino pt-4 pb-10 md:pb-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <nav aria-label="Migas de pan" className="flex flex-wrap items-center text-sm text-nogal-suave">
+            <Link href="/" className="tap inline-flex items-center hover:text-algarrobo">Inicio</Link>
+            <ChevronRight size={14} aria-hidden="true" />
+            <Link href="/pisos-flotantes" className="tap inline-flex items-center hover:text-algarrobo">Pisos flotantes</Link>
+            <ChevronRight size={14} aria-hidden="true" />
+            <span className="tap inline-flex items-center px-1 text-nogal" aria-current="page">{category.name}</span>
+          </nav>
+          <div className="mt-4 grid items-center gap-8 md:grid-cols-2">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-algarrobo">Línea Quick-Step</p>
+              <h1 className="mt-2 font-display text-4xl md:text-5xl font-bold text-nogal">{category.name}</h1>
+              <p className="mt-2 text-xl text-nogal-suave">{category.tagline}</p>
+              <p className="mt-4 leading-relaxed text-nogal-suave">{category.description}</p>
+              {desde !== null && (
+                <p className="mt-6 text-3xl font-bold text-precio tabular-nums">
+                  <span className="text-base font-medium text-nogal-suave">desde </span>
+                  {formatearPrecio(desde, "USD")}
+                  <span className="text-sm font-medium text-nogal-suave">/m²</span>
                 </p>
-              </div>
+              )}
+              {s.promo && (
+                <span className="mt-3 inline-block rounded-full bg-eucalipto px-3 py-1 text-sm font-semibold text-white">
+                  {s.promo}
+                </span>
+              )}
             </div>
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-wood-100 flex items-center justify-center shrink-0">
-                <Layers size={18} className="text-wood-600" />
-              </div>
-              <div>
-                <p className="text-xs text-da-gray">Espesor</p>
-                <p className="font-semibold text-da-dark">
-                  {category.specs_summary.thickness}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-wood-100 flex items-center justify-center shrink-0">
-                <Award size={18} className="text-wood-600" />
-              </div>
-              <div>
-                <p className="text-xs text-da-gray">Clasificación</p>
-                <p className="font-semibold text-da-dark">
-                  {category.specs_summary.rating}
-                </p>
-              </div>
-            </div>
-            {category.specs_summary.water_resistance && (
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-wood-100 flex items-center justify-center shrink-0">
-                  <Droplets size={18} className="text-wood-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-da-gray">Resist. al Agua</p>
-                  <p className="font-semibold text-da-dark">
-                    {category.specs_summary.water_resistance}
-                  </p>
-                </div>
-              </div>
-            )}
-            {category.specs_summary.price_usd_m2 && (
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-wood-100 flex items-center justify-center shrink-0">
-                  <DollarSign size={18} className="text-amber-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-da-gray">Precio</p>
-                  <p className="tabular-nums font-semibold text-amber-600">
-                    {formatearPrecio(category.specs_summary.price_usd_m2, "USD")}/m²
-                  </p>
-                </div>
-              </div>
-            )}
-            {category.specs_summary.coverage_m2 && (
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-wood-100 flex items-center justify-center shrink-0">
-                  <Package size={18} className="text-wood-600" />
-                </div>
-                <div>
-                  <p className="text-xs text-da-gray">Cobertura/Caja</p>
-                  <p className="font-semibold text-da-dark">
-                    {category.specs_summary.coverage_m2} m²
-                  </p>
-                </div>
-              </div>
+            {products[0] && (
+              <Image
+                src={`/products/ambientes/${products[0].image}`}
+                alt={`Ambiente con piso ${category.name}`}
+                width={1517}
+                height={950}
+                priority
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="w-full aspect-[16/10] rounded-card object-cover"
+              />
             )}
           </div>
         </div>
       </section>
 
-      {/* Highlights */}
-      <section className="py-12 bg-wood-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10">
-            <div>
-              <h2 className="text-lg font-bold text-da-dark mb-4">
-                Características Destacadas
-              </h2>
-              <ul className="space-y-3">
-                {category.highlights.map((h, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle2
-                      size={18}
-                      className="text-wood-600 shrink-0 mt-0.5"
-                    />
-                    <span className="text-da-dark">{h}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-da-dark mb-4">
-                Tecnologías Incluidas
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
-                {features.map((f) => (
-                  <FeatureBadge key={f.id} {...f} compact />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Products grid */}
-      <section className="py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-da-dark mb-2">
-            Diseños Disponibles
-          </h2>
-          <p className="text-da-gray mb-8">
-            {products.length} diseño{products.length !== 1 ? "s" : ""} en la
-            línea {category.name}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => (
-              <div
-                key={product.sku}
-                id={product.sku}
-                className="bg-white rounded-2xl border border-wood-200 overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <div className="relative aspect-square overflow-hidden bg-wood-100">
-                  <Image
-                    src={`/products/${product.image}`}
-                    alt={product.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold text-da-dark">{product.name}</h3>
-                    <span className="text-xs text-da-gray font-mono">
-                      {product.sku}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="text-xs bg-wood-100 text-wood-700 px-2.5 py-1 rounded-full">
-                      {product.dimensions.length}x{product.dimensions.width}x
-                      {product.dimensions.thickness}mm
-                    </span>
-                    <span className="text-xs bg-wood-100 text-wood-700 px-2.5 py-1 rounded-full font-medium">
-                      {product.rating}
-                    </span>
-                    {product.water_resistance_hours && (
-                      <span className="text-xs bg-wood-700 text-white px-2.5 py-1 rounded-full font-medium">
-                        {product.water_resistance_hours}hs resist. agua
-                      </span>
-                    )}
-                  </div>
+      <section className="pb-12">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="font-display text-2xl font-bold text-nogal">Especificaciones de la línea</h2>
+          <dl className="tarjeta mt-6 grid grid-cols-1 gap-5 p-5 sm:grid-cols-2 lg:grid-cols-3 md:p-6">
+            {specs.map(({ label, value, Icon, precio }) => (
+              <div key={label} className="flex items-start gap-3">
+                <Icon size={20} className="mt-0.5 shrink-0 text-algarrobo" aria-hidden="true" />
+                <div>
+                  <dt className="text-xs text-nogal-suave">{label}</dt>
+                  <dd className={`font-semibold tabular-nums ${precio ? "text-precio" : "text-nogal"}`}>{value}</dd>
                 </div>
               </div>
             ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="pb-12">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 md:grid-cols-2">
+          <div>
+            <h2 className="font-display text-2xl font-bold text-nogal">Por qué elegirla</h2>
+            <ul className="mt-5 space-y-3">
+              {category.highlights.map((h, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-eucalipto" aria-hidden="true" />
+                  <span className="text-nogal">{h}</span>
+                </li>
+              ))}
+            </ul>
           </div>
+          <div>
+            <h2 className="font-display text-2xl font-bold text-nogal">Tecnologías</h2>
+            <ul className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {features.map((f) => {
+                const Icon = iconMap[f.icon] || Shield;
+                return (
+                  <li key={f.id} className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-veta">
+                      <Icon size={16} className="text-algarrobo" aria-hidden="true" />
+                    </span>
+                    <span className="text-sm font-medium text-nogal">{f.badge}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="font-display text-2xl font-bold text-nogal">Diseños disponibles</h2>
+          <p className="mt-2 text-nogal-suave">
+            {products.length} diseño{products.length !== 1 ? "s" : ""} en la línea {category.name}
+          </p>
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
+            {products.map((product) => (
+              <PisoCard key={product.sku} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-20">
+        <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 sm:flex-row sm:items-center sm:px-6">
+          <a
+            href={waLink(`Hola! Quisiera consultar por la línea ${category.name}.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-whatsapp"
+          >
+            <MessageCircle size={18} aria-hidden="true" />
+            Consultar por WhatsApp
+          </a>
+          <Link href="/pisos-flotantes" className="btn-secundario">Ver todos los pisos</Link>
         </div>
       </section>
     </>

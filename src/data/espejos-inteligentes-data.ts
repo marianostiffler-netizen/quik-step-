@@ -1,4 +1,5 @@
 // Precios convertidos desde ARS a USD a tasa 1420 ARS/USD
+// TODO(cliente): confirmar cotización; price_usd es una conversión a dólar fijo y no se muestra
 // Fuente: CATALOGO ESPEJOS-2026.xlsx (importados depo lanus)
 
 export interface Mirror {

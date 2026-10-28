@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Sparkles } from "lucide-react";
-import EspejosGallery from "@/components/EspejosGallery";
+import { Clock, Sparkles, Thermometer, Wind, Zap } from "lucide-react";
+import { espejosArtesanales } from "@/data/espejos-artesanales-data";
+import HeaderListado from "@/components/catalogo/HeaderListado";
+import CatalogoItems from "@/components/catalogo/CatalogoItems";
+import type { ItemCatalogo } from "@/components/catalogo/tipos";
 
 export const metadata: Metadata = {
   title: "Espejos Artesanales | Maderera Don Antonio",
@@ -8,26 +11,52 @@ export const metadata: Metadata = {
     "Espejos con iluminación LED integrada, desempañador y tecnología inteligente para tu hogar.",
 };
 
+const caracteristicasGenerales = [
+  { icon: Zap, label: "LED 3 tonos (Fría, Neutra, Cálida)" },
+  { icon: Sparkles, label: "Regulador de intensidad" },
+  { icon: Wind, label: "Desempañador integrado" },
+  { icon: Thermometer, label: "Display LCD · Hora · Temperatura" },
+  { icon: Clock, label: "Sensor de movimiento" },
+];
+
+const items: ItemCatalogo[] = espejosArtesanales.map((e) => ({
+  id: e.id,
+  nombre: e.modelo,
+  descripcion: e.forma,
+  detalles: [e.medidas],
+  imagen: { src: e.image, alt: `Espejo ${e.modelo}` },
+  precio: null,
+}));
+
 export default function EspejosArtesanalesPage() {
   return (
-    <main>
-      {/* Header */}
-      <section className="bg-wood-700 text-white py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <Sparkles size={32} className="text-amber-500" />
-          </div>
-          <h1 className="text-3xl md:text-5xl font-bold">
-            Espejos Artesanales
-          </h1>
-          <p className="mt-4 text-xl text-wood-200 max-w-2xl">
-            Espejos con iluminación LED integrada, desempañador y tecnología
-            inteligente para tu hogar.
-          </p>
+    <>
+      <HeaderListado
+        titulo="Espejos artesanales"
+        bajada="Espejos con iluminación LED integrada, desempañador y tecnología inteligente para tu hogar."
+        conteo={`${items.length} modelos`}
+      />
+
+      <section className="pb-12">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="font-display text-xl font-bold text-nogal">Características generales (todos los modelos)</h2>
+          <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {caracteristicasGenerales.map(({ icon: Icon, label }) => (
+              <li key={label} className="tarjeta flex items-center gap-2 px-4 py-3 text-sm text-nogal">
+                <Icon size={16} className="shrink-0 text-algarrobo" aria-hidden="true" />
+                <span>{label}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <EspejosGallery />
-    </main>
+      <section className="pb-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="sr-only">Modelos</h2>
+          <CatalogoItems id="artesanales" items={items} ordenes={["nombre-asc", "nombre-desc"]} unidades={["modelo", "modelos"]} ampliable />
+        </div>
+      </section>
+    </>
   );
 }

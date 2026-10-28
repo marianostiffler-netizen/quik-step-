@@ -2,10 +2,10 @@ import Link from "next/link";
 import { Home, Trees, Layers, Construction, Sofa, type LucideIcon } from "lucide-react";
 
 const usos: { titulo: string; href: string; medidas: string; Icono: LucideIcon }[] = [
-  { titulo: "Techos", href: "/construccion-y-maderas#tiranteria", medidas: "Tirantes 2\"×4\" y 2\"×5\", machimbre ½\"×4\" y aislantes", Icono: Home },
-  { titulo: "Decks y pérgolas", href: "/construccion-y-maderas#tiranteria", medidas: "Eucalipto grandis 3\"×8\" y 4\"×10\", hasta 12 m", Icono: Trees },
-  { titulo: "Entrepisos", href: "/construccion-y-maderas#machimbres", medidas: "Tirantes 2\"×6\" y machimbre 1\"×6\"", Icono: Layers },
-  { titulo: "Encofrado", href: "/construccion-y-maderas#encofrado", medidas: "Tablas 1\"×6\" y 1\"×8\" × 4 m", Icono: Construction },
+  { titulo: "Techos", href: "/construccion-y-maderas?uso=techos", medidas: "Tirantes 2\"×4\" y 2\"×5\", machimbre ½\"×4\" y aislantes", Icono: Home },
+  { titulo: "Decks y pérgolas", href: "/construccion-y-maderas?uso=decks", medidas: "Eucalipto grandis 3\"×8\" y 4\"×10\", hasta 12 m", Icono: Trees },
+  { titulo: "Entrepisos", href: "/construccion-y-maderas?uso=entrepisos", medidas: "Tirantes 2\"×6\" y machimbre 1\"×6\"", Icono: Layers },
+  { titulo: "Encofrado", href: "/construccion-y-maderas?uso=encofrado", medidas: "Tablas 1\"×6\" y 1\"×8\" × 4 m", Icono: Construction },
   { titulo: "Interiores", href: "/pisos-flotantes", medidas: "Pisos flotantes, melaminas y espejos", Icono: Sofa },
 ];
 

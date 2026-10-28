@@ -13,24 +13,6 @@
   --precio: #9A5F14;
   --wa: #1F9D55;
   --wa-oscuro: #197F45;
-
-  /* LEGADO: se eliminan a medida que se rediseña cada pantalla */
-  --wood-800: #3e2723;
-  --wood-700: #4e342e;
-  --wood-600: #5d4037;
-  --wood-500: #6d4c41;
-  --wood-400: #8d6e63;
-  --wood-300: #a1887f;
-  --wood-200: #d7ccc8;
-  --wood-100: #efebe9;
-  --wood-50: #faf8f6;
-  --amber-600: #d4860a;
-  --amber-500: #f59e0b;
-  --forest-700: #2d5016;
-  --forest-600: #3f6212;
-  --da-dark: #1c1410;
-  --da-gray: #6b5e57;
-  --da-cream: #fdf8f0;
 }
 
 @theme inline {
@@ -48,24 +30,6 @@
   --color-wa: var(--wa);
   --radius-card: 12px;
   --radius-campo: 8px;
-
-  /* LEGADO: se eliminan a medida que se rediseña cada pantalla */
-  --color-wood-800: var(--wood-800);
-  --color-wood-700: var(--wood-700);
-  --color-wood-600: var(--wood-600);
-  --color-wood-500: var(--wood-500);
-  --color-wood-400: var(--wood-400);
-  --color-wood-300: var(--wood-300);
-  --color-wood-200: var(--wood-200);
-  --color-wood-100: var(--wood-100);
-  --color-wood-50: var(--wood-50);
-  --color-amber-600: var(--amber-600);
-  --color-amber-500: var(--amber-500);
-  --color-forest-700: var(--forest-700);
-  --color-forest-600: var(--forest-600);
-  --color-da-dark: var(--da-dark);
-  --color-da-gray: var(--da-gray);
-  --color-da-cream: var(--da-cream);
   --font-sans: var(--font-inter);
   --font-display: var(--font-archivo);
 }

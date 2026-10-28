@@ -11,7 +11,7 @@ export default function HeaderListado({
 }: {
   titulo: string;
   bajada: string;
-  conteo: ReactNode;
+  conteo?: ReactNode;
   /** Inicio › … › actual. La última es la página actual (sin link). */
   migas: Miga[];
 }) {
@@ -21,7 +21,7 @@ export default function HeaderListado({
         <Migas migas={migas} />
         <h1 className="mt-2 font-display text-4xl font-bold text-nogal md:text-6xl">{titulo}</h1>
         <p className="mt-4 max-w-2xl text-lg text-nogal-suave">{bajada}</p>
-        <p className="mt-4 font-semibold text-nogal tabular-nums">{conteo}</p>
+        {conteo && <p className="mt-4 font-semibold text-nogal tabular-nums">{conteo}</p>}
       </div>
     </section>
   );

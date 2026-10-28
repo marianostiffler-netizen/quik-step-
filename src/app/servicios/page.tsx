@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Hammer, FileText, TreePine, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { Hammer, FileText, CheckCircle2 } from "lucide-react";
+import HeaderListado from "@/components/catalogo/HeaderListado";
 
 export const metadata: Metadata = {
-  title: "Servicios de Maderera | Cepillado y Lijado",
+  title: "Servicios | Cepillado y lijado | Maderera Don Antonio",
   description:
-    "Servicios artesanales de Maderera Don Antonio: cepillado de madera y lijado profesional.",
+    "Servicios de Maderera Don Antonio: cepillado y lijado de madera.",
 };
 
 const services = [
   {
     id: "cepillado",
     icon: Hammer,
-    title: "Cepillado de Madera",
+    title: "Cepillado de madera",
     description:
-      "Cepillamos tus tablas y vigas para obtener superficies perfectamente lisas y uniformes. Trabajo artesanal con maquinaria de primera.",
+      "Cepillamos tus tablas y vigas para obtener superficies lisas y uniformes.",
     features: [
       "Superficies lisas y uniformes",
       "Grosor exacto según tu requerimiento",
@@ -25,14 +27,13 @@ const services = [
   {
     id: "lijado",
     icon: FileText,
-    title: "Lijado Profesional",
+    title: "Lijado",
     description:
-      "Lijado de superficies para obtener acabados suaves y listos para barnizar o pintar. Diferentes grados de lijado.",
+      "Lijado de superficies para obtener acabados suaves y listos para barnizar o pintar.",
     features: [
       "Diferentes grados de lijado",
       "Superficies listas para acabado",
       "Trabajo en vigas y tablas",
-      "Acabado profesional",
     ],
   },
 ];
@@ -40,53 +41,29 @@ const services = [
 export default function ServiciosPage() {
   return (
     <>
-      {/* Header */}
-      <section className="bg-wood-700 text-white py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <TreePine size={32} className="text-amber-500" />
-            <div className="h-px flex-1 bg-amber-500/30 max-w-[120px]" />
-          </div>
-          <h1 className="text-3xl md:text-5xl font-bold">
-            Servicios de Maderera
-          </h1>
-          <p className="mt-4 text-xl text-wood-200 max-w-2xl">
-            Trabajo artesanal con maquinaria de primera: cepillado y lijado
-            profesional.
-          </p>
-        </div>
-      </section>
+      <HeaderListado
+        titulo="Servicios"
+        bajada="Cepillado y lijado de madera."
+        conteo={`${services.length} servicios`}
+        migas={[{ label: "Inicio", href: "/" }, { label: "Servicios" }]}
+      />
 
-      {/* Services grid */}
-      <section className="py-20 bg-da-cream">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <section className="pb-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-6">
             {services.map((service) => {
               const Icon = service.icon;
               return (
-                <div
-                  key={service.id}
-                  className="bg-white rounded-2xl border border-wood-200 p-8 hover:shadow-xl transition-shadow"
-                >
-                  <div className="w-16 h-16 bg-forest-600 rounded-xl flex items-center justify-center mb-6">
-                    <Icon size={28} className="text-white" />
+                <div key={service.id} className="tarjeta p-6 md:p-8">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-card bg-pino text-algarrobo">
+                    <Icon size={28} aria-hidden="true" />
                   </div>
-                  <h2 className="text-xl font-bold text-da-dark mb-3">
-                    {service.title}
-                  </h2>
-                  <p className="text-da-gray text-sm leading-relaxed mb-6">
-                    {service.description}
-                  </p>
-                  <ul className="space-y-3">
-                    {service.features.map((feature, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2 text-sm text-da-dark"
-                      >
-                        <CheckCircle2
-                          size={16}
-                          className="text-forest-600 shrink-0 mt-0.5"
-                        />
+                  <h2 className="font-display text-xl font-bold text-nogal">{service.title}</h2>
+                  <p className="mt-3 text-sm leading-relaxed text-nogal-suave">{service.description}</p>
+                  <ul className="mt-5 space-y-3">
+                    {service.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2 text-sm text-nogal">
+                        <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-eucalipto" aria-hidden="true" />
                         {feature}
                       </li>
                     ))}
@@ -98,22 +75,17 @@ export default function ServiciosPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-wood-100">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-da-dark mb-4">
-            ¿Necesitás un presupuesto?
-          </h2>
-          <p className="text-da-gray text-lg mb-8">
-            Contactanos y te asesoramos sobre el servicio que necesitás. Trabajo
-            de calidad con atención personalizada.
-          </p>
-          <a
-            href="/contacto"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-amber-500 text-wood-800 font-bold rounded-xl hover:bg-amber-400 transition-colors"
-          >
-            Consultar por Servicios
-          </a>
+      <section className="pb-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="tarjeta flex flex-col items-start gap-4 p-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="font-display text-2xl font-bold text-nogal">¿Necesitás un presupuesto?</h2>
+              <p className="mt-2 text-nogal-suave">Contactanos y te respondemos por WhatsApp.</p>
+            </div>
+            <Link href="/contacto" className="btn-primario shrink-0">
+              Consultar por servicios
+            </Link>
+          </div>
         </div>
       </section>
     </>

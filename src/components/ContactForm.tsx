@@ -25,51 +25,51 @@ export function ContactForm() {
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="grid sm:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="contacto-nombre" className="block text-sm font-medium text-da-dark mb-2">
+          <label htmlFor="contacto-nombre" className="mb-2 block text-sm font-medium text-nogal">
             Nombre
           </label>
           <input id="contacto-nombre"
             name="nombre"
             type="text"
             required
-            className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
+            className="min-h-11 w-full rounded-campo border border-veta bg-superficie px-4 py-3 text-nogal placeholder:text-nogal-suave focus-visible:border-algarrobo focus-visible:outline-2 focus-visible:outline-algarrobo"
             placeholder="Tu nombre"
           />
         </div>
         <div>
-          <label htmlFor="contacto-email" className="block text-sm font-medium text-da-dark mb-2">
+          <label htmlFor="contacto-email" className="mb-2 block text-sm font-medium text-nogal">
             Email
           </label>
           <input id="contacto-email"
             name="email"
             type="email"
-            className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
+            className="min-h-11 w-full rounded-campo border border-veta bg-superficie px-4 py-3 text-nogal placeholder:text-nogal-suave focus-visible:border-algarrobo focus-visible:outline-2 focus-visible:outline-algarrobo"
             placeholder="tu@email.com"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="contacto-telefono" className="block text-sm font-medium text-da-dark mb-2">
+        <label htmlFor="contacto-telefono" className="mb-2 block text-sm font-medium text-nogal">
           Teléfono
         </label>
         <input id="contacto-telefono"
           name="telefono"
           type="tel"
-          className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
+          className="min-h-11 w-full rounded-campo border border-veta bg-superficie px-4 py-3 text-nogal placeholder:text-nogal-suave focus-visible:border-algarrobo focus-visible:outline-2 focus-visible:outline-algarrobo"
           placeholder="Tu teléfono"
         />
       </div>
 
       <div>
-        <label htmlFor="contacto-mensaje" className="block text-sm font-medium text-da-dark mb-2">
+        <label htmlFor="contacto-mensaje" className="mb-2 block text-sm font-medium text-nogal">
           Mensaje
         </label>
         <textarea id="contacto-mensaje"
           name="mensaje"
           required
           rows={5}
-          className="w-full px-4 py-3 rounded-xl border border-wood-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition resize-none"
+          className="min-h-11 w-full rounded-campo border border-veta bg-superficie px-4 py-3 text-nogal placeholder:text-nogal-suave focus-visible:border-algarrobo focus-visible:outline-2 focus-visible:outline-algarrobo resize-none"
           placeholder="Contanos sobre tu proyecto o consulta..."
         />
       </div>
@@ -77,11 +77,11 @@ export function ContactForm() {
       <div>
         <button
           type="submit"
-          className="min-h-11 px-8 py-3.5 bg-amber-500 text-wood-800 font-bold rounded-xl hover:bg-amber-400 transition-colors"
+          className="btn-whatsapp"
         >
           Enviar por WhatsApp
         </button>
-        <p className="mt-2 text-xs text-da-gray">
+        <p className="mt-2 text-xs text-nogal-suave">
           Se abre WhatsApp con tu consulta lista para enviar.
         </p>
       </div>

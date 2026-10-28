@@ -13,7 +13,7 @@ export default function PisoCard({ product, lineName }: { product: Product; line
   return (
     <Link
       id={product.sku}
-      href={`/pisos-flotantes/${product.category_id}#${product.sku}`}
+      href={`/pisos-flotantes/${product.category_id}/${product.slug}`}
       className="tarjeta overflow-hidden flex flex-col scroll-mt-24 transition hover:border-algarrobo hover:shadow-md"
     >
       <Image

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { categories } from "@/data/site-data";
+import { categories, products } from "@/data/site-data";
 import { urlSitio } from "@/config/negocio";
 
 // Rutas públicas. Excluidas a propósito: /landing (prueba) y /cielorrasos (próximamente).
@@ -8,6 +8,7 @@ const rutas = [
   "/",
   "/pisos-flotantes",
   ...categories.map((c) => `/pisos-flotantes/${c.slug}`),
+  ...products.map((p) => `/pisos-flotantes/${p.category_id}/${p.slug}`),
   "/construccion-y-maderas",
   "/melaminas",
   "/espejos-inteligentes",

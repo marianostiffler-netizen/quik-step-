@@ -11,6 +11,11 @@ const conCentavos = {
 
 const sinCentavos = new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 });
 
+// Montos calculados en centavos enteros (ver src/lib/calculadora.ts); se divide solo para mostrar
+export function formatearCentavos(centavos: number, moneda: Moneda): string {
+  return formatearPrecio(centavos / 100, moneda);
+}
+
 // Menor precio de una lista, para mostrar "desde". Ignora ausentes y valores <= 0
 // (ej. la manta tiene price_usd: 0 porque no tiene precio cargado). Null si no hay ninguno.
 export function precioDesde(valores: Array<number | null | undefined>): number | null {

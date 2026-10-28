@@ -152,7 +152,7 @@ export default async function FichaPage({ params }: { params: Promise<Params> })
                 <p className="mt-2 text-lg text-nogal-suave">{category.name} · {category.tagline}</p>
                 <div className="mt-5">
                   <PrecioItem
-                    precio={precio !== null ? { valor: precio, moneda: "USD", unidad: "/m²" } : null}
+                    precio={itemPiso(product, category.name).precio}
                     grande
                   />
                 </div>

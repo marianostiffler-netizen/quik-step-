@@ -11,6 +11,8 @@ export interface Product {
   features: string[];
   water_resistance_hours: number | null;
   price_usd_m2?: number;
+  /** Precio sin impuestos nacionales en USD/m². Solo se muestra si está cargado. TODO(cliente) */
+  price_usd_m2_sin_impuestos?: number;
   coverage_m2?: number;
   tone?: Tone;
 }
@@ -44,6 +46,8 @@ export interface Accessory {
   description: string;
   price_usd: number;
   price_unit: string;
+  /** Precio sin impuestos nacionales en USD por `price_unit`. Solo se muestra si está cargado. TODO(cliente) */
+  price_usd_sin_impuestos?: number;
   dimensions: string;
   packaging: string;
 }
@@ -369,8 +373,10 @@ export const accessories: Accessory[] = [
   { sku: "MANTA-ISOLANT", category: "manta", name: "Manta Isolant 2mm", description: "Manta de 2 mm de espesor con solapa, marca Isolant. Base aislante indispensable para la instalación de pisos laminados.", price_usd: 0, price_unit: "m²", dimensions: "2 mm espesor, con solapa", packaging: "Rollo" },
 ];
 
-export const mantaPrice = {
+export const mantaPrice: { price_ars_m2: number; price_ars_m2_sin_impuestos: number | null; description: string } = {
   price_ars_m2: 950,
+  // Precio sin impuestos nacionales en ARS/m². Solo se muestra si está cargado. TODO(cliente)
+  price_ars_m2_sin_impuestos: null,
   description: "Precio en pesos argentinos ($ ARS). No incluye IVA.",
 };
 

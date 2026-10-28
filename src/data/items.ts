@@ -169,7 +169,7 @@ export function itemsEspejosLed(): ItemCatalogo[] {
     chips: m.fullFeatured ? FUNCIONES_COMPLETAS : FUNCIONES_BASICAS,
     bloque: { grande: medidaEspejo(m), chico: FORMAS_ESPEJO.find((f) => f.value === m.shape)?.label, silueta: silueta(m) },
     // Solo price_ars: es la moneda en que está cargado. price_usd es una conversión y no se muestra.
-    precio: { valor: m.price_ars, moneda: "ARS", unidad: "c/u" },
+    precio: { valor: m.price_ars, moneda: "ARS", unidad: "c/u", sinImpuestosNacionales: m.price_ars_sin_impuestos },
     valores: {
       forma: [m.shape],
       medida: [medidaEspejo(m)],
@@ -232,7 +232,10 @@ export function itemPiso(p: Product, nombreLinea: string): ItemCatalogo {
     ],
     imagen: { src: `/products/ambientes/${p.image}`, alt: `Piso ${nombreLinea} ${codigo}` },
     href: hrefFichaPiso(p.category_id, p.slug),
-    precio: p.price_usd_m2 && p.price_usd_m2 > 0 ? { valor: p.price_usd_m2, moneda: "USD", unidad: "/m²" } : null,
+    precio:
+      p.price_usd_m2 && p.price_usd_m2 > 0
+        ? { valor: p.price_usd_m2, moneda: "USD", unidad: "/m²", sinImpuestosNacionales: p.price_usd_m2_sin_impuestos }
+        : null,
   };
 }
 
@@ -251,8 +254,8 @@ export function itemsComplementos(): ItemCatalogo[] {
     // La manta está cargada en pesos por m²; los zócalos, en dólares por vara.
     precio:
       a.category === "manta"
-        ? { valor: mantaPrice.price_ars_m2, moneda: "ARS" as const, unidad: "/m²" }
-        : { valor: a.price_usd, moneda: "USD" as const, unidad: `/${a.price_unit}` },
+        ? { valor: mantaPrice.price_ars_m2, moneda: "ARS" as const, unidad: "/m²", sinImpuestosNacionales: mantaPrice.price_ars_m2_sin_impuestos }
+        : { valor: a.price_usd, moneda: "USD" as const, unidad: `/${a.price_unit}`, sinImpuestosNacionales: a.price_usd_sin_impuestos },
     ...(a.category === "manta" ? { nota: "Precio en pesos" } : {}),
   }));
 }

@@ -1,4 +1,4 @@
-import type { Moneda } from "@/lib/precios";
+import type { Precio } from "@/lib/precios";
 
 // Silueta para productos sin foto propia (ej. espejos): se deriva de los datos reales.
 export type Silueta = "horizontal" | "vertical" | "cuadrado" | "ovalado" | "circular";
@@ -25,7 +25,7 @@ export type ItemCatalogo = {
   /** Aclaración corta bajo el precio (ej. moneda). */
   nota?: string;
   /** null = sin precio cargado: se muestra "Consultar precio". */
-  precio: { valor: number; moneda: Moneda; unidad: string } | null;
+  precio: Precio | null;
   /** Valores por filtro (clave del grupo -> valores). */
   valores?: Record<string, string[]>;
 };

@@ -12,6 +12,8 @@ export interface Mirror {
   dimensions: { width: number; height: number; unit: "cm" };
   price_usd: number;
   price_ars: number;
+  /** Precio sin impuestos nacionales en ARS c/u. Solo se muestra si está cargado. TODO(cliente) */
+  price_ars_sin_impuestos?: number;
   fullFeatured: boolean;
 }
 

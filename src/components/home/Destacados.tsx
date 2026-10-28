@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { categories, products, pricingInfo } from "@/data/site-data";
+import { categories, products, pricingInfo, getPrecioDesdeLinea } from "@/data/site-data";
 import { formatearPrecio } from "@/lib/precios";
 
 const slugs = ["smart", "catedral", "premiere-plus", "vision"];
@@ -8,7 +8,9 @@ const slugs = ["smart", "catedral", "premiere-plus", "vision"];
 export default function Destacados() {
   const lineas = slugs
     .map((s) => categories.find((c) => c.slug === s))
-    .filter((c): c is NonNullable<typeof c> => !!c && typeof c.specs_summary.price_usd_m2 === "number");
+    .filter((c): c is NonNullable<typeof c> => !!c)
+    .map((c) => ({ ...c, desde: getPrecioDesdeLinea(c.id) }))
+    .filter((c): c is typeof c & { desde: number } => c.desde !== null);
 
   return (
     <section className="pb-16 md:pb-24">
@@ -48,7 +50,8 @@ export default function Destacados() {
                   <p className="text-xs text-nogal-suave">{etiqueta}</p>
                   <h3 className="mt-1 font-display text-lg md:text-xl font-bold text-nogal">{c.name}</h3>
                   <p className="mt-2 text-xl font-bold text-precio tabular-nums">
-                    {formatearPrecio(c.specs_summary.price_usd_m2 as number, "USD")}
+                    <span className="mr-1 text-sm font-semibold">desde</span>
+                    {formatearPrecio(c.desde, "USD")}
                     <span className="ml-0.5 text-sm font-semibold">/m²</span>
                   </p>
                 </div>

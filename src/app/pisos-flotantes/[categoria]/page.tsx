@@ -19,11 +19,12 @@ import {
   categories,
   getProductsByCategory,
   getCategoryBySlug,
+  getPrecioDesdeLinea,
   features,
 } from "@/data/site-data";
 import { waLink } from "@/config/negocio";
 import PisoCard from "@/components/pisos/PisoCard";
-import { formatearPrecio, precioDesde } from "@/lib/precios";
+import { formatearPrecio } from "@/lib/precios";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   "wood-grain": TreePine,
@@ -61,7 +62,14 @@ export default async function CategoriaPage({
 
   const products = getProductsByCategory(category.id);
   const s = category.specs_summary;
-  const desde = precioDesde(products.map((p) => p.price_usd_m2)) ?? precioDesde([s.price_usd_m2]);
+  const desde = getPrecioDesdeLinea(category.id);
+
+  // Cantidad de diseños calculada de los datos (nunca escrita a mano)
+  const maxDisenos = Math.max(...categories.map((c) => getProductsByCategory(c.id).length));
+  const textoDisenos =
+    `${products.length} ${products.length === 1 ? "diseño disponible" : "diseños disponibles"}` +
+    (products.length === maxDisenos && products.length > 1 ? " — la colección más amplia" : "");
+  const highlights = [textoDisenos, ...category.highlights];
 
   const specs: { label: string; value: string; Icon: typeof Ruler; precio?: boolean }[] = [
     { label: "Dimensiones", value: s.dimensions, Icon: Ruler },
@@ -69,8 +77,6 @@ export default async function CategoriaPage({
     { label: "Clasificación", value: s.rating, Icon: Award },
   ];
   if (s.water_resistance) specs.push({ label: "Resistencia al agua", value: s.water_resistance, Icon: Droplets });
-  // TODO(cliente): el precio de la línea (specs_summary) no coincide con el de sus productos;
-  // hasta confirmar cuál vale, la página muestra solo el "desde" calculado de los productos.
   if (s.coverage_m2) specs.push({ label: "Cobertura por caja", value: `${new Intl.NumberFormat("es-AR").format(s.coverage_m2)} m²`, Icon: Package });
 
   return (
@@ -140,7 +146,7 @@ export default async function CategoriaPage({
           <div>
             <h2 className="font-display text-2xl font-bold text-nogal">Por qué elegirla</h2>
             <ul className="mt-5 space-y-3">
-              {category.highlights.map((h, i) => (
+              {highlights.map((h, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-eucalipto" aria-hidden="true" />
                   <span className="text-nogal">{h}</span>

@@ -1,3 +1,5 @@
+import { precioDesde } from "@/lib/precios";
+
 export interface Product {
   sku: string;
   category_id: string;
@@ -29,7 +31,6 @@ export interface Category {
     use: string;
     water_resistance?: string;
     coverage_m2?: number;
-    price_usd_m2?: number;
     promo?: string;
   };
   highlights: string[];
@@ -135,12 +136,10 @@ export const categories: Category[] = [
       use: "Residencial intenso",
       water_resistance: "48 horas",
       coverage_m2: 2.51,
-      price_usd_m2: 13.60,
     },
     highlights: [
       "48 horas de resistencia al agua",
       "Formato clásico, fácil de manejar",
-      "6 diseños disponibles",
       "Caja de 2,51 m² de cobertura",
       "Ideal para dormitorios, livings y espacios de uso diario",
     ],
@@ -160,13 +159,11 @@ export const categories: Category[] = [
       use: "Residencial intenso",
       water_resistance: "48 horas",
       coverage_m2: 2.28,
-      price_usd_m2: 12.60,
       promo: "Promo hasta finalizar stock",
     },
     highlights: [
       "48 horas de resistencia al agua",
       "Diseños inspirados en robles europeos",
-      "3 tonalidades disponibles",
       "Caja de 2,28 m² de cobertura",
       "Mismo formato y espesor que la línea Smart",
     ],
@@ -186,12 +183,10 @@ export const categories: Category[] = [
       use: "Residencial intenso",
       water_resistance: "6 horas",
       coverage_m2: 2.85,
-      price_usd_m2: 11.60,
     },
     highlights: [
       "6 horas de resistencia al agua en superficie",
       "Tabla ancha de 215 mm",
-      "4 diseños disponibles",
       "Caja de 2,85 m² de cobertura",
       "Ideal para cocinas, comedores y espacios propensos a derrames",
     ],
@@ -213,7 +208,6 @@ export const categories: Category[] = [
     highlights: [
       "8 mm de espesor para mayor confort al caminar",
       "Tabla ligeramente más larga (1261 mm)",
-      "3 diseños disponibles",
       "Mejor aislación acústica que las líneas de 7 mm",
     ],
     sort_order: 4,
@@ -232,13 +226,11 @@ export const categories: Category[] = [
       use: "Residencial intenso",
       water_resistance: "72 horas",
       coverage_m2: 2.05,
-      price_usd_m2: 15.90,
     },
     highlights: [
       "72 horas de resistencia al agua",
       "Bisel EIR — textura realista al tacto",
       "Tabla extra larga de 1355 mm",
-      "7 diseños disponibles — la colección más amplia",
       "Caja de 2,05 m² de cobertura",
       "Menos juntas visibles para un look más limpio",
       "Ideal para ambientes grandes y espacios abiertos",
@@ -280,13 +272,12 @@ export const categories: Category[] = [
       use: "Comercial moderado",
       water_resistance: "100 horas",
       coverage_m2: 2.71,
-      price_usd_m2: 15.90,
     },
     highlights: [
+      // TODO(cliente): confirmar que Vision es el piso más resistente al agua de Argentina
       "100 horas de resistencia al agua — el más resistente de Argentina",
       "Tabla de gran formato: 1800 x 215 mm",
       "AC5: uso comercial moderado",
-      "5 diseños disponibles",
       "Caja de 2,71 m² de cobertura",
       "El aspecto más cercano a la madera real",
       "Ideal para proyectos de diseño y ambientes amplios",
@@ -371,6 +362,11 @@ export const technologySection = {
 
 export function getProductsByCategory(categoryId: string): Product[] {
   return products.filter((p) => p.category_id === categoryId);
+}
+
+// Precio "desde" de una línea: el menor precio de sus productos (única fuente de verdad).
+export function getPrecioDesdeLinea(categoryId: string): number | null {
+  return precioDesde(getProductsByCategory(categoryId).map((p) => p.price_usd_m2));
 }
 
 export function getCategoryBySlug(slug: string): Category | undefined {

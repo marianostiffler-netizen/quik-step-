@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, MessageCircle } from "lucide-react";
-import { categories, products, accessories, mantaPrice, pricingInfo } from "@/data/site-data";
+import { categories, products, accessories, mantaPrice, pricingInfo, getPrecioDesdeLinea } from "@/data/site-data";
 import { formatearPrecio, precioDesde } from "@/lib/precios";
 import { waLink } from "@/config/negocio";
 import CatalogoPisos from "@/components/pisos/CatalogoPisos";
@@ -56,7 +56,7 @@ export default function ProductosPage() {
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
             {ordenadas.map((cat) => {
               const prods = products.filter((p) => p.category_id === cat.id);
-              const d = precioDesde(prods.map((p) => p.price_usd_m2));
+              const d = getPrecioDesdeLinea(cat.id);
               return (
                 <Link
                   key={cat.id}

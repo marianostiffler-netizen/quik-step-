@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Hammer } from "lucide-react";
-import { categories } from "@/data/site-data";
+import { products } from "@/data/site-data";
 import { melaminas } from "@/data/melaminas-data";
 import { mirrors } from "@/data/espejos-inteligentes-data";
 import { formatearPrecio, precioDesde } from "@/lib/precios";
@@ -14,7 +14,7 @@ type Item = {
   precio: string | null;
 };
 
-const pisosDesde = precioDesde(categories.map((c) => c.specs_summary.price_usd_m2));
+const pisosDesde = precioDesde(products.map((p) => p.price_usd_m2));
 const espejosDesde = precioDesde(mirrors.map((m) => m.price_ars));
 
 const items: Item[] = [

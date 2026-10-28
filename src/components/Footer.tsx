@@ -58,7 +58,6 @@ export function Footer() {
               {/* TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo */}
               <li>Lijado profesional</li>
               <li>Pisos flotantes Quick-Step</li>
-              <li>Cielorrasos</li>
             </ul>
           </div>
 

@@ -1,4 +1,4 @@
-import { precioDesde } from "@/lib/precios";
+import { precioDesde } from "../lib/precios.ts";
 
 export interface Product {
   sku: string;
@@ -61,19 +61,16 @@ export const site = {
   tagline: "Tradición, calidad y servicio en madera",
   // TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo
   description:
-    "Maderera Don Antonio: pisos flotantes, cielorrasos, cepillado y lijado. Todo lo que tu hogar necesita en madera, con atención personalizada.",
+    "Maderera Don Antonio: maderas y construcción, pisos y revestimientos, placas y melaminas, hogar y deco, cepillado y lijado.",
 };
 
 export const navigation = [
   { id: "inicio", label: "Inicio", href: "/" },
-  { id: "pisos-flotantes", label: "Pisos Flotantes", href: "/pisos-flotantes" },
-  { id: "espejos-inteligentes", label: "Espejos Inteligentes", href: "/espejos-inteligentes" },
-  { id: "construccion-maderas", label: "Construcción y Maderas", href: "/construccion-y-maderas" },
-  { id: "espejos", label: "Espejos", href: "/espejos-artesanales" },
-  // TODO(cliente): volver a mostrar cuando la sección tenga contenido
-  // { id: "cielorrasos", label: "Cielorrasos", href: "/cielorrasos" },
+  { id: "maderas-y-construccion", label: "Maderas y construcción", href: "/maderas-y-construccion" },
+  { id: "pisos-y-revestimientos", label: "Pisos y revestimientos", href: "/pisos-y-revestimientos" },
+  { id: "placas-y-melaminas", label: "Placas y melaminas", href: "/placas-y-melaminas" },
+  { id: "hogar-y-deco", label: "Hogar y deco", href: "/hogar-y-deco" },
   { id: "servicios", label: "Servicios", href: "/servicios" },
-  { id: "articulos-hogar", label: "Artículos del Hogar", href: "/articulos-hogar" },
   { id: "contacto", label: "Contacto", href: "/contacto" },
 ];
 
@@ -81,8 +78,8 @@ export const heroSection = {
   title: "La madera que tu hogar merece",
   // TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo
   subtitle:
-    "Pisos flotantes, cielorrasos y servicios artesanales. Más de una generación trabajando con madera.",
-  cta_primary: { label: "Ver Pisos Flotantes", href: "/pisos-flotantes" },
+    "Pisos flotantes y servicios artesanales. Más de una generación trabajando con madera.",
+  cta_primary: { label: "Ver Pisos Flotantes", href: "/pisos-y-revestimientos/pisos-flotantes" },
   cta_secondary: { label: "Nuestros Servicios", href: "/servicios" },
 };
 

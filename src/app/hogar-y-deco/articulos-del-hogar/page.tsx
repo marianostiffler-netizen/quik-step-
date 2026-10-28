@@ -1,30 +1,27 @@
 import type { Metadata } from "next";
-import { articulosHogar } from "@/data/hogar-data";
+import { buscarCategoria, buscarGrupo } from "@/data/catalogo";
+import { itemsHogar } from "@/data/items";
 import HeaderListado from "@/components/catalogo/HeaderListado";
 import CatalogoItems from "@/components/catalogo/CatalogoItems";
-import type { ItemCatalogo } from "@/components/catalogo/tipos";
+
+const grupo = buscarGrupo("hogar-y-deco")!;
+const cat = buscarCategoria("hogar-y-deco", "articulos-del-hogar")!;
 
 export const metadata: Metadata = {
-  title: "Artículos del Hogar | Maderera Don Antonio",
-  description:
-    "Muebles, sillas y mesas de madera de alta calidad para tu hogar.",
+  title: "Artículos del hogar | Hogar y deco | Maderera Don Antonio",
+  description: cat.descripcion,
 };
 
-const items: ItemCatalogo[] = articulosHogar.map((a) => ({
-  id: a.id,
-  nombre: a.title,
-  descripcion: a.description,
-  imagen: { src: a.image, alt: a.title },
-  precio: null,
-}));
+const items = itemsHogar();
 
 export default function ArticulosHogarPage() {
   return (
     <>
       <HeaderListado
-        titulo="Artículos del hogar"
-        bajada="Muebles, sillas y mesas de madera de alta calidad para tu hogar."
+        titulo={cat.nombre}
+        bajada={cat.descripcion}
         conteo={`${items.length} artículos`}
+        migas={[{ label: "Inicio", href: "/" }, { label: grupo.nombre, href: grupo.href }, { label: cat.nombre }]}
       />
       <section className="pb-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">

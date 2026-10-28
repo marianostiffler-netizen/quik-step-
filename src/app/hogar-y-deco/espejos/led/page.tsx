@@ -1,78 +1,37 @@
 import type { Metadata } from "next";
 import { MessageCircle } from "lucide-react";
-import { mirrors, escalonesMayoristas, type Mirror } from "@/data/espejos-inteligentes-data";
+import { mirrors, escalonesMayoristas } from "@/data/espejos-inteligentes-data";
+import { buscarCategoria, buscarGrupo } from "@/data/catalogo";
+import { filtrosEspejosLed, itemsEspejosLed, medidaEspejo } from "@/data/items";
 import { waLink } from "@/config/negocio";
 import HeaderListado from "@/components/catalogo/HeaderListado";
 import CatalogoItems from "@/components/catalogo/CatalogoItems";
-import type { GrupoFiltro, ItemCatalogo, Silueta } from "@/components/catalogo/tipos";
+
+const grupo = buscarGrupo("hogar-y-deco")!;
+const espejos = buscarCategoria("hogar-y-deco", "espejos")!;
 
 export const metadata: Metadata = {
-  title: "Espejos Inteligentes | Maderera Don Antonio",
-  description: "Espejos inteligentes con tecnología Touch, desempañador y reloj. Rectangulares, cuadrados, ovalados y circulares.",
+  title: "Espejos LED | Hogar y deco | Maderera Don Antonio",
+  description: "Espejos LED con tecnología Touch, desempañador y reloj. Rectangulares, cuadrados, ovalados y circulares.",
 };
 
-const FORMAS: { value: Mirror["shape"]; label: string }[] = [
-  { value: "rectangular", label: "Rectangular" },
-  { value: "square", label: "Cuadrado" },
-  { value: "oval", label: "Ovalado" },
-  { value: "circular", label: "Circular" },
-];
-
-const medida = (m: Mirror) => `${m.dimensions.width} × ${m.dimensions.height} cm`;
-
-function silueta(m: Mirror): Silueta {
-  if (m.shape === "square") return "cuadrado";
-  if (m.shape === "oval") return "ovalado";
-  if (m.shape === "circular") return "circular";
-  return m.dimensions.height > m.dimensions.width ? "vertical" : "horizontal";
-}
-
-const FUNCIONES_COMPLETAS = ["Touch 3 tonos", "Desempañador", "Display LCD", "Temperatura", "Sensor mov."];
-const FUNCIONES_BASICAS = ["Touch 3 tonos", "LED regulable"];
-
-const items: ItemCatalogo[] = mirrors.map((m) => ({
-  id: m.id,
-  nombre: m.name,
-  nombreConsulta: `${m.name} (modelo ${m.modelo})`,
-  claveNombre: `${m.name} ${m.modelo}`,
-  eyebrow: `Modelo ${m.modelo}`,
-  chips: m.fullFeatured ? FUNCIONES_COMPLETAS : FUNCIONES_BASICAS,
-  bloque: { grande: medida(m), chico: FORMAS.find((f) => f.value === m.shape)?.label, silueta: silueta(m) },
-  // Solo price_ars: es la moneda en que está cargado. price_usd es una conversión y no se muestra.
-  precio: { valor: m.price_ars, moneda: "ARS", unidad: "c/u" },
-  valores: {
-    forma: [m.shape],
-    medida: [medida(m)],
-    completas: m.fullFeatured ? ["si"] : [],
-  },
-}));
-
-const grupos: GrupoFiltro[] = [
-  {
-    key: "forma",
-    titulo: "Forma",
-    opciones: FORMAS.filter((f) => mirrors.some((m) => m.shape === f.value)).map((f) => ({ value: f.value, label: f.label })),
-  },
-  {
-    key: "medida",
-    titulo: "Medida",
-    opciones: [...new Map(mirrors.map((m) => [medida(m), m.dimensions.width * m.dimensions.height])).entries()]
-      .sort((a, b) => a[1] - b[1])
-      .map(([v]) => ({ value: v, label: v })),
-  },
-  ...(new Set(mirrors.map((m) => m.fullFeatured)).size > 1
-    ? [{ key: "completas", titulo: "Funciones", opciones: [{ value: "si", label: "Funciones completas" }] }]
-    : []),
-].filter((g) => g.opciones.length > 0);
+const items = itemsEspejosLed();
+const grupos = filtrosEspejosLed();
 
 export default function EspejosInteligentesPage() {
-  const medidas = new Set(mirrors.map(medida)).size;
+  const medidas = new Set(mirrors.map(medidaEspejo)).size;
   return (
     <>
       <HeaderListado
-        titulo="Espejos inteligentes"
+        titulo="Espejos LED"
         bajada="Tecnología Touch, desempañador y reloj en un solo producto."
         conteo={`${mirrors.length} modelos · ${medidas} medidas`}
+        migas={[
+          { label: "Inicio", href: "/" },
+          { label: grupo.nombre, href: grupo.href },
+          { label: espejos.nombre, href: espejos.href },
+          { label: "Espejos LED" },
+        ]}
       />
 
       <section className="pb-16">

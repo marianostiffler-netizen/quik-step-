@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { categories, products, pricingInfo, getPrecioDesdeLinea } from "@/data/site-data";
 import { formatearPrecio } from "@/lib/precios";
+import { RUTA_PISOS, hrefLineaPiso } from "@/data/rutas";
 
 const slugs = ["smart", "catedral", "premiere-plus", "vision"];
 
@@ -26,7 +27,7 @@ export default function Destacados() {
             return (
               <Link
                 key={c.id}
-                href={`/pisos-flotantes/${c.slug}`}
+                href={hrefLineaPiso(c.slug)}
                 className="tarjeta overflow-hidden block transition hover:border-algarrobo hover:shadow-md"
               >
                 <div className="relative">
@@ -60,7 +61,7 @@ export default function Destacados() {
           })}
         </div>
         <p className="mt-6 text-sm text-nogal-suave">{pricingInfo.tax_note}. Precios en dólares.</p>
-        <Link href="/pisos-flotantes" className="btn-secundario mt-6 inline-flex justify-center">
+        <Link href={RUTA_PISOS} className="btn-secundario mt-6 inline-flex justify-center">
           Ver todos los pisos
         </Link>
       </div>

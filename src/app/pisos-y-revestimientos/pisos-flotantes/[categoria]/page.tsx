@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  ChevronRight,
   MessageCircle,
   TreePine,
   Shield,
@@ -25,6 +24,10 @@ import {
 import { waLink } from "@/config/negocio";
 import PisoCard from "@/components/pisos/PisoCard";
 import { formatearPrecio } from "@/lib/precios";
+import Migas from "@/components/catalogo/Migas";
+import { RUTA_PISOS, buscarGrupo } from "@/data/catalogo";
+
+const grupo = buscarGrupo("pisos-y-revestimientos")!;
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   "wood-grain": TreePine,
@@ -46,7 +49,7 @@ export async function generateMetadata({
   const category = getCategoryBySlug(categoria);
   if (!category) return {};
   return {
-    title: `Línea ${category.name} | Pisos Laminados Quick-Step`,
+    title: `Línea ${category.name} | Pisos flotantes Quick-Step | Maderera Don Antonio`,
     description: `${category.name}: ${category.tagline}. ${category.description}`,
   };
 }
@@ -83,13 +86,14 @@ export default async function CategoriaPage({
     <>
       <section className="bg-pino pt-4 pb-10 md:pb-14">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <nav aria-label="Migas de pan" className="flex flex-wrap items-center text-sm text-nogal-suave">
-            <Link href="/" className="tap inline-flex items-center hover:text-algarrobo">Inicio</Link>
-            <ChevronRight size={14} aria-hidden="true" />
-            <Link href="/pisos-flotantes" className="tap inline-flex items-center hover:text-algarrobo">Pisos flotantes</Link>
-            <ChevronRight size={14} aria-hidden="true" />
-            <span className="tap inline-flex items-center px-1 text-nogal" aria-current="page">{category.name}</span>
-          </nav>
+          <Migas
+            migas={[
+              { label: "Inicio", href: "/" },
+              { label: grupo.nombre, href: grupo.href },
+              { label: "Pisos flotantes", href: RUTA_PISOS },
+              { label: category.name },
+            ]}
+          />
           <div className="mt-4 grid items-center gap-8 md:grid-cols-2">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-algarrobo">Línea Quick-Step</p>
@@ -198,7 +202,7 @@ export default async function CategoriaPage({
             <MessageCircle size={18} aria-hidden="true" />
             Consultar por WhatsApp
           </a>
-          <Link href="/pisos-flotantes" className="btn-secundario">Ver todos los pisos</Link>
+          <Link href={RUTA_PISOS} className="btn-secundario">Ver todos los pisos</Link>
         </div>
       </section>
     </>

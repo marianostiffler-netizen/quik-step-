@@ -3,11 +3,11 @@ import { Home, Trees, Layers, Construction, Sofa, type LucideIcon } from "lucide
 
 const usos: { titulo: string; href: string; medidas: string; Icono: LucideIcon }[] = [
   // TODO(cliente): confirmar los aislantes para techos (hoy solo la lana de vidrio tiene uso "techos")
-  { titulo: "Techos", href: "/construccion-y-maderas?uso=techos", medidas: "Tirantes 2\"×4\" y 2\"×5\", machimbre ½\"×4\" y aislantes", Icono: Home },
-  { titulo: "Decks y pérgolas", href: "/construccion-y-maderas?uso=decks", medidas: "Eucalipto grandis 3\"×8\" y 4\"×10\", hasta 12 m", Icono: Trees },
-  { titulo: "Entrepisos", href: "/construccion-y-maderas?uso=entrepisos", medidas: "Tirantes 2\"×6\" y machimbre 1\"×6\"", Icono: Layers },
-  { titulo: "Encofrado", href: "/construccion-y-maderas?uso=encofrado", medidas: "Tablas 1\"×6\" y 1\"×8\" × 4 m", Icono: Construction },
-  { titulo: "Interiores", href: "/pisos-flotantes", medidas: "Pisos flotantes, melaminas y espejos", Icono: Sofa },
+  { titulo: "Techos", href: "/maderas-y-construccion?uso=techos", medidas: "Tirantes 2\"×4\" y 2\"×5\", machimbre ½\"×4\" y aislantes", Icono: Home },
+  { titulo: "Decks y pérgolas", href: "/maderas-y-construccion?uso=decks", medidas: "Eucalipto grandis 3\"×8\" y 4\"×10\", hasta 12 m", Icono: Trees },
+  { titulo: "Entrepisos", href: "/maderas-y-construccion?uso=entrepisos", medidas: "Tirantes 2\"×6\" y machimbre 1\"×6\"", Icono: Layers },
+  { titulo: "Encofrado", href: "/maderas-y-construccion?uso=encofrado", medidas: "Tablas 1\"×6\" y 1\"×8\" × 4 m", Icono: Construction },
+  { titulo: "Interiores", href: "/pisos-y-revestimientos", medidas: "Pisos flotantes, melaminas y espejos", Icono: Sofa },
 ];
 
 export default function Usos() {

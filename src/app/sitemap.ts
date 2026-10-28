@@ -1,26 +1,27 @@
 import type { MetadataRoute } from "next";
 import { categories, products } from "@/data/site-data";
+import { grupos, hrefFichaPiso, hrefLineaPiso } from "@/data/catalogo";
 import { urlSitio } from "@/config/negocio";
 
-// Rutas públicas. Excluida a propósito: /cielorrasos (próximamente).
-// TODO(cliente): sumar /cielorrasos cuando tenga contenido.
+// Rutas públicas: inicio, grupos, categorías, subcategorías, líneas y fichas de pisos, servicios y contacto.
 const rutas = [
   "/",
-  "/pisos-flotantes",
-  ...categories.map((c) => `/pisos-flotantes/${c.slug}`),
-  ...products.map((p) => `/pisos-flotantes/${p.category_id}/${p.slug}`),
-  "/construccion-y-maderas",
-  "/melaminas",
-  "/espejos-inteligentes",
-  "/espejos-artesanales",
-  "/articulos-hogar",
+  ...grupos.flatMap((g) => [
+    g.href,
+    ...g.categorias.flatMap((c) => [c.href, ...(c.subcategorias ?? []).map((s) => s.href)]),
+  ]),
+  ...categories.map((c) => hrefLineaPiso(c.slug)),
+  ...products.map((p) => {
+    const linea = categories.find((c) => c.id === p.category_id)!;
+    return hrefFichaPiso(linea.slug, p.slug);
+  }),
   "/servicios",
   "/contacto",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = urlSitio();
-  return rutas.map((ruta) => ({
+  return [...new Set(rutas)].map((ruta) => ({
     url: ruta === "/" ? base : `${base}${ruta}`,
   }));
 }

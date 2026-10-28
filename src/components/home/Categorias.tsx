@@ -20,27 +20,27 @@ const espejosDesde = precioDesde(mirrors.map((m) => m.price_ars));
 const items: Item[] = [
   {
     nombre: "Pisos flotantes",
-    href: "/pisos-flotantes",
+    href: "/pisos-y-revestimientos/pisos-flotantes",
     imagen: "/products/ambientes/Smart-0314-01.webp",
     precio: pisosDesde !== null ? `desde ${formatearPrecio(pisosDesde, "USD")}/m²` : null,
   },
   {
-    nombre: "Construcción y maderas",
-    href: "/construccion-y-maderas",
+    nombre: "Maderas y construcción",
+    href: "/maderas-y-construccion",
     imagen: "/hero-background.webp",
     detalle: "Machimbres, tirantes y tablas",
     precio: null,
   },
-  { nombre: "Melaminas", href: "/melaminas", imagen: melaminas[0]?.imagen, precio: null },
+  { nombre: "Melaminas", href: "/placas-y-melaminas/melaminas", imagen: melaminas[0]?.imagen, precio: null },
   {
     nombre: "Espejos LED",
-    href: "/espejos-inteligentes",
+    href: "/hogar-y-deco/espejos/led",
     imagen: "/products/espejos/WhatsApp Image 2026-04-17 at 14.13.38 (1).webp",
     precio: espejosDesde !== null ? `desde ${formatearPrecio(espejosDesde, "ARS")} c/u` : null,
   },
   {
     nombre: "Artículos del hogar",
-    href: "/articulos-hogar",
+    href: "/hogar-y-deco/articulos-del-hogar",
     imagen: "/products/hogar/KxgNg.webp",
     precio: null,
   },

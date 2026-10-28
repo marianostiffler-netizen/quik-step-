@@ -3,7 +3,7 @@
 // TODO(cliente): unificar "Pino Eliotis"/"Elliotis" (hoy conviven las dos grafías)
 // TODO(cliente): unidad de venta (unidad, pie, metro lineal, paquete...) y precios
 
-export type Uso = "techos" | "decks" | "entrepisos" | "encofrado" | "interiores";
+export type Uso = "techos" | "decks" | "entrepisos" | "encofrado" | "interiores" | "cielorrasos";
 
 export type CategoriaObra =
   | "machimbre"
@@ -51,7 +51,7 @@ export const productosObra: ProductoObra[] = [
     largo: "2.44 m",
     grosor: "12 mm",
     detalle: "Ideal para cielorrasos",
-    usos: ["techos","interiores"],
+    usos: ["techos","interiores","cielorrasos"],
     unidadVenta: null,
     precio: null,
   },
@@ -93,7 +93,7 @@ export const productosObra: ProductoObra[] = [
     largo: "2.44 m",
     grosor: "12 mm",
     detalle: "Ideal para cielorrasos",
-    usos: ["techos","interiores"],
+    usos: ["techos","interiores","cielorrasos"],
     unidadVenta: null,
     precio: null,
   },

@@ -6,7 +6,7 @@ import { negocio, direccionCorta, waLink } from "@/config/negocio";
 export const metadata: Metadata = {
   title: "Contacto | Maderera Don Antonio",
   description:
-    "Contactanos para asesoramiento sobre pisos flotantes, cielorrasos y servicios de maderera. Presupuestos sin compromiso.",
+    "Contactanos para asesoramiento sobre pisos flotantes, maderas y servicios de maderera. Presupuestos sin compromiso.",
 };
 
 export default function ContactoPage() {

@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  ChevronRight,
   MessageCircle,
   Ruler,
   Layers,
@@ -26,6 +25,10 @@ import PisoCard from "@/components/pisos/PisoCard";
 import CalculadoraCajas from "@/components/pisos/CalculadoraCajas";
 import { aCentesimas, formatearM2 } from "@/lib/calculadora";
 import { formatearPrecio } from "@/lib/precios";
+import Migas from "@/components/catalogo/Migas";
+import { RUTA_PISOS, buscarGrupo, hrefLineaPiso } from "@/data/catalogo";
+
+const grupo = buscarGrupo("pisos-y-revestimientos")!;
 
 type Params = { categoria: string; producto: string };
 
@@ -50,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       ? ` Desde ${formatearPrecio(product.price_usd_m2, "USD")} el m².`
       : "";
   return {
-    title: `${product.sku} ${category.name} | Pisos Flotantes | Maderera Don Antonio`,
+    title: `${product.sku} ${category.name} | Pisos flotantes | Maderera Don Antonio`,
     description: `Piso flotante Quick-Step ${category.name} ${product.sku}: ${length} × ${width} mm, ${thickness} mm de espesor, ${product.rating}.${precio}`,
   };
 }
@@ -70,7 +73,7 @@ export default async function FichaPage({ params }: { params: Promise<Params> })
   const { length, width, thickness } = product.dimensions;
   const precio = product.price_usd_m2 && product.price_usd_m2 > 0 ? product.price_usd_m2 : null;
   const coberturaX100 = product.coverage_m2 ? aCentesimas(product.coverage_m2) : null;
-  const lineaUrl = `/pisos-flotantes/${category.slug}`;
+  const lineaUrl = hrefLineaPiso(category.slug);
   const otros = getProductsByCategory(category.id).filter((p) => p.sku !== product.sku).slice(0, 4);
   const caracteristicas = product.features
     .map((id) => features.find((f) => f.id === id))
@@ -91,15 +94,15 @@ export default async function FichaPage({ params }: { params: Promise<Params> })
     <>
       <section className="bg-pino pt-4 pb-12 md:pb-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <nav aria-label="Migas de pan" className="flex flex-wrap items-center text-sm text-nogal-suave">
-            <Link href="/" className="tap inline-flex items-center hover:text-algarrobo">Inicio</Link>
-            <ChevronRight size={14} aria-hidden="true" />
-            <Link href="/pisos-flotantes" className="tap inline-flex items-center hover:text-algarrobo">Pisos flotantes</Link>
-            <ChevronRight size={14} aria-hidden="true" />
-            <Link href={lineaUrl} className="tap inline-flex items-center hover:text-algarrobo">{category.name}</Link>
-            <ChevronRight size={14} aria-hidden="true" />
-            <span className="tap inline-flex items-center px-1 text-nogal" aria-current="page">{product.sku}</span>
-          </nav>
+          <Migas
+            migas={[
+              { label: "Inicio", href: "/" },
+              { label: grupo.nombre, href: grupo.href },
+              { label: "Pisos flotantes", href: RUTA_PISOS },
+              { label: category.name, href: lineaUrl },
+              { label: product.sku },
+            ]}
+          />
 
           <div className="mt-4 grid items-start gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
             <div>

@@ -16,10 +16,10 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const titulo = "Maderera Don Antonio | Pisos, Cielorrasos y Servicios en Madera";
+const titulo = "Maderera Don Antonio | Maderas, pisos, placas y hogar · San Jorge, Santa Fe";
 // TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo
 const descripcion =
-  "Maderera Don Antonio: pisos flotantes Quick-Step, cielorrasos, cepillado y lijado de madera. Tradición y calidad artesanal.";
+  "Maderera Don Antonio en San Jorge, Santa Fe: maderas y construcción, pisos flotantes Quick-Step, melaminas, artículos del hogar, espejos, cepillado y lijado de madera.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(urlSitio()),

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/data/site-data";
 import { formatearPrecio } from "@/lib/precios";
+import { hrefFichaPiso } from "@/data/rutas";
 
 const nf = new Intl.NumberFormat("es-AR");
 
@@ -13,7 +14,7 @@ export default function PisoCard({ product, lineName }: { product: Product; line
   return (
     <Link
       id={product.sku}
-      href={`/pisos-flotantes/${product.category_id}/${product.slug}`}
+      href={hrefFichaPiso(product.category_id, product.slug)}
       className="tarjeta overflow-hidden flex flex-col scroll-mt-24 transition hover:border-algarrobo hover:shadow-md"
     >
       <Image

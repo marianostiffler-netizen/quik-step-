@@ -1,100 +1,56 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { AlertTriangle } from "lucide-react";
-import { productosObra, type CategoriaObra, type Uso } from "@/data/construccion-data";
+import { buscarGrupo, resumenPorRuta } from "@/data/catalogo";
+import { filtrosObra, itemsObra } from "@/data/items";
 import HeaderListado from "@/components/catalogo/HeaderListado";
 import CatalogoItems from "@/components/catalogo/CatalogoItems";
 import CatalogoConstruccion from "@/components/catalogo/CatalogoConstruccion";
-import type { GrupoFiltro, ItemCatalogo } from "@/components/catalogo/tipos";
+import { GrillaCategorias } from "@/components/catalogo/TarjetaCategoria";
+
+const grupo = buscarGrupo("maderas-y-construccion")!;
 
 export const metadata: Metadata = {
-  title: "Construcción y Maderas | Maderera Don Antonio",
-  description:
-    "Machimbres, tirantería, vigas, aislantes y guía técnica experta para obras en madera.",
+  title: "Maderas y construcción | Maderera Don Antonio",
+  description: "Machimbres, tirantes y vigas, tablas para encofrado, estructura de obra, aislantes y materiales secos. San Jorge, Santa Fe.",
 };
 
-const TIPOS: { value: CategoriaObra; label: string; singular: string }[] = [
-  { value: "machimbre", label: "Machimbres", singular: "Machimbre" },
-  { value: "tirante", label: "Tirantería y vigas", singular: "Tirantería" },
-  { value: "tabla-encofrado", label: "Tablas para encofrado", singular: "Tabla para encofrado" },
-  { value: "estructura", label: "Estructura de obra", singular: "Estructura de obra" },
-  { value: "aislante", label: "Aislantes", singular: "Aislante" },
-  { value: "material-seco", label: "Materiales secos", singular: "Material seco" },
-];
-
-const USOS: { value: Uso; label: string }[] = [
-  { value: "techos", label: "Techos" },
-  { value: "decks", label: "Decks y pérgolas" },
-  { value: "entrepisos", label: "Entrepisos" },
-  { value: "encofrado", label: "Encofrado" },
-  { value: "interiores", label: "Interiores" },
-];
-
-const x = (s: string) => s.replace(/ x /g, " × ");
-
-const items: ItemCatalogo[] = productosObra.map((p) => {
-  const tipo = TIPOS.find((t) => t.value === p.categoria)!;
-  const chips = [
-    ...(p.ubicacion ? [p.ubicacion] : []),
-    ...(p.material ? [p.material] : []),
-    ...(p.grosor ? [`Grosor ${p.grosor}`] : []),
-    ...(p.destacado ? ["Destacado"] : []),
-  ];
-  return {
-    id: p.id,
-    nombre: p.nombre,
-    eyebrow: tipo.singular,
-    descripcion: [p.detalle].filter(Boolean).join(" "),
-    chips,
-    detalles: p.descripcion ? [p.descripcion] : undefined,
-    bloque: p.seccion
-      ? { grande: x(p.seccion), chico: p.largo }
-      : p.grosor
-        ? { grande: p.grosor, chico: p.medida }
-        : { grande: tipo.singular },
-    precio: null,
-    valores: {
-      tipo: [p.categoria],
-      material: p.material ? [p.material] : [],
-      uso: p.usos,
-    },
-  };
-});
-
-const materiales = [...new Set(productosObra.flatMap((p) => (p.material ? [p.material] : [])))].sort((a, b) =>
-  a.localeCompare(b, "es")
-);
-
-const grupos: GrupoFiltro[] = [
-  { key: "tipo", titulo: "Tipo", opciones: TIPOS.filter((t) => productosObra.some((p) => p.categoria === t.value)).map(({ value, label }) => ({ value, label })) },
-  { key: "material", titulo: "Material", opciones: materiales.map((m) => ({ value: m, label: m })) },
-  { key: "uso", titulo: "Uso", opciones: USOS.filter((u) => productosObra.some((p) => p.usos.includes(u.value))) },
-].filter((g) => g.opciones.length > 1);
-
+const items = itemsObra();
 const propsCatalogo = {
   id: "construccion",
   items,
-  grupos,
+  grupos: filtrosObra(),
   ordenes: ["nombre-asc", "nombre-desc"] as ("nombre-asc" | "nombre-desc")[],
   unidades: ["producto", "productos"] as [string, string],
 };
 
-export default function ConstruccionYMaderasPage() {
-  const tiposUsados = new Set(productosObra.map((p) => p.categoria)).size;
+export default function MaderasYConstruccionPage() {
   return (
     <>
       <HeaderListado
-        titulo="Construcción y maderas"
-        bajada="Información técnica para obras en madera: machimbres, tirantería, vigas, aislantes y asesoramiento práctico para resolver cada proyecto con criterio profesional."
-        conteo={`${items.length} productos · ${tiposUsados} tipos`}
+        titulo={grupo.nombre}
+        bajada="Información técnica para obras en madera: machimbres, tirantes, vigas, aislantes y asesoramiento práctico para resolver cada proyecto con criterio profesional."
+        conteo={`${resumenPorRuta()[grupo.href].cantidad} productos · ${grupo.categorias.length} categorías`}
+        migas={[{ label: "Inicio", href: "/" }, { label: grupo.nombre }]}
       />
 
       <section className="pb-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="sr-only">Catálogo de construcción y maderas</h2>
-          <Suspense fallback={<CatalogoItems {...propsCatalogo} />}>
-            <CatalogoConstruccion {...propsCatalogo} />
-          </Suspense>
+          <h2 className="font-display text-3xl font-bold text-nogal">Categorías</h2>
+          <div className="mt-8">
+            <GrillaCategorias items={grupo.categorias} />
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="font-display text-3xl font-bold text-nogal">Todos los productos</h2>
+          <div className="mt-8">
+            <Suspense fallback={<CatalogoItems {...propsCatalogo} />}>
+              <CatalogoConstruccion {...propsCatalogo} />
+            </Suspense>
+          </div>
         </div>
       </section>
 

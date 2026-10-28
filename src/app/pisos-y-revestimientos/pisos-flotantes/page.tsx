@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, MessageCircle } from "lucide-react";
-import { categories, products, accessories, mantaPrice, pricingInfo, getPrecioDesdeLinea } from "@/data/site-data";
+import { MessageCircle } from "lucide-react";
+import { categories, products, pricingInfo, getPrecioDesdeLinea } from "@/data/site-data";
+import { buscarGrupo, hrefLineaPiso } from "@/data/catalogo";
 import { formatearPrecio, precioDesde } from "@/lib/precios";
 import { waLink } from "@/config/negocio";
 import CatalogoPisos from "@/components/pisos/CatalogoPisos";
+import HeaderListado from "@/components/catalogo/HeaderListado";
+
+const grupo = buscarGrupo("pisos-y-revestimientos")!;
 
 export const metadata: Metadata = {
-  title: "Pisos Flotantes Quick-Step | Maderera Don Antonio",
+  title: "Pisos flotantes Quick-Step | Pisos y revestimientos | Maderera Don Antonio",
   description:
     "Pisos laminados Quick-Step con tecnología europea. Líneas Smart, Catedral, Premiere Plus, Eligna Wide y Vision.",
 };
@@ -16,32 +20,20 @@ export const metadata: Metadata = {
 export default function ProductosPage() {
   const ordenadas = [...categories].sort((a, b) => a.sort_order - b.sort_order);
   const desde = precioDesde(products.map((p) => p.price_usd_m2));
-  const zocalos = accessories.filter((a) => a.category === "zocalo");
 
   return (
     <>
-      <section className="bg-pino pt-4 pb-10 md:pb-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <nav aria-label="Migas de pan" className="flex flex-wrap items-center text-sm text-nogal-suave">
-            <Link href="/" className="tap inline-flex items-center hover:text-algarrobo">
-              Inicio
-            </Link>
-            <ChevronRight size={14} aria-hidden="true" />
-            <span className="tap inline-flex items-center px-1 text-nogal" aria-current="page">
-              Pisos flotantes
-            </span>
-          </nav>
-          <h1 className="mt-2 font-display text-4xl md:text-6xl font-bold text-nogal">Pisos flotantes</h1>
-          <p className="mt-4 max-w-2xl text-lg text-nogal-suave">
-            Pisos laminados Quick-Step: resistentes al agua, fácil instalación y diseños
-            que imitan la madera natural.
-          </p>
-          <p className="mt-4 font-semibold text-nogal tabular-nums">
+      <HeaderListado
+        titulo="Pisos flotantes"
+        bajada="Pisos laminados Quick-Step: resistentes al agua, fácil instalación y diseños que imitan la madera natural."
+        conteo={
+          <>
             {products.length} diseños · {categories.length} líneas
             {desde !== null && <> · desde {formatearPrecio(desde, "USD")}/m²</>}
-          </p>
-        </div>
-      </section>
+          </>
+        }
+        migas={[{ label: "Inicio", href: "/" }, { label: grupo.nombre, href: grupo.href }, { label: "Pisos flotantes" }]}
+      />
 
       <section className="pb-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -60,7 +52,7 @@ export default function ProductosPage() {
               return (
                 <Link
                   key={cat.id}
-                  href={`/pisos-flotantes/${cat.slug}`}
+                  href={hrefLineaPiso(cat.slug)}
                   className="tarjeta overflow-hidden block transition hover:border-algarrobo hover:shadow-md"
                 >
                   <div className="relative">
@@ -109,34 +101,14 @@ export default function ProductosPage() {
 
       <section className="pb-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-display text-3xl font-bold text-nogal">Complementos para la instalación</h2>
-          <p className="mt-3 text-nogal-suave">Zócalos EPS Santa Luzia y manta aislante.</p>
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {zocalos.map((z) => (
-              <div key={z.sku} className="tarjeta p-5">
-                <h3 className="font-display text-base font-bold text-nogal">{z.name}</h3>
-                <p className="mt-1 text-sm text-nogal-suave">{z.dimensions}</p>
-                <p className="text-xs text-nogal-suave">{z.packaging}</p>
-                <p className="mt-3 font-bold text-precio tabular-nums">
-                  {formatearPrecio(z.price_usd, "USD")}
-                  <span className="text-xs font-medium text-nogal-suave">/{z.price_unit}</span>
-                </p>
-              </div>
-            ))}
-            {accessories
-              .filter((a) => a.category === "manta")
-              .map((m) => (
-                <div key={m.sku} className="tarjeta p-5">
-                  <h3 className="font-display text-base font-bold text-nogal">{m.name}</h3>
-                  <p className="mt-1 text-sm text-nogal-suave">{m.dimensions}</p>
-                  <p className="text-xs text-nogal-suave">{m.packaging}</p>
-                  <p className="mt-3 font-bold text-precio tabular-nums">
-                    {formatearPrecio(mantaPrice.price_ars_m2, "ARS")}
-                    <span className="text-xs font-medium text-nogal-suave">/m²</span>
-                  </p>
-                  <p className="text-xs text-nogal-suave">Precio en pesos</p>
-                </div>
-              ))}
+          <div className="tarjeta flex flex-col items-start gap-4 p-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="font-display text-2xl font-bold text-nogal">Complementos para la instalación</h2>
+              <p className="mt-2 text-nogal-suave">Zócalos EPS Santa Luzia y manta aislante.</p>
+            </div>
+            <Link href={`${grupo.href}/zocalos-y-mantas`} className="btn-secundario shrink-0">
+              Ver zócalos y mantas
+            </Link>
           </div>
         </div>
       </section>

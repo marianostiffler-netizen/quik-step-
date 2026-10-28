@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { Clock, Sparkles, Thermometer, Wind, Zap } from "lucide-react";
-import { espejosArtesanales } from "@/data/espejos-artesanales-data";
+import { buscarCategoria, buscarGrupo } from "@/data/catalogo";
+import { itemsEspejosArtesanales } from "@/data/items";
 import HeaderListado from "@/components/catalogo/HeaderListado";
 import CatalogoItems from "@/components/catalogo/CatalogoItems";
-import type { ItemCatalogo } from "@/components/catalogo/tipos";
+
+const grupo = buscarGrupo("hogar-y-deco")!;
+const espejos = buscarCategoria("hogar-y-deco", "espejos")!;
 
 export const metadata: Metadata = {
-  title: "Espejos Artesanales | Maderera Don Antonio",
+  title: "Espejos artesanales | Hogar y deco | Maderera Don Antonio",
   description:
     "Espejos con iluminación LED integrada, desempañador y tecnología inteligente para tu hogar.",
 };
@@ -19,14 +22,7 @@ const caracteristicasGenerales = [
   { icon: Clock, label: "Sensor de movimiento" },
 ];
 
-const items: ItemCatalogo[] = espejosArtesanales.map((e) => ({
-  id: e.id,
-  nombre: e.modelo,
-  descripcion: e.forma,
-  detalles: [e.medidas],
-  imagen: { src: e.image, alt: `Espejo ${e.modelo}` },
-  precio: null,
-}));
+const items = itemsEspejosArtesanales();
 
 export default function EspejosArtesanalesPage() {
   return (
@@ -35,6 +31,12 @@ export default function EspejosArtesanalesPage() {
         titulo="Espejos artesanales"
         bajada="Espejos con iluminación LED integrada, desempañador y tecnología inteligente para tu hogar."
         conteo={`${items.length} modelos`}
+        migas={[
+          { label: "Inicio", href: "/" },
+          { label: grupo.nombre, href: grupo.href },
+          { label: espejos.nombre, href: espejos.href },
+          { label: "Espejos artesanales" },
+        ]}
       />
 
       <section className="pb-12">

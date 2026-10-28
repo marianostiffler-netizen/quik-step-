@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Armchair } from "lucide-react";
-import ArticulosGallery from "@/components/ArticulosGallery";
+import { articulosHogar } from "@/data/hogar-data";
+import HeaderListado from "@/components/catalogo/HeaderListado";
+import CatalogoItems from "@/components/catalogo/CatalogoItems";
+import type { ItemCatalogo } from "@/components/catalogo/tipos";
 
 export const metadata: Metadata = {
   title: "Artículos del Hogar | Maderera Don Antonio",
@@ -8,25 +10,28 @@ export const metadata: Metadata = {
     "Muebles, sillas y mesas de madera de alta calidad para tu hogar.",
 };
 
+const items: ItemCatalogo[] = articulosHogar.map((a) => ({
+  id: a.id,
+  nombre: a.title,
+  descripcion: a.description,
+  imagen: { src: a.image, alt: a.title },
+  precio: null,
+}));
+
 export default function ArticulosHogarPage() {
   return (
     <>
-      {/* Header */}
-      <section className="bg-wood-700 text-white py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <Armchair size={32} className="text-amber-500" />
-          </div>
-          <h1 className="text-3xl md:text-5xl font-bold">
-            Artículos del Hogar
-          </h1>
-          <p className="mt-4 text-xl text-wood-200 max-w-2xl">
-            Muebles, sillas y mesas de madera de alta calidad para tu hogar.
-          </p>
+      <HeaderListado
+        titulo="Artículos del hogar"
+        bajada="Muebles, sillas y mesas de madera de alta calidad para tu hogar."
+        conteo={`${items.length} artículos`}
+      />
+      <section className="pb-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="sr-only">Listado de artículos</h2>
+          <CatalogoItems id="hogar" items={items} ordenes={["nombre-asc", "nombre-desc"]} unidades={["artículo", "artículos"]} ampliable />
         </div>
       </section>
-
-      <ArticulosGallery />
     </>
   );
 }

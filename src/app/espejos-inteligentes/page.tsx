@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { MessageCircle } from "lucide-react";
-import { mirrors, discountTiers, type Mirror } from "@/data/espejos-inteligentes-data";
+import { mirrors, escalonesMayoristas, type Mirror } from "@/data/espejos-inteligentes-data";
 import { waLink } from "@/config/negocio";
 import HeaderListado from "@/components/catalogo/HeaderListado";
 import CatalogoItems from "@/components/catalogo/CatalogoItems";
@@ -101,14 +101,10 @@ export default function EspejosInteligentesPage() {
                 </tr>
               </thead>
               <tbody>
-                {discountTiers.map((tier) => (
-                  <tr key={tier.label} className="border-t border-veta">
+                {escalonesMayoristas.map((tier) => (
+                  <tr key={tier.desde} className="border-t border-veta">
                     <td className="px-4 py-3 text-nogal">
-                      {tier.max === Infinity
-                        ? `Más de ${tier.min} espejos`
-                        : tier.min === 0
-                          ? tier.label
-                          : `${tier.min} a ${tier.max} espejos`}
+                      Desde {tier.desde} {tier.desde === 1 ? "espejo" : "espejos"}
                     </td>
                     <td className="px-4 py-3">
                       <span className="inline-block rounded-full bg-pino px-3 py-1 font-bold text-algarrobo">{tier.label}</span>

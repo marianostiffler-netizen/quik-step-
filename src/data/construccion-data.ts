@@ -292,7 +292,8 @@ export const productosObra: ProductoObra[] = [
     categoria: "aislante",
     nombre: "Lana de vidrio",
     detalle: "Disponible con y sin aluminio para aplicaciones térmicas y de confort interior.",
-    usos: ["interiores"],
+    // TODO(cliente): confirmar que la lana de vidrio se ofrece para techos
+    usos: ["techos", "interiores"],
     unidadVenta: null,
     precio: null,
   },

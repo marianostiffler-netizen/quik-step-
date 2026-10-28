@@ -59,10 +59,17 @@ export default function TarjetaCategoria({
 }
 
 // Grilla de tarjetas para una lista de categorías o subcategorías (conteo y precio salen del índice).
-export function GrillaCategorias({ items }: { items: Subcategoria[] }) {
+export function GrillaCategorias({
+  items,
+  className = "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6",
+}: {
+  items: Subcategoria[];
+  /** Para cambiar las columnas (ej. 4 grupos en 2×2). */
+  className?: string;
+}) {
   const resumen = resumenPorRuta();
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
+    <div className={className}>
       {items.map((c) => (
         <TarjetaCategoria
           key={c.href}

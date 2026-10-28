@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const pasos = [
   { n: "1", titulo: "Elegí", texto: "Recorré el catálogo con medidas y precios de referencia." },
   { n: "2", titulo: "Consultá", texto: "Escribinos por WhatsApp con lo que necesitás y te confirmamos precio y disponibilidad." },
@@ -19,6 +21,9 @@ export default function ComoComprar() {
             </li>
           ))}
         </ol>
+        <Link href="/como-comprar" className="btn-secundario mt-10 inline-flex justify-center">
+          Ver cómo comprar
+        </Link>
       </div>
     </section>
   );

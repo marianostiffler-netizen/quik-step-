@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import Categorias from "@/components/home/Categorias";
-import Usos from "@/components/home/Usos";
+import Beneficios from "@/components/home/Beneficios";
+import Grupos from "@/components/home/Grupos";
+import Proyectos from "@/components/home/Proyectos";
 import Destacados from "@/components/home/Destacados";
+import Promo from "@/components/home/Promo";
 import ComoComprar from "@/components/home/ComoComprar";
+import Marcas from "@/components/home/Marcas";
+import Historia from "@/components/home/Historia";
 import Asesoramiento from "@/components/home/Asesoramiento";
-import DondeEstamos from "@/components/home/DondeEstamos";
 
 export const metadata: Metadata = {
   title: "Maderera Don Antonio | Pisos, Espejos y Madera · San Jorge, Santa Fe",
@@ -17,12 +20,15 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Categorias />
-      <Usos />
+      <Beneficios />
+      <Grupos />
+      <Proyectos />
       <Destacados />
+      <Promo />
       <ComoComprar />
+      <Marcas />
+      <Historia />
       <Asesoramiento />
-      <DondeEstamos />
     </>
   );
 }

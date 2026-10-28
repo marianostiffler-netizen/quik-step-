@@ -17,6 +17,8 @@ export type Negocio = {
   retiro: string | null;
   envios: string | null;
   mediosDePago: string[] | null;
+  marcas: string[] | null;
+  historia: string | null;
   sitioUrl: string | null;
 };
 
@@ -36,6 +38,8 @@ export const negocio: Negocio = {
   retiro: null, // TODO(cliente): texto corto sobre retiro en el local, ej. "Retiro en el local"
   envios: null, // TODO(cliente): texto corto sobre envíos (zonas, costos), solo si confirman que envían
   mediosDePago: null, // TODO(cliente): lista de medios de pago aceptados
+  marcas: null, // TODO(cliente): confirmar con qué marcas se puede mostrar (logos o nombres)
+  historia: null, // TODO(cliente): texto breve sobre Don Antonio y la maderera
   sitioUrl: null, // TODO(cliente): dominio definitivo, ej. https://www.ejemplo.com.ar
 };
 

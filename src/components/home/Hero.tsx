@@ -17,6 +17,9 @@ export default function Hero() {
             Maderas de construcción, pisos flotantes, melaminas y espejos. Consultá precios y disponibilidad por WhatsApp y te asesoramos.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="#catalogo" className="btn-primario justify-center">
+              Ver catálogo
+            </a>
             <a
               href={waLink("Hola! Quisiera hacer una consulta sobre sus productos.")}
               target="_blank"
@@ -24,10 +27,7 @@ export default function Hero() {
               className="btn-whatsapp justify-center"
             >
               <MessageCircle size={20} aria-hidden="true" />
-              Consultar por WhatsApp
-            </a>
-            <a href="#categorias" className="btn-secundario justify-center">
-              Ver productos
+              Pedir por WhatsApp
             </a>
           </div>
         </div>

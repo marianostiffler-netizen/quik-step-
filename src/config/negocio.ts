@@ -19,6 +19,7 @@ export type Negocio = {
   mediosDePago: string[] | null;
   marcas: string[] | null;
   historia: string | null;
+  mapaUrl: string | null;
   sitioUrl: string | null;
 };
 
@@ -40,6 +41,7 @@ export const negocio: Negocio = {
   mediosDePago: null, // TODO(cliente): lista de medios de pago aceptados
   marcas: null, // TODO(cliente): confirmar con qué marcas se puede mostrar (logos o nombres)
   historia: null, // TODO(cliente): texto breve sobre Don Antonio y la maderera
+  mapaUrl: null, // TODO(cliente): URL de embed de Google Maps (https://www.google.com/maps/embed?pb=...) con la ubicación real
   sitioUrl: null, // TODO(cliente): dominio definitivo, ej. https://www.ejemplo.com.ar
 };
 

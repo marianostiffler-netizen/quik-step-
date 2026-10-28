@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { categories, products } from "@/data/site-data";
 import { grupos, hrefFichaPiso, hrefLineaPiso } from "@/data/catalogo";
 import { urlSitio } from "@/config/negocio";
+import { esIndexable, paginasInfo } from "@/data/paginas-info";
 
 // Rutas públicas: inicio, grupos, categorías, subcategorías, líneas y fichas de pisos, servicios y contacto.
 const rutas = [
@@ -17,6 +18,8 @@ const rutas = [
   }),
   "/servicios",
   "/contacto",
+  // Páginas informativas: solo las que tienen algún texto confirmado
+  ...paginasInfo().filter(esIndexable).map((p) => p.ruta),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

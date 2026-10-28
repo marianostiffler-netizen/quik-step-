@@ -20,6 +20,10 @@ export type ItemCatalogo = {
   aspecto?: "4/3" | "cuadrado";
   /** Bloque visual neutro para productos sin foto. */
   bloque?: { grande: string; chico?: string; silueta?: Silueta };
+  /** Ficha propia: la imagen y el título linkean ahí y el CTA pasa a "Ver detalle". */
+  href?: string;
+  /** Aclaración corta bajo el precio (ej. moneda). */
+  nota?: string;
   /** null = sin precio cargado: se muestra "Consultar precio". */
   precio: { valor: number; moneda: Moneda; unidad: string } | null;
   /** Valores por filtro (clave del grupo -> valores). */

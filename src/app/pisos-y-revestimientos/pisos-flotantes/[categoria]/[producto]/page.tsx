@@ -21,12 +21,16 @@ import {
   getProductsByCategory,
 } from "@/data/site-data";
 import { waLink } from "@/config/negocio";
-import PisoCard from "@/components/pisos/PisoCard";
+import ItemCard from "@/components/catalogo/ItemCard";
+import PrecioItem from "@/components/catalogo/PrecioItem";
+import TarjetaCategoria from "@/components/catalogo/TarjetaCategoria";
+import { itemPiso, itemPorId } from "@/data/items";
+import { tambienNecesitas } from "@/data/relaciones";
 import CalculadoraCajas from "@/components/pisos/CalculadoraCajas";
 import { aCentesimas, formatearM2 } from "@/lib/calculadora";
 import { formatearPrecio } from "@/lib/precios";
 import Migas from "@/components/catalogo/Migas";
-import { RUTA_PISOS, buscarGrupo, hrefLineaPiso } from "@/data/catalogo";
+import { RUTA_PISOS, buscarGrupo, grupos, hrefLineaPiso, resumenPorRuta } from "@/data/catalogo";
 
 const grupo = buscarGrupo("pisos-y-revestimientos")!;
 
@@ -75,6 +79,13 @@ export default async function FichaPage({ params }: { params: Promise<Params> })
   const coberturaX100 = product.coverage_m2 ? aCentesimas(product.coverage_m2) : null;
   const lineaUrl = hrefLineaPiso(category.slug);
   const otros = getProductsByCategory(category.id).filter((p) => p.sku !== product.sku).slice(0, 4);
+  const relaciones = tambienNecesitas[RUTA_PISOS];
+  const productosRel = (relaciones?.productos ?? []).flatMap((id) => itemPorId(id) ?? []);
+  const resumen = resumenPorRuta();
+  const categoriasRel = (relaciones?.categorias ?? []).flatMap((href) => {
+    const c = grupos.flatMap((g) => g.categorias).find((x) => x.href === href);
+    return c ? [c] : [];
+  });
   const caracteristicas = product.features
     .map((id) => features.find((f) => f.id === id))
     .filter((f): f is NonNullable<typeof f> => Boolean(f));
@@ -138,14 +149,12 @@ export default async function FichaPage({ params }: { params: Promise<Params> })
                 </p>
                 <h1 className="mt-2 font-display text-4xl md:text-5xl font-bold text-nogal">{product.sku}</h1>
                 <p className="mt-2 text-lg text-nogal-suave">{category.name} · {category.tagline}</p>
-                {precio !== null ? (
-                  <p className="mt-5 text-3xl font-bold text-precio tabular-nums">
-                    {formatearPrecio(precio, "USD")}
-                    <span className="text-base font-medium text-nogal-suave">/m²</span>
-                  </p>
-                ) : (
-                  <p className="mt-5 text-xl font-semibold text-nogal">Consultá precio</p>
-                )}
+                <div className="mt-5">
+                  <PrecioItem
+                    precio={precio !== null ? { valor: precio, moneda: "USD", unidad: "/m²" } : null}
+                    grande
+                  />
+                </div>
                 {coberturaX100 && (
                   <p className="mt-1 text-sm text-nogal-suave tabular-nums">Caja: {formatearM2(coberturaX100)} m²</p>
                 )}
@@ -200,13 +209,37 @@ export default async function FichaPage({ params }: { params: Promise<Params> })
         </div>
       </section>
 
+      {(productosRel.length > 0 || categoriasRel.length > 0) && (
+        <section className="pb-12">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <h2 className="font-display text-2xl font-bold text-nogal">También vas a necesitar</h2>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
+              {productosRel.map((it) => (
+                <ItemCard key={it.id} item={it} />
+              ))}
+              {categoriasRel.map((c) => (
+                <TarjetaCategoria
+                  key={c.href}
+                  href={c.href}
+                  nombre={c.nombre}
+                  descripcion={c.descripcion}
+                  imagen={c.imagen}
+                  cantidad={resumen[c.href]?.cantidad ?? 0}
+                  desde={resumen[c.href]?.desde ?? null}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {otros.length > 0 && (
         <section className="py-12 pb-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="font-display text-2xl font-bold text-nogal">Otros diseños de la línea {category.name}</h2>
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
               {otros.map((p) => (
-                <PisoCard key={p.sku} product={p} lineName={category.name} />
+                <ItemCard key={p.sku} item={itemPiso(p, category.name)} />
               ))}
             </div>
             <Link href={lineaUrl} className="btn-secundario mt-8">Ver la línea {category.name}</Link>

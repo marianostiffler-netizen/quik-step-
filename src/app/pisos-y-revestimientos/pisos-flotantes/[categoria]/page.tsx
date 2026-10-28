@@ -22,7 +22,8 @@ import {
   features,
 } from "@/data/site-data";
 import { waLink } from "@/config/negocio";
-import PisoCard from "@/components/pisos/PisoCard";
+import ItemCard from "@/components/catalogo/ItemCard";
+import { itemPiso } from "@/data/items";
 import { formatearPrecio } from "@/lib/precios";
 import Migas from "@/components/catalogo/Migas";
 import { RUTA_PISOS, buscarGrupo } from "@/data/catalogo";
@@ -185,7 +186,7 @@ export default async function CategoriaPage({
           </p>
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
             {products.map((product) => (
-              <PisoCard key={product.sku} product={product} />
+              <ItemCard key={product.sku} item={itemPiso(product, category.name)} />
             ))}
           </div>
         </div>

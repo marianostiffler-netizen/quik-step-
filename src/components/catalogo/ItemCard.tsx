@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Maximize2, MessageCircle } from "lucide-react";
 import { waLink } from "@/config/negocio";
-import { formatearPrecio } from "@/lib/precios";
+import PrecioItem from "./PrecioItem";
 import type { ItemCatalogo, Silueta } from "./tipos";
 
 const FORMA: Record<Silueta, string> = {
@@ -19,17 +20,32 @@ export default function ItemCard({ item, onAmpliar }: { item: ItemCatalogo; onAm
     ? `Hola! Quisiera consultar por: ${consulta}.`
     : `Hola! Quisiera consultar el precio de: ${consulta}.`;
 
+  const proporcion = item.aspecto === "cuadrado" ? "aspect-square" : "aspect-[4/3]";
+  const imagen = item.imagen && (
+    <Image
+      src={item.imagen.src}
+      alt={item.imagen.alt}
+      fill
+      sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
+      className="object-cover"
+    />
+  );
+
   return (
     <article id={item.id} className="tarjeta flex scroll-mt-24 flex-col overflow-hidden">
       {item.imagen ? (
-        <div className={`relative bg-pino ${item.aspecto === "cuadrado" ? "aspect-square" : "aspect-[4/3]"}`}>
-          <Image
-            src={item.imagen.src}
-            alt={item.imagen.alt}
-            fill
-            sizes="(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw"
-            className="object-cover"
-          />
+        <div className="relative bg-pino">
+          {item.href ? (
+            <Link
+              href={item.href}
+              aria-label={`Ver detalle: ${item.nombre}`}
+              className={`relative block focus-visible:outline-2 focus-visible:outline-algarrobo ${proporcion}`}
+            >
+              {imagen}
+            </Link>
+          ) : (
+            <div className={`relative ${proporcion}`}>{imagen}</div>
+          )}
           {onAmpliar && (
             <button
               type="button"
@@ -57,7 +73,15 @@ export default function ItemCard({ item, onAmpliar }: { item: ItemCatalogo; onAm
 
       <div className="flex flex-1 flex-col p-4">
         {item.eyebrow && <p className="text-xs font-semibold uppercase tracking-wide text-algarrobo">{item.eyebrow}</p>}
-        <h3 className="mt-0.5 font-display text-lg font-bold text-nogal">{item.nombre}</h3>
+        <h3 className="mt-0.5 font-display text-lg font-bold text-nogal">
+          {item.href ? (
+            <Link href={item.href} className="hover:underline focus-visible:outline-2 focus-visible:outline-algarrobo">
+              {item.nombre}
+            </Link>
+          ) : (
+            item.nombre
+          )}
+        </h3>
         {item.descripcion && <p className="mt-1 text-sm text-nogal-suave">{item.descripcion}</p>}
         {item.chips && item.chips.length > 0 && (
           <ul className="mt-3 flex flex-wrap gap-1.5">
@@ -75,24 +99,24 @@ export default function ItemCard({ item, onAmpliar }: { item: ItemCatalogo; onAm
         ))}
 
         <div className="mt-auto flex flex-col gap-3 pt-4">
-          {precio ? (
-            <p className="text-xl font-bold text-precio tabular-nums">
-              {formatearPrecio(precio.valor, precio.moneda)}
-              <span className="text-xs font-medium text-nogal-suave"> {precio.unidad}</span>
-            </p>
+          <PrecioItem precio={precio} nota={item.nota} />
+          {item.href ? (
+            <Link href={item.href} className="btn-secundario w-full px-3!">
+              Ver detalle
+              <span className="sr-only">: {item.nombre}</span>
+            </Link>
           ) : (
-            <p className="text-sm font-semibold text-nogal-suave">Consultar precio</p>
+            <a
+              href={waLink(mensaje)}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${precio ? "Consultar por WhatsApp" : "Consultar"}: ${item.nombre}`}
+              className="btn-whatsapp w-full px-3!"
+            >
+              <MessageCircle size={18} aria-hidden="true" />
+              {precio ? "Consultar por WhatsApp" : "Consultar"}
+            </a>
           )}
-          <a
-            href={waLink(mensaje)}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${precio ? "Consultar por WhatsApp" : "Consultar"}: ${item.nombre}`}
-            className="btn-whatsapp w-full px-3!"
-          >
-            <MessageCircle size={18} aria-hidden="true" />
-            {precio ? "Consultar por WhatsApp" : "Consultar"}
-          </a>
         </div>
       </div>
     </article>

@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import type { Category, Product, Tone } from "@/data/site-data";
 import { useDialogA11y } from "@/components/useDialogA11y";
-import PisoCard from "@/components/pisos/PisoCard";
+import ItemCard from "@/components/catalogo/ItemCard";
+import { itemPiso } from "@/data/items";
 
 type Sort = "precio-asc" | "precio-desc" | "nombre";
 type Key = "linea" | "espesor" | "transito" | "agua" | "tono";
@@ -210,7 +211,7 @@ export default function CatalogoPisos({ products, categories }: { products: Prod
         ) : (
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 xl:grid-cols-3">
             {resultado.map((p) => (
-              <PisoCard key={p.sku} product={p} lineName={nombreLinea[p.category_id]} />
+              <ItemCard key={p.sku} item={itemPiso(p, nombreLinea[p.category_id])} />
             ))}
           </div>
         )}

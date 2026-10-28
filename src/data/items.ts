@@ -5,6 +5,8 @@ import { melaminas, type Melamina } from "./melaminas-data.ts";
 import { articulosHogar } from "./hogar-data.ts";
 import { mirrors, type Mirror } from "./espejos-inteligentes-data.ts";
 import { espejosArtesanales } from "./espejos-artesanales-data.ts";
+import { accessories, categories, mantaPrice, products, type Product } from "./site-data.ts";
+import { hrefFichaPiso } from "./rutas.ts";
 import type { GrupoFiltro, ItemCatalogo, Silueta } from "@/components/catalogo/tipos";
 
 // ─── Maderas y construcción ───
@@ -205,4 +207,57 @@ export function itemsEspejosArtesanales(): ItemCatalogo[] {
     imagen: { src: e.image, alt: `Espejo ${e.modelo}` },
     precio: null,
   }));
+}
+
+// ─── Pisos flotantes ───
+
+const nfM2 = new Intl.NumberFormat("es-AR");
+
+/** Un piso como ítem de catálogo: la tarjeta lleva a su ficha. */
+export function itemPiso(p: Product, nombreLinea: string): ItemCatalogo {
+  const codigo = p.name.split(" - ")[0];
+  const { length, width, thickness } = p.dimensions;
+  return {
+    id: p.sku,
+    nombre: codigo,
+    eyebrow: nombreLinea,
+    chips: [
+      `${thickness} mm`,
+      p.rating,
+      ...(p.water_resistance_hours ? [`${p.water_resistance_hours} h al agua`] : []),
+    ],
+    detalles: [
+      `${length} × ${width} mm`,
+      ...(p.coverage_m2 ? [`Caja: ${nfM2.format(p.coverage_m2)} m²`] : []),
+    ],
+    imagen: { src: `/products/ambientes/${p.image}`, alt: `Piso ${nombreLinea} ${codigo}` },
+    href: hrefFichaPiso(p.category_id, p.slug),
+    precio: p.price_usd_m2 && p.price_usd_m2 > 0 ? { valor: p.price_usd_m2, moneda: "USD", unidad: "/m²" } : null,
+  };
+}
+
+/** Todos los pisos como ítems. */
+export function itemsPisos(): ItemCatalogo[] {
+  return products.map((p) => itemPiso(p, categories.find((c) => c.id === p.category_id)!.name));
+}
+
+// ─── Zócalos y mantas ───
+
+export function itemsComplementos(): ItemCatalogo[] {
+  return accessories.map((a) => ({
+    id: a.sku,
+    nombre: a.name,
+    detalles: [a.dimensions, a.packaging],
+    // La manta está cargada en pesos por m²; los zócalos, en dólares por vara.
+    precio:
+      a.category === "manta"
+        ? { valor: mantaPrice.price_ars_m2, moneda: "ARS" as const, unidad: "/m²" }
+        : { valor: a.price_usd, moneda: "USD" as const, unidad: `/${a.price_unit}` },
+    ...(a.category === "manta" ? { nota: "Precio en pesos" } : {}),
+  }));
+}
+
+/** Resuelve un id de producto (piso, zócalo o manta) a su ítem. */
+export function itemPorId(id: string): ItemCatalogo | undefined {
+  return [...itemsPisos(), ...itemsComplementos()].find((i) => i.id === id);
 }

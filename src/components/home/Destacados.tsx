@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { categories, products, pricingInfo, getPrecioDesdeLinea } from "@/data/site-data";
-import { formatearPrecio } from "@/lib/precios";
+import TarjetaCategoria from "@/components/catalogo/TarjetaCategoria";
 import { RUTA_PISOS, hrefLineaPiso } from "@/data/rutas";
 
 const slugs = ["smart", "catedral", "premiere-plus", "vision"];
@@ -18,45 +17,19 @@ export default function Destacados() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-nogal">Destacados</h2>
         <p className="mt-3 text-nogal-suave">Pisos flotantes Quick-Step, con precio por m².</p>
-        <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {lineas.map((c) => {
-            const p = products.find((x) => x.category_id === c.id);
-            const etiqueta = ["Piso flotante", c.specs_summary.thickness, c.specs_summary.rating]
-              .filter(Boolean)
-              .join(" · ");
+            const prods = products.filter((x) => x.category_id === c.id);
             return (
-              <Link
+              <TarjetaCategoria
                 key={c.id}
                 href={hrefLineaPiso(c.slug)}
-                className="tarjeta overflow-hidden block transition hover:border-algarrobo hover:shadow-md"
-              >
-                <div className="relative">
-                  {p && (
-                    <Image
-                      src={`/products/ambientes/${p.image}`}
-                      alt={`Piso flotante ${c.name}`}
-                      width={1517}
-                      height={950}
-                      sizes="(min-width: 1024px) 25vw, 50vw"
-                      className="w-full aspect-[4/3] object-cover"
-                    />
-                  )}
-                  {c.specs_summary.promo && (
-                    <span className="absolute left-3 top-3 rounded-full bg-eucalipto px-3 py-1 text-xs font-semibold text-white">
-                      {c.specs_summary.promo}
-                    </span>
-                  )}
-                </div>
-                <div className="p-4 md:p-5">
-                  <p className="text-xs text-nogal-suave">{etiqueta}</p>
-                  <h3 className="mt-1 font-display text-lg md:text-xl font-bold text-nogal">{c.name}</h3>
-                  <p className="mt-2 text-xl font-bold text-precio tabular-nums">
-                    <span className="mr-1 text-sm font-semibold">desde</span>
-                    {formatearPrecio(c.desde, "USD")}
-                    <span className="ml-0.5 text-sm font-semibold">/m²</span>
-                  </p>
-                </div>
-              </Link>
+                nombre={c.name}
+                descripcion={c.tagline}
+                imagen={prods[0] ? `/products/ambientes/${prods[0].image}` : undefined}
+                cantidad={prods.length}
+                desde={{ valor: c.desde, moneda: "USD", unidad: "m²" }}
+              />
             );
           })}
         </div>

@@ -12,6 +12,7 @@ export default function TarjetaCategoria({
   imagen,
   cantidad,
   desde,
+  etiqueta,
 }: {
   href: string;
   nombre: string;
@@ -19,9 +20,16 @@ export default function TarjetaCategoria({
   imagen?: string;
   cantidad: number;
   desde: PrecioProducto | null;
+  /** Badge sobre la imagen (ej. promo cargada en los datos). */
+  etiqueta?: string;
 }) {
   return (
-    <Link href={href} className="tarjeta block overflow-hidden transition hover:border-algarrobo hover:shadow-md">
+    <Link href={href} className="tarjeta relative block overflow-hidden transition hover:border-algarrobo hover:shadow-md">
+      {etiqueta && (
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-algarrobo px-3 py-1 text-xs font-semibold text-superficie">
+          {etiqueta}
+        </span>
+      )}
       {imagen ? (
         <Image
           src={imagen}

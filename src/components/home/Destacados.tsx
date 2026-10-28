@@ -29,6 +29,7 @@ export default function Destacados() {
                 imagen={prods[0] ? `/products/ambientes/${prods[0].image}` : undefined}
                 cantidad={prods.length}
                 desde={{ valor: c.desde, moneda: "USD", unidad: "m²" }}
+                etiqueta={c.specs_summary.promo}
               />
             );
           })}

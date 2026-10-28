@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { MessageCircle } from "lucide-react";
-import { mirrors, escalonesMayoristas } from "@/data/espejos-inteligentes-data";
+import { mirrors } from "@/data/espejos-inteligentes-data";
 import { buscarCategoria, buscarGrupo } from "@/data/catalogo";
 import { filtrosEspejosLed, itemsEspejosLed, medidaEspejo } from "@/data/items";
-import { waLink } from "@/config/negocio";
 import HeaderListado from "@/components/catalogo/HeaderListado";
 import CatalogoItems from "@/components/catalogo/CatalogoItems";
 
@@ -47,46 +45,7 @@ export default function EspejosInteligentesPage() {
         </div>
       </section>
 
-      <section className="pb-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-display text-3xl font-bold text-nogal">Descuentos mayoristas</h2>
-          <div className="tarjeta mt-6 overflow-hidden">
-            <table className="w-full text-sm">
-              <caption className="sr-only">Descuento según cantidad de espejos</caption>
-              <thead className="bg-pino text-nogal">
-                <tr>
-                  <th scope="col" className="px-4 py-3 text-left font-semibold">Cantidad</th>
-                  <th scope="col" className="px-4 py-3 text-left font-semibold">Descuento</th>
-                </tr>
-              </thead>
-              <tbody>
-                {escalonesMayoristas.map((tier) => (
-                  <tr key={tier.desde} className="border-t border-veta">
-                    <td className="px-4 py-3 text-nogal">
-                      Desde {tier.desde} {tier.desde === 1 ? "espejo" : "espejos"}
-                    </td>
-                    <td className="px-4 py-3">
-                      <span className="inline-block rounded-full bg-pino px-3 py-1 font-bold text-algarrobo">{tier.label}</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <p className="font-medium text-nogal">¿Eres mayorista? Contáctanos para cotizaciones especiales</p>
-            <a
-              href={waLink("Hola! Quisiera consultar por espejos inteligentes (compra mayorista).")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp shrink-0"
-            >
-              <MessageCircle size={18} aria-hidden="true" />
-              Consultar por WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* TODO(cliente): volver a mostrar la tabla cuando confirme los mínimos de cada escalón */}
     </>
   );
 }

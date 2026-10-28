@@ -1,3 +1,4 @@
+// TODO(cliente): confirmar si pueden usar las imágenes del CDN de Faplac (faplaconline.com.ar)
 export type Melamina = {
   id: string;
   nombre: string;

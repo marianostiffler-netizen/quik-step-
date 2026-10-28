@@ -88,7 +88,7 @@ export default function ItemCard({ item, onAmpliar }: { item: ItemCatalogo; onAm
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${precio ? "Consultar por WhatsApp" : "Consultar"}: ${item.nombre}`}
-            className="btn-whatsapp"
+            className="btn-whatsapp w-full px-3!"
           >
             <MessageCircle size={18} aria-hidden="true" />
             {precio ? "Consultar por WhatsApp" : "Consultar"}

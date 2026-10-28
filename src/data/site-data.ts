@@ -64,16 +64,6 @@ export const site = {
     "Maderera Don Antonio: maderas y construcción, pisos y revestimientos, placas y melaminas, hogar y deco, cepillado y lijado.",
 };
 
-export const navigation = [
-  { id: "inicio", label: "Inicio", href: "/" },
-  { id: "maderas-y-construccion", label: "Maderas y construcción", href: "/maderas-y-construccion" },
-  { id: "pisos-y-revestimientos", label: "Pisos y revestimientos", href: "/pisos-y-revestimientos" },
-  { id: "placas-y-melaminas", label: "Placas y melaminas", href: "/placas-y-melaminas" },
-  { id: "hogar-y-deco", label: "Hogar y deco", href: "/hogar-y-deco" },
-  { id: "servicios", label: "Servicios", href: "/servicios" },
-  { id: "contacto", label: "Contacto", href: "/contacto" },
-];
-
 export const heroSection = {
   title: "La madera que tu hogar merece",
   // TODO(cliente): confirmar si hacen cortes a medida antes de volver a mencionarlo

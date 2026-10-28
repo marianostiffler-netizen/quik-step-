@@ -1,16 +1,23 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { MotionConfig } from "framer-motion";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 
-// Chrome global del sitio (Navbar + Footer)
-export function SiteChrome({ children }: { children: React.ReactNode }) {
+// Chrome global del sitio: header y footer llegan como slots (server components)
+export function SiteChrome({
+  header,
+  footer,
+  children,
+}: {
+  header: ReactNode;
+  footer: ReactNode;
+  children: ReactNode;
+}) {
   return (
     <MotionConfig reducedMotion="user">
-      <Navbar />
+      {header}
       <main className="flex-1">{children}</main>
-      <Footer />
+      {footer}
     </MotionConfig>
   );
 }

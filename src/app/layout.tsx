@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteChrome } from "@/components/SiteChrome";
+import Header from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { LocalBusinessJsonLd } from "@/components/LocalBusinessJsonLd";
 import { negocio, urlSitio } from "@/config/negocio";
 
@@ -44,7 +46,9 @@ export default function RootLayout({
     <html lang="es" className={`${inter.variable} ${archivo.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <LocalBusinessJsonLd />
-        <SiteChrome>{children}</SiteChrome>
+        <SiteChrome header={<Header />} footer={<Footer />}>
+          {children}
+        </SiteChrome>
       </body>
     </html>
   );

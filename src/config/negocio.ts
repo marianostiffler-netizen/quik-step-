@@ -14,6 +14,9 @@ export type Negocio = {
     pais: string;
   };
   horarios: { dias: string; horas: string }[] | null;
+  retiro: string | null;
+  envios: string | null;
+  mediosDePago: string[] | null;
   sitioUrl: string | null;
 };
 
@@ -30,6 +33,9 @@ export const negocio: Negocio = {
     pais: "AR",
   },
   horarios: null, // TODO(cliente)
+  retiro: null, // TODO(cliente): texto corto sobre retiro en el local, ej. "Retiro en el local"
+  envios: null, // TODO(cliente): texto corto sobre envíos (zonas, costos), solo si confirman que envían
+  mediosDePago: null, // TODO(cliente): lista de medios de pago aceptados
   sitioUrl: null, // TODO(cliente): dominio definitivo, ej. https://www.ejemplo.com.ar
 };
 

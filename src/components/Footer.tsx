@@ -1,8 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, MapPin, Mail, MessageCircle, Clock } from "lucide-react";
-import { site, navigation } from "@/data/site-data";
+import { site } from "@/data/site-data";
+import { grupos } from "@/data/catalogo";
 import { negocio, direccionCorta, waLink } from "@/config/negocio";
+
+const navigation = [
+  ...grupos.map((g) => ({ id: g.slug, label: g.nombre, href: g.href })),
+  { id: "servicios", label: "Servicios", href: "/servicios" },
+  { id: "contacto", label: "Contacto", href: "/contacto" },
+];
 
 export function Footer() {
   return (
@@ -35,7 +42,7 @@ export function Footer() {
               Secciones
             </h3>
             <ul className="space-y-0">
-              {navigation.filter(n => n.id !== "inicio").map((item) => (
+              {navigation.map((item) => (
                 <li key={item.id}>
                   <Link
                     href={item.href}

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { categories, products } from "@/data/site-data";
 import { urlSitio } from "@/config/negocio";
 
-// Rutas públicas. Excluidas a propósito: /landing (prueba) y /cielorrasos (próximamente).
+// Rutas públicas. Excluida a propósito: /cielorrasos (próximamente).
 // TODO(cliente): sumar /cielorrasos cuando tenga contenido.
 const rutas = [
   "/",
